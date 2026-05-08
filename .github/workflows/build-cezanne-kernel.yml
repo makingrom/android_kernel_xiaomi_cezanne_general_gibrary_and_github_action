@@ -357,7 +357,6 @@ jobs:
             echo "✅ 保持默认 KSU 配置"
         fi
         if [ "${{ env.ADD_KPROBES_CONFIG }}" = "true" ]; then
-            echo "✅ 正在配置 kprobes"
             sed -i '/CONFIG_MODULES/d' arch/${{ env.ARCH }}/configs/${{ env.KERNEL_CONFIG }} 2>/dev/null
             sed -i '/CONFIG_KPROBES/d' arch/${{ env.ARCH }}/configs/${{ env.KERNEL_CONFIG }} 2>/dev/null
             sed -i '/CONFIG_HAVE_KPROBES/d' arch/${{ env.ARCH }}/configs/${{ env.KERNEL_CONFIG }} 2>/dev/null
@@ -433,7 +432,6 @@ jobs:
         fi
         
         if [ "${{ env.USE_VERSION_PARAMS_CONFIG }}" = "false" ]; then
-            echo "开始处理版本信息..."
             ANDROID_VER_INT=$(echo ${{ env.ANDROID_VERSION }} | awk '{print int($0)}')
             if [ "$ANDROID_VER_INT" -eq 10 ] || [ "$ANDROID_VER_INT" -eq 11 ]; then
                 VERSION_PARAMS="KBUILD_CFLAGS+=-Wno-error=deprecated-declarations KBUILD_CFLAGS+=-Wno-error=unused-const-variable"
@@ -483,13 +481,11 @@ jobs:
         fi
         
         if [ "${{ env.DISABLE_STACK_PROTECTOR }}" = "true" ]; then
-            echo "启用栈保护配置"
             sed -i 's/# CONFIG_CC_STACKPROTECTOR_STRONG is not set/CONFIG_CC_STACKPROTECTOR_STRONG=y/g' arch/${{ env.ARCH }}/configs/${{ env.KERNEL_CONFIG }}
             sed -i 's/# CONFIG_CC_STACKPROTECTOR is not set/CONFIG_CC_STACKPROTECTOR=y/g' arch/${{ env.ARCH }}/configs/${{ env.KERNEL_CONFIG }}
             echo "✅ 栈保护已启用"
         fi
         if [ "${{ env.DISABLE_STACK_PROTECTOR }}" = "false" ]; then
-            echo "禁用栈保护配置（适配 Clang 兼容性）"
             sed -i 's/CONFIG_CC_STACKPROTECTOR_STRONG=y/# CONFIG_CC_STACKPROTECTOR_STRONG is not set/g' arch/${{ env.ARCH }}/configs/${{ env.KERNEL_CONFIG }}
             sed -i 's/CONFIG_CC_STACKPROTECTOR=y/# CONFIG_CC_STACKPROTECTOR is not set/g' arch/${{ env.ARCH }}/configs/${{ env.KERNEL_CONFIG }}
             echo "✅ 栈保护已禁用"
@@ -662,6 +658,7 @@ jobs:
             export LD_LIBRARY_PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-aosp/lib64:$LD_LIBRARY_PATH
             GCC_PATH=$GITHUB_WORKSPACE/kernel_workspace/${{ env.AARCH64_LINUX_ANDROID_DIR }}
             export PATH=$GITHUB_WORKSPACE/kernel_workspace/${{ env.AARCH64_LINUX_ANDROID_DIR }}/bin:$PATH
+            make mrproper
             chmod +x build.sh
             ./build.sh
         else
