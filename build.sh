@@ -25,10 +25,10 @@ export STRIP=llvm-strip
 export HOSTCC=gcc
 export HOSTAR=llvm-ar
 # Toolchain paths
-CLANG_PATH="$(pwd)/tools/clang-r383902"
-GCC_PATH="$(pwd)/tools/aarch64-linux-android-4.9"
-export PATH=${CLANG_PATH}/bin:${GCC_PATH}/bin:$PATH
-export LD_LIBRARY_PATH=${CLANG_PATH}/lib64:$LD_LIBRARY_PATH
+# CLANG_PATH="$(pwd)/tools/clang-r383902"
+# GCC_PATH="$(pwd)/tools/aarch64-linux-android-4.9"
+# export PATH=${CLANG_PATH}/bin:${GCC_PATH}/bin:$PATH
+# export LD_LIBRARY_PATH=${CLANG_PATH}/lib64:$LD_LIBRARY_PATH
 echo "  completed!"
 
 echo -e "\n========================================"
