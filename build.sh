@@ -6,6 +6,7 @@ echo "=======================  Cleaning old build files...   ===================
 # make mrproper O=out
 # make mrproper
 # rm -rf out
+touch .skip_clean_check
 echo "=======================           completed!             ======================="
 echo "================================================================================"
 
