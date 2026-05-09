@@ -5,6 +5,7 @@ echo "  Cleaning old build files..."
 echo "========================================"
 make clean O=out
 make mrproper O=out
+make mrproper
 rm -rf out
 echo "  completed!"
 
@@ -17,6 +18,7 @@ export KERNEL_DIR=$(pwd)
 export CLANG_TRIPLE=aarch64-linux-gnu-
 export CROSS_COMPILE=aarch64-linux-androidkernel-
 export CC=clang
+export AS=clang
 export LD=ld.lld
 export NM=llvm-nm
 export OBJCOPY=llvm-objcopy
@@ -25,10 +27,15 @@ export STRIP=llvm-strip
 export HOSTCC=gcc
 export HOSTAR=llvm-ar
 # Toolchain paths
-CLANG_PATH="$(pwd)/tools/clang-r383902"
-GCC_PATH="$(pwd)/tools/aarch64-linux-android-4.9"
-export PATH=${CLANG_PATH}/bin:${GCC_PATH}/bin:$PATH
-export LD_LIBRARY_PATH=${CLANG_PATH}/lib64:$LD_LIBRARY_PATH
+# CLANG_PATH="$(pwd)/tools/clang-r383902"
+# GCC_PATH="$(pwd)/tools/aarch64-linux-android-4.9"
+# export PATH=${CLANG_PATH}/bin:${GCC_PATH}/bin:$PATH
+# export LD_LIBRARY_PATH=${CLANG_PATH}/lib64:$LD_LIBRARY_PATH
+
+CLANG_PATH="$GITHUB_WORKSPACE/kernel_workspace/${{ env.AARCH64_LINUX_ANDROID_DIR }}"
+GCC_PATH=$GITHUB_WORKSPACE/kernel_workspace/${{ env.AARCH64_LINUX_ANDROID_DIR }}
+export PATH=$GITHUB_WORKSPACE/kernel_workspace/${{ env.AARCH64_LINUX_ANDROID_DIR }}/bin:$PATH
+export LD_LIBRARY_PATH=${CLANG_PATH}/lib:$LD_LIBRARY_PATH
 echo "  completed!"
 
 echo -e "\n========================================"
