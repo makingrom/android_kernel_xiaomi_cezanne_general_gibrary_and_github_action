@@ -34,8 +34,8 @@ export HOSTAR=llvm-ar
 # GCC_PATH="$(pwd)/tools/aarch64-linux-android-4.9"
 # export PATH=${CLANG_PATH}/bin:${GCC_PATH}/bin:$PATH
 # export LD_LIBRARY_PATH=${CLANG_PATH}/lib64:$LD_LIBRARY_PATH
-export CLANG_PATH="$(pwd)/${AARCH64_LINUX_ANDROID_DIR}"
-export GCC_PATH="$(pwd)/${AARCH64_LINUX_ANDROID_DIR}"
+export CLANG_PATH="$(pwd)/../${AARCH64_LINUX_ANDROID_DIR}"
+export GCC_PATH="$(pwd)/../${AARCH64_LINUX_ANDROID_DIR}"
 export PATH="${CLANG_PATH}/bin:$PATH"
 export LD_LIBRARY_PATH="${CLANG_PATH}/lib:$LD_LIBRARY_PATH"
 echo "======================           completed!               ======================"
