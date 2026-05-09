@@ -633,8 +633,6 @@ jobs:
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
         
         echo "================================== 调试输出 =================================="
-        echo "KBUILD_BUILD_USER=$KBUILD_BUILD_USER"
-        echo "KBUILD_BUILD_HOST=$KBUILD_BUILD_HOST"
         echo "所有包含 false 的环境变量："
         env | grep true || echo "无 false 变量"
          echo "============================================================================="
@@ -649,7 +647,6 @@ jobs:
         
         if [ "${{ env.USE_MTK_KERNEL_MODULES }}" = "true" ] || ["${{ env.USE_BUILD_BASH }}" = "true" ]; then
             rm -f build.sh
-            wget -O build.sh
             curl -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \ -o build.sh \ "${{ env.USE_BUILD_BASH_LINK }}"
             chmod +x build.sh
             ./build.sh
