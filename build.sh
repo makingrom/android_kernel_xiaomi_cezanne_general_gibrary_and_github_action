@@ -18,7 +18,9 @@ export ARCH=arm64
 export DEFCONFIG=cezanne_user_defconfig
 export KERNEL_DIR=$(pwd)
 export CLANG_TRIPLE=aarch64-linux-gnu-
-export CROSS_COMPILE=aarch64-linux-androidkernel-
+# export CROSS_COMPILE=aarch64-linux-androidkernel-
+export CROSS_COMPILE=aarch64-linux-gnu-
+export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
 export CC=clang
 export AS=clang
 export LD=ld.lld
@@ -34,17 +36,12 @@ export HOSTAR=llvm-ar
 # GCC_PATH="$(pwd)/tools/aarch64-linux-android-4.9"
 # export PATH=${CLANG_PATH}/bin:${GCC_PATH}/bin:$PATH
 # export LD_LIBRARY_PATH=${CLANG_PATH}/lib64:$LD_LIBRARY_PATH
-export CLANG_PATH="$(pwd)/../${AARCH64_LINUX_ANDROID_DIR}"
-export GCC_PATH="$(pwd)/../${AARCH64_LINUX_ANDROID_DIR}"
+export CLANG_PATH="$(pwd)/../${CUSTOM_CLANG_DIR}"
+export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
 export PATH="${CLANG_PATH}/bin:$PATH"
-export LD_LIBRARY_PATH="${CLANG_PATH}/lib:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
 echo "======================           completed!               ======================"
-# 👇 修复 stpcpy 错误（你之前的报错）
-./scripts/config --enable CONFIG_ARCH_HAS_STPCPY
 
-# 👇 修复 vcu 重复/未定义 错误（你之前的报错）
-./scripts/config --disable CONFIG_MTK_VCU
-./scripts/config --disable CONFIG_MTK_VCODEC
 echo "================================================================================"
 
 echo "  "
@@ -96,6 +93,7 @@ echo "CLANG_PATH = $CLANG_PATH"
 echo "GCC_PATH = $GCC_PATH"
 echo "PATH = $PATH"
 echo "LD_LIBRARY_PATH = $LD_LIBRARY_PATH"
+${CROSS_COMPILE}ld -v
 ld.lld --version
 echo "==============================================================================="
 
