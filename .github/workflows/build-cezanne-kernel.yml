@@ -635,7 +635,7 @@ jobs:
         echo "================================== 调试输出 =================================="
         echo "所有包含 false 的环境变量："
         env | grep true || echo "无 false 变量"
-         echo "============================================================================="
+        echo "============================================================================="
         echo "所有包含 true 的环境变量："
         env | grep false || echo "无 true 变量"
         echo "=============================================================================="
@@ -645,7 +645,7 @@ jobs:
           export KSU_EXPECTED_HASH=${{ env.KSU_EXPECTED_HASH }}
         fi
         
-        if [ "${{ env.USE_MTK_KERNEL_MODULES }}" = "true" ] || ["${{ env.USE_BUILD_BASH }}" = "true" ]; then
+        if [ "${{ env.USE_MTK_KERNEL_MODULES }}" = "true" ] || [ "${{ env.USE_BUILD_BASH }}" = "true" ]; then
             rm -f build.sh
             curl -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -o build.sh "${{ env.USE_BUILD_BASH_LINK }}"
             chmod +x build.sh
@@ -653,7 +653,7 @@ jobs:
         else
             rm -rf out/
             make mrproper 2>/dev/null || true
-            echo "==================================================="
+            echo "================================================================================"
             echo "CUSTOM_CMDS = '${{ env.CUSTOM_CMDS }}'"
             echo "EXTRA_CMDS  = '${{ env.EXTRA_CMDS }}'"
             export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-aosp/bin:$PATH
@@ -662,7 +662,7 @@ jobs:
             export KBUILD_BUILD_USER=$(echo ${{ github.actor }} | tr A-Z a-z)
             echo "KBUILD_BUILD_USER=$KBUILD_BUILD_USER"
             echo "KBUILD_BUILD_HOST=$KBUILD_BUILD_HOST"
-            echo "==================================================="
+            echo "================================================================================"
 
             if [ ${{ env.METHOD_OK }} = 'A' ]; then
                 make -j$(nproc --all) CC=clang O=out ARCH=${{ env.ARCH }} ${{ env.CUSTOM_CMDS }} ${{ env.EXTRA_CMDS }} ${{ env.GCC_64 }} ${{ env.GCC_32 }} ${{ env.KERNEL_CONFIG }}
