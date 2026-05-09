@@ -9,6 +9,9 @@ rm -rf out
 echo "===========          completed!             ==========="
 echo "======================================================="
 
+echo "  "
+echo "  "
+
 echo -e "\n======================================================="
 echo "=========== Setting environment variables...  ========="
 export ARCH=arm64
@@ -31,12 +34,15 @@ export HOSTAR=llvm-ar
 # GCC_PATH="$(pwd)/tools/aarch64-linux-android-4.9"
 # export PATH=${CLANG_PATH}/bin:${GCC_PATH}/bin:$PATH
 # export LD_LIBRARY_PATH=${CLANG_PATH}/lib64:$LD_LIBRARY_PATH
-CLANG_PATH="$GITHUB_WORKSPACE/kernel_workspace/${{ env.AARCH64_LINUX_ANDROID_DIR }}"
-GCC_PATH=$GITHUB_WORKSPACE/kernel_workspace/${{ env.AARCH64_LINUX_ANDROID_DIR }}
-export PATH=$GITHUB_WORKSPACE/kernel_workspace/${{ env.AARCH64_LINUX_ANDROID_DIR }}/bin:$PATH
+CLANG_PATH="$(pwd)/${{ env.AARCH64_LINUX_ANDROID_DIR }}"
+GCC_PATH="$(pwd)/${{ env.AARCH64_LINUX_ANDROID_DIR }}"
+export PATH=$(pwd)/${{ env.AARCH64_LINUX_ANDROID_DIR }}/bin:$PATH
 export LD_LIBRARY_PATH=${CLANG_PATH}/lib:$LD_LIBRARY_PATH
 echo "==========          completed!              =========="
 echo "======================================================="
+
+echo "  "
+echo "  "
 
 echo -e "\n======================================================="
 echo "==========   Generating default config...   =========="
@@ -50,6 +56,9 @@ ARCH=arm64 make CC=clang HOSTCC=gcc \
 echo "=============         completed!          ============="
 echo "======================================================="
 
+echo "  "
+echo "  "
+
 echo -e "\n======================================================="
 echo "=============  Applying custom configs... ============="
 echo "CONFIG_WERROR=n" >> out/.config
@@ -57,6 +66,9 @@ echo "# CONFIG_BLK_INLINE_ENCRYPTION is not set" >> out/.config
 echo "CONFIG_BLK_INLINE_ENCRYPTION=n" >> out/.config
 echo "  completed!"
 echo "======================================================="
+
+echo "  "
+echo "  "
 
 echo -e "\n======================================================"
 echo -e "\n=============          调试信息         =============="
@@ -81,6 +93,9 @@ echo "LD_LIBRARY_PATH = $LD_LIBRARY_PATH"
 ld.lld --version
 echo "======================================================"
 
+echo "  "
+echo "  "
+
 echo -e "\n======================================================="
 echo "==========  Starting kernel compilation... ==========="
 make ARCH=arm64 CC=clang HOSTCC=gcc \
@@ -93,12 +108,18 @@ make ARCH=arm64 CC=clang HOSTCC=gcc \
 echo "=============      Build completed!       ============="
 echo "======================================================="
 
+echo "  "
+echo "  "
+
 echo -e "\n======================================================="
 echo "========== Collecting all driver modules... =========="
 rm -rf out/out_modules
 mkdir -p out/out_modules
 find out -name "*.ko" -type f -exec cp {} out/out_modules/ \;
 echo "======================================================="
+
+echo "  "
+echo "  "
 
 echo -e "\n======================================================="
 echo "====== Kernel: out/arch/arm64/boot/Image.gz-dtb ======"
