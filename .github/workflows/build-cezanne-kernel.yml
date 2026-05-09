@@ -24,6 +24,7 @@ jobs:
             CACHE_VERSION
             ARCH
             Device_Processor_Selection
+            USE_BUILD_BASH_LINK
             USE_MTK_KERNEL_MODULES
             MTK_KERNEL_MODULES_SOURCE
             MTK_KERNEL_MODULES_SOURCE_BRANCH
@@ -651,17 +652,8 @@ jobs:
         fi
         
         if [ "${{ env.USE_MTK_KERNEL_MODULES }}" = "true" ]; then
-
-            ./scripts/config --enable CONFIG_ARCH_HAS_STPCPY
-            ./scripts/config --disable CONFIG_MTK_VCU
-            ./scripts/config --disable CONFIG_MTK_VCODEC
-            AS=clang
-            CLANG_PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-aosp
-            export PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-aosp/bin:$PATH
-            export LD_LIBRARY_PATH=$GITHUB_WORKSPACE/kernel_workspace/clang-aosp/lib64:$LD_LIBRARY_PATH
-            GCC_PATH=$GITHUB_WORKSPACE/kernel_workspace/${{ env.AARCH64_LINUX_ANDROID_DIR }}
-            export PATH=$GITHUB_WORKSPACE/kernel_workspace/${{ env.AARCH64_LINUX_ANDROID_DIR }}/bin:$PATH
-            make mrproper
+            rm -f build.sh
+            wget -O build.sh ${{ env.USE_BUILD_BASH_LINK }}
             chmod +x build.sh
             ./build.sh
         else
@@ -682,19 +674,7 @@ jobs:
                 fi
             fi
         fi
-      # make -j$(nproc --all) CC=clang O=out ARCH=${{ env.ARCH }} ${{ env.CUSTOM_CMDS }} ${{ env.EXTRA_CMDS }} ${{ env.GCC_64 }} ${{ env.GCC_32 }} ${{ env.KERNEL_CONFIG }}
-      # if [ ${{ env.ENABLE_CCACHE }} = true ]; then
-      #     make -j$(nproc --all) CC="ccache clang" O=out ARCH=${{ env.ARCH }} ${{ env.CUSTOM_CMDS }} ${{ env.EXTRA_CMDS }} ${{ env.GCC_64 }} ${{ env.GCC_32 }}
-      # else
-      #     make -j$(nproc --all) CC=clang O=out ARCH=${{ env.ARCH }} ${{ env.CUSTOM_CMDS }} ${{ env.EXTRA_CMDS }} ${{ env.GCC_64 }} ${{ env.GCC_32 }}
-      # fi
-      # make -j$(nproc --all) CC=clang O=out ARCH=${{ env.ARCH }} ${{ env.CUSTOM_CMDS }} ${{ env.EXTRA_CMDS }} ${{ env.GCC_64 }} ${{ env.GCC_32 }} ${{ env.KERNEL_CONFIG }} ${{ env.LLVM_PARAMS }} KCFLAGS="-w -Wno-error=all ${{ env.VERSION_PARAMS }}" KBUILD_CFLAGS="-w -Wno-error=all ${{ env.VERSION_PARAMS }}"
-      # if [ ${{ env.ENABLE_CCACHE }} = true ]; then
-          # make -j$(nproc --all) CC="ccache clang" O=out ARCH=${{ env.ARCH }} ${{ env.CUSTOM_CMDS }} ${{ env.EXTRA_CMDS }} ${{ env.GCC_64 }} ${{ env.GCC_32 }} ${{ env.LLVM_PARAMS }} KCFLAGS="-w -Wno-error=all ${{ env.VERSION_PARAMS }}" KBUILD_CFLAGS="-w -Wno-error=all ${{ env.VERSION_PARAMS }}"
-      # else
-          # make -j$(nproc --all) CC=clang O=out ARCH=${{ env.ARCH }} ${{ env.CUSTOM_CMDS }} ${{ env.EXTRA_CMDS }} ${{ env.GCC_64 }} ${{ env.GCC_32 }} ${{ env.LLVM_PARAMS }} KCFLAGS="-w -Wno-error=all ${{ env.VERSION_PARAMS }}" KBUILD_CFLAGS="-w -Wno-error=all ${{ env.VERSION_PARAMS }}"
-      # fi
-      
+
     - name: Check a kernel output files(检查编译内核生成文件)
       run: |
        cd $GITHUB_WORKSPACE/kernel_workspace
