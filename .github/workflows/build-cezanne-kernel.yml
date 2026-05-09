@@ -2,6 +2,11 @@ name: Build Kernel
 on:
   workflow_dispatch:
 
+permissions:
+  contents: write
+  actions: read
+  pull-requests: read
+
 jobs:
   build:
     name: Build Kernel by ${{ github.actor }}
