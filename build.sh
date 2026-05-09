@@ -1,12 +1,12 @@
 #!/bin/bash
 
 echo "======================================================="
-echo "=============  Cleaning old build files...============="
+echo "===========  Cleaning old build files...  ============="
 make clean O=out
 make mrproper O=out
 make mrproper
 rm -rf out
-echo "  completed!"
+echo "===========          completed!             ==========="
 echo "======================================================="
 
 echo -e "\n======================================================="
