@@ -6,7 +6,8 @@ echo "=======================  Cleaning old build files...   ===================
 # make mrproper O=out
 # make mrproper
 # rm -rf out
-touch .skip_clean_check
+# rm -rf ../include/config ../include/generated
+
 echo "=======================           completed!             ======================="
 echo "================================================================================"
 
@@ -53,7 +54,7 @@ echo "  "
 
 echo -e "\n================================================================================"
 echo "======================   Generating default config...    ======================"
-ARCH=arm64 make CC=clang HOSTCC=gcc \
+ARCH=arm64 make IGNORE_CLEAN_CHECK=1 CC=clang HOSTCC=gcc \
     AR=llvm-ar NM=llvm-nm \
     OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip \
     O=out CLANG_TRIPLE=aarch64-linux-gnu- \
@@ -105,7 +106,7 @@ echo "  "
 
 echo -e "\n================================================================================"
 echo "======================  Starting kernel compilation...  ======================="
-make ARCH=arm64 CC=clang HOSTCC=gcc \
+make IGNORE_CLEAN_CHECK=1 ARCH=arm64 CC=clang HOSTCC=gcc \
     AR=llvm-ar NM=llvm-nm \
     OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip \
     O=out CLANG_TRIPLE=aarch64-linux-gnu- \
