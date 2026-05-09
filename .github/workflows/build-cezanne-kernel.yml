@@ -42,6 +42,7 @@ jobs:
             ADD_LOCALVERSION_TO_FILENAME
             METHOD_OK
             USE_CUSTOM_CLANG
+            CUSTOM_CLANG_DIR
             CUSTOM_CLANG_SOURCE
             CUSTOM_CLANG_BRANCH
             CUSTOM_CMDS
@@ -50,10 +51,12 @@ jobs:
             ENABLE_GCC_ARM64
             ENABLE_GCC_ARM32
             USE_CUSTOM_GCC_64
+            CUSTOM_GCC_64_DIR
             CUSTOM_GCC_64_SOURCE
             CUSTOM_GCC_64_BRANCH
             CUSTOM_GCC_64_BIN
             USE_CUSTOM_GCC_32
+            CUSTOM_GCC_32_DIR
             CUSTOM_GCC_32_SOURCE
             CUSTOM_GCC_32_BRANCH
             CUSTOM_GCC_32_BIN
@@ -186,48 +189,48 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
         if [ "${{ env.USE_CUSTOM_GCC_64 }}" = "true" ]; then
-            if [ ! -d ${{ env.USE_CUSTOM_GCC_64_DIR }} ]; then
-                echo "📥 ${{ env.USE_CUSTOM_GCC_64_DIR }} 目录不存在，开始下载克隆..."
+            if [ ! -d ${{ env.CUSTOM_GCC_64_DIR }} ]; then
+                echo "📥 ${{ env.CUSTOM_GCC_64_DIR }} 目录不存在，开始下载克隆..."
                 if [[ ${{ env.CUSTOM_GCC_64_SOURCE }} == *'.tar.gz' ]]; then
                     wget -O gcc-64.tar.gz ${{ env.CUSTOM_GCC_64_SOURCE }}
-                    mkdir ${{ env.USE_CUSTOM_GCC_64_DIR }}
-                    tar -C ${{ env.USE_CUSTOM_GCC_64_DIR }}/ -zxvf gcc-64.tar.gz
+                    mkdir ${{ env.CUSTOM_GCC_64_DIR }}
+                    tar -C ${{ env.CUSTOM_GCC_64_DIR }}/ -zxvf gcc-64.tar.gz
                 elif [[ ${{ env.CUSTOM_GCC_64_SOURCE }} =~ git ]]; then
-                    git clone ${{ env.CUSTOM_GCC_64_SOURCE }} -b ${{ env.CUSTOM_GCC_64_BRANCH }} ${{ env.USE_CUSTOM_GCC_64_DIR }} --depth=1
-                    cd ${{ env.USE_CUSTOM_GCC_64_DIR }} && git pull
+                    git clone ${{ env.CUSTOM_GCC_64_SOURCE }} -b ${{ env.CUSTOM_GCC_64_BRANCH }} ${{ env.CUSTOM_GCC_64_DIR }} --depth=1
+                    cd ${{ env.CUSTOM_GCC_64_DIR }} && git pull
                     cd ..
                 elif [[ ${{ env.CUSTOM_GCC_64_SOURCE }} == *'.zip' ]]; then
                     wget -O gcc-64.zip ${{ env.CUSTOM_GCC_64_SOURCE }}
-                    mkdir ${{ env.USE_CUSTOM_GCC_64_DIR }}
-                    unzip gcc-64.zip -d ${{ env.USE_CUSTOM_GCC_64_DIR }}/
+                    mkdir ${{ env.CUSTOM_GCC_64_DIR }}
+                    unzip gcc-64.zip -d ${{ env.CUSTOM_GCC_64_DIR }}/
                 else
                     echo "请确认GCC工具链的文件格式！！！" && exit 1
                 fi
             else
-                echo "✅ ${{ env.USE_CUSTOM_GCC_64_DIR }} 目录已存在（缓存恢复），跳过下载！"
+                echo "✅ ${{ env.CUSTOM_GCC_64_DIR }} 目录已存在（缓存恢复），跳过下载！"
             fi
-            echo "GCC_64=CROSS_COMPILE=$GITHUB_WORKSPACE/kernel_workspace/${{ env.USE_CUSTOM_GCC_64_DIR }}/bin/${{ env.CUSTOM_GCC_64_BIN }}" >> $GITHUB_ENV || echo "⚠️ 写入 gcc-64 失败"
+            echo "GCC_64=CROSS_COMPILE=$GITHUB_WORKSPACE/kernel_workspace/${{ env.CUSTOM_GCC_64_DIR }}/bin/${{ env.CUSTOM_GCC_64_BIN }}" >> $GITHUB_ENV || echo "⚠️ 写入 gcc-64 失败"
         fi
         if [ "${{ env.USE_CUSTOM_GCC_32 }}" = "true" ]; then
-            if [ ! -d ${{ env.USE_CUSTOM_GCC_32_DIR }} ]; then
-                echo "📥 ${{ env.USE_CUSTOM_GCC_32_DIR }} 目录不存在，开始下载克隆..."
+            if [ ! -d ${{ env.CUSTOM_GCC_32_DIR }} ]; then
+                echo "📥 ${{ env.CUSTOM_GCC_32_DIR }} 目录不存在，开始下载克隆..."
                 if [[ ${{ env.CUSTOM_GCC_32_SOURCE }} == *'.tar.gz' ]]; then
                     wget -O gcc-32.tar.gz ${{ env.CUSTOM_GCC_32_SOURCE }}
-                    mkdir ${{ env.USE_CUSTOM_GCC_32_DIR }}
-                    tar -C ${{ env.USE_CUSTOM_GCC_32_DIR }}/ -zxvf gcc-32.tar.gz
+                    mkdir ${{ env.CUSTOM_GCC_32_DIR }}
+                    tar -C ${{ env.CUSTOM_GCC_32_DIR }}/ -zxvf gcc-32.tar.gz
                 elif [[ ${{ env.CUSTOM_GCC_32_SOURCE }} =~ git ]]; then
-                    git clone ${{ env.CUSTOM_GCC_32_SOURCE }} -b ${{ env.CUSTOM_GCC_32_BRANCH }} ${{ env.USE_CUSTOM_GCC_32_DIR }} --depth=1
+                    git clone ${{ env.CUSTOM_GCC_32_SOURCE }} -b ${{ env.CUSTOM_GCC_32_BRANCH }} ${{ env.CUSTOM_GCC_32_DIR }} --depth=1
                 elif [[ ${{ env.CUSTOM_GCC_32_SOURCE }} == *'.zip' ]]; then
                     wget -O gcc-32.zip ${{ env.CUSTOM_GCC_32_SOURCE }}
-                    mkdir ${{ env.USE_CUSTOM_GCC_32_DIR }}
-                    unzip gcc-32.zip -d ${{ env.USE_CUSTOM_GCC_32_DIR }}/
+                    mkdir ${{ env.CUSTOM_GCC_32_DIR }}
+                    unzip gcc-32.zip -d ${{ env.CUSTOM_GCC_32_DIR }}/
                 else
                     echo "请确认GCC工具链的文件格式！！！" && exit 1
                 fi
             else
-                echo "✅ ${{ env.USE_CUSTOM_GCC_32_DIR }} 目录已存在（缓存恢复），跳过下载！"
+                echo "✅ ${{ env.CUSTOM_GCC_32_DIR }} 目录已存在（缓存恢复），跳过下载！"
             fi
-            echo "GCC_32=CROSS_COMPILE_ARM32=$GITHUB_WORKSPACE/kernel_workspace/${{ env.USE_CUSTOM_GCC_32_DIR }}/bin/${{ env.CUSTOM_GCC_32_BIN }}" >> $GITHUB_ENV || echo "⚠️ 写入 gcc-32 失败"
+            echo "GCC_32=CROSS_COMPILE_ARM32=$GITHUB_WORKSPACE/kernel_workspace/${{ env.CUSTOM_GCC_32_DIR }}/bin/${{ env.CUSTOM_GCC_32_BIN }}" >> $GITHUB_ENV || echo "⚠️ 写入 gcc-32 失败"
         fi
         
     - name: Download mkbootimg tools(下载mkbootimg解包工具)
