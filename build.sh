@@ -2,11 +2,10 @@
 
 echo "================================================================================"
 echo "=======================  Cleaning old build files...   ========================="
-# make clean O=out
-# make mrproper O=out
-# make mrproper
-# rm -rf out
-
+make clean O=out
+make mrproper O=out
+make mrproper
+rm -rf out
 echo "=======================           completed!             ======================="
 echo "================================================================================"
 
@@ -51,17 +50,17 @@ echo "==========================================================================
 echo "  "
 echo "  "
 
-# echo -e "\n================================================================================"
-# echo "======================   Generating default config...    ======================"
-# ARCH=arm64 make CC=clang HOSTCC=gcc \
-#     AR=llvm-ar NM=llvm-nm \
-#     OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip \
-#     O=out CLANG_TRIPLE=aarch64-linux-gnu- \
-#     CROSS_COMPILE=aarch64-linux-android- \
-#     LD=ld.lld \
-#     cezanne_user_defconfig
-# echo "=========================         completed!           ========================="
-# echo "================================================================================"
+echo -e "\n================================================================================"
+echo "======================   Generating default config...    ======================"
+ARCH=arm64 make CC=clang HOSTCC=gcc \
+    AR=llvm-ar NM=llvm-nm \
+    OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip \
+    O=out CLANG_TRIPLE=aarch64-linux-gnu- \
+    CROSS_COMPILE=aarch64-linux-android- \
+    LD=ld.lld \
+    cezanne_user_defconfig
+echo "=========================         completed!           ========================="
+echo "================================================================================"
 
 echo "  "
 echo "  "
