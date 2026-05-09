@@ -648,7 +648,8 @@ jobs:
         
         if [ "${{ env.USE_MTK_KERNEL_MODULES }}" = "true" ] || ["${{ env.USE_BUILD_BASH }}" = "true" ]; then
             rm -f build.sh
-            wget -O build.sh ${{ env.USE_BUILD_BASH_LINK }}
+            wget -O build.sh
+            curl -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \ -o build.sh \ ${{ env.USE_BUILD_BASH_LINK }}
             chmod +x build.sh
             ./build.sh
         else
