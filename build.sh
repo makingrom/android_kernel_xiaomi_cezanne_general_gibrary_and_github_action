@@ -2,10 +2,10 @@
 
 echo "================================================================================"
 echo "=======================  Cleaning old build files...   ========================="
-make clean O=out
-make mrproper O=out
-make mrproper
-rm -rf out
+# make clean O=out
+# make mrproper O=out
+# make mrproper
+# rm -rf out
 echo "=======================           completed!             ======================="
 echo "================================================================================"
 
@@ -39,6 +39,12 @@ export GCC_PATH="$(pwd)/../${AARCH64_LINUX_ANDROID_DIR}"
 export PATH="${CLANG_PATH}/bin:$PATH"
 export LD_LIBRARY_PATH="${CLANG_PATH}/lib:$LD_LIBRARY_PATH"
 echo "======================           completed!               ======================"
+# 👇 修复 stpcpy 错误（你之前的报错）
+./scripts/config --enable CONFIG_ARCH_HAS_STPCPY
+
+# 👇 修复 vcu 重复/未定义 错误（你之前的报错）
+./scripts/config --disable CONFIG_MTK_VCU
+./scripts/config --disable CONFIG_MTK_VCODEC
 echo "================================================================================"
 
 echo "  "
