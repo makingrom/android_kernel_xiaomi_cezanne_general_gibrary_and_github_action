@@ -31,6 +31,10 @@ export OBJDUMP=llvm-objdump
 export STRIP=llvm-strip
 export HOSTAR=llvm-ar
 
+unset HOSTCC
+unset HOSTAS
+unset HOSTLD
+
 # Toolchain paths
 # CLANG_PATH="$(pwd)/tools/clang-r383902"
 # GCC_PATH="$(pwd)/tools/aarch64-linux-android-4.9"
