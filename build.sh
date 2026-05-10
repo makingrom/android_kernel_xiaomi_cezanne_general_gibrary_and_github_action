@@ -50,7 +50,7 @@ export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
 export AS="${GCC_PATH}/bin/aarch64-linux-android-as"
 # cp -a /usr/bin/as /usr/bin/as.bak
 # ln -sf ${AS} /usr/bin/as
-ln -sf ${GCC_PATH}/bin/aarch64-linux-android-as ${GCC_PATH}/bin/as
+# ln -sf ${GCC_PATH}/bin/aarch64-linux-android-as ${GCC_PATH}/bin/as
 
 export PATH="${CLANG_PATH}/bin:${GCC_PATH}/bin:$PATH"
 export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
