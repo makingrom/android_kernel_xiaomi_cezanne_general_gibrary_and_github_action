@@ -1,5 +1,8 @@
 #!/bin/bash
 
+: '
+if false; then
+
 echo "================================================================================"
 echo "=======================  Cleaning old build files...   ========================="
 make clean O=out
@@ -47,11 +50,6 @@ export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
 #export GCC_BIN_PATH="${GCC_PATH}/aarch64-linux-android/bin"
 #export PATH="${GCC_BIN_PATH}:$PATH"
 
-# export AS="${GCC_PATH}/bin/aarch64-linux-android-as"
-# cp -a /usr/bin/as /usr/bin/as.bak
-# ln -sf ${AS} /usr/bin/as
-# ln -sf ${GCC_PATH}/bin/aarch64-linux-android-as ${GCC_PATH}/bin/as
-
 export PATH="${CLANG_PATH}/bin:${GCC_PATH}/bin:$PATH"
 export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
 echo "======================           completed!               ======================"
@@ -83,6 +81,9 @@ echo "# CONFIG_BLK_INLINE_ENCRYPTION is not set" >> out/.config
 echo "CONFIG_BLK_INLINE_ENCRYPTION=n" >> out/.config
 echo "  completed!"
 echo "================================================================================"
+
+fi
+'
 
 echo "  "
 echo "  "
@@ -134,7 +135,6 @@ echo "=========================      Build completed!        ===================
 echo "================================================================================"
 
 echo "  "
-# mv -f /usr/bin/as.bak /usr/bin/as
 echo "  "
 
 echo -e "\n================================================================================"
