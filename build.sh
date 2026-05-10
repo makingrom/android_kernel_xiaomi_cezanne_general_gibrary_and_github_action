@@ -29,6 +29,12 @@ export OBJDUMP=llvm-objdump
 export STRIP=llvm-strip
 export HOSTAR=llvm-ar
 
+# 让 make 不输出颜色 + 不输出冗余日志 → 彻底关闭 stdout 风暴
+export TERM=dumb
+export LC_ALL=C
+export CLANG_FORCE_COLOR_DIAGNOSTICS=0
+export KBUILD_VERBOSE=0
+
 # Toolchain paths
 # CLANG_PATH="$(pwd)/tools/clang-r383902"
 # GCC_PATH="$(pwd)/tools/aarch64-linux-android-4.9"
