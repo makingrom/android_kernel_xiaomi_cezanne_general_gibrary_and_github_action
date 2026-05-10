@@ -29,7 +29,9 @@ export NM=llvm-nm
 export OBJCOPY=llvm-objcopy
 export OBJDUMP=llvm-objdump
 export STRIP=llvm-strip
-export HOSTCC=gcc
+export HOSTCC=clang
+export HOSTAS=clang
+export HOSTLD=ld.lld
 export HOSTAR=llvm-ar
 
 # Toolchain paths
@@ -98,6 +100,8 @@ echo "OBJCOPY = $OBJCOPY"
 echo "OBJDUMP = $OBJDUMP"
 echo "STRIP = $STRIP"
 echo "HOSTCC = $HOSTCC"
+echo "HOSTAS = $HOSTAS"
+echo "HOSTLD = $HOSTLD"
 echo "HOSTAR = $HOSTAR"
 echo "CLANG_PATH = $CLANG_PATH"
 echo "GCC_PATH = $GCC_PATH"
