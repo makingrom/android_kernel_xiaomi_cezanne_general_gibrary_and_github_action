@@ -102,6 +102,19 @@ echo "==========================================================================
 
 
 echo "  "
+# 强制关闭所有冲突的 VCU/VCODEC 配置
+scripts/config --file out/.config --disable MTK_VCU
+scripts/config --file out/.config --disable MTK_VCODEC
+scripts/config --file out/.config --disable MTK_VCODEC_DEC
+scripts/config --file out/.config --disable MTK_VCODEC_ENC
+scripts/config --file out/.config --disable VIDEO_MEDIATEK_VCU
+
+# 强制 MTK_VCU 只编译进内核，禁止编译成模块（=y 内置，=m 模块）
+scripts/config --file out/.config --set-val MTK_VCU y
+scripts/config --file out/.config --disable MTK_VCU_MODULE
+scripts/config --file out/.config --disable MTK_VCODEC_MODULE
+
+make O=out olddefconfig > /dev/null 2>&1
 echo "  "
 
 echo -e "\n==============================================================================="
@@ -131,6 +144,15 @@ echo "GCC_PATH = $GCC_PATH"
 echo "PATH = $PATH"
 echo "LD_LIBRARY_PATH = $LD_LIBRARY_PATH"
 echo "nproc = $(nproc)"
+echo "==============================================================================="
+grep -r "MTK_VCU" --include=Kconfig | grep -E "select|default"
+echo "==============================================================================="
+# 查找所有 Kconfig 里 select / depends on MTK_VCU 的地方
+grep -r "MTK_VCU" --include="Kconfig" ./
+echo "==============================================================================="
+# 查找所有 Makefile 里调用 mtk-vcu 的地方
+grep -r "mtk-vcu" --include="Makefile" ./
+echo "==============================================================================="
 free -h
 ${CROSS_COMPILE}ld -v
 ld.lld --version
