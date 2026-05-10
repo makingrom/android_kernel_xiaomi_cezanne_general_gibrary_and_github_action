@@ -75,6 +75,13 @@ echo "  "
 # echo "CONFIG_MTK_VCODEC_ENC=n" >> arch/arm64/configs/${KERNEL_CONFIG}
 # echo "CONFIG_MTK_VCU_IPC=n" >> arch/arm64/configs/${KERNEL_CONFIG}
 
+# 1. 禁用顶层 Makefile 重复编译 mtk-vcu/ 目录（关键！）
+sed -i 's/obj-$(CONFIG_VIDEO_MEDIATEK_VCU)	+= mtk-vcu\/\//' drivers/media/platform/Makefile
+
+# 2. 强制保证 mtk-vcodec 能找到 vcu 头文件（解决 undefined symbol）
+sed -i '/mtk-vcu/d' drivers/media/platform/mtk-vcodec/Makefile
+echo 'ccflags-y += -I$(srctree)/drivers/media/platform/mtk-vcu' >> drivers/media/platform/mtk-vcodec/Makefile
+
 echo "  "
 
 echo -e "\n================================================================================"
@@ -102,17 +109,18 @@ echo "==========================================================================
 
 
 echo "  "
-# 强制关闭所有冲突的 VCU/VCODEC 配置
-scripts/config --file out/.config --disable MTK_VCU
-scripts/config --file out/.config --disable MTK_VCODEC
-scripts/config --file out/.config --disable MTK_VCODEC_DEC
-scripts/config --file out/.config --disable MTK_VCODEC_ENC
-scripts/config --file out/.config --disable VIDEO_MEDIATEK_VCU
 
-# 强制 MTK_VCU 只编译进内核，禁止编译成模块（=y 内置，=m 模块）
-scripts/config --file out/.config --set-val MTK_VCU y
-scripts/config --file out/.config --disable MTK_VCU_MODULE
-scripts/config --file out/.config --disable MTK_VCODEC_MODULE
+# # 强制关闭所有冲突的 VCU/VCODEC 配置
+# scripts/config --file out/.config --disable MTK_VCU
+# scripts/config --file out/.config --disable MTK_VCODEC
+# scripts/config --file out/.config --disable MTK_VCODEC_DEC
+# scripts/config --file out/.config --disable MTK_VCODEC_ENC
+# scripts/config --file out/.config --disable VIDEO_MEDIATEK_VCU
+
+# # 强制 MTK_VCU 只编译进内核，禁止编译成模块（=y 内置，=m 模块）
+# scripts/config --file out/.config --set-val MTK_VCU y
+# scripts/config --file out/.config --disable MTK_VCU_MODULE
+# scripts/config --file out/.config --disable MTK_VCODEC_MODULE
 
 make O=out olddefconfig > /dev/null 2>&1
 echo "  "
