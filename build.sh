@@ -24,6 +24,7 @@ export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
 export CC=clang
 export AS=clang
 export LD=ld.lld
+export LLVM_IAS=1
 export NM=llvm-nm
 export OBJCOPY=llvm-objcopy
 export OBJDUMP=llvm-objdump
