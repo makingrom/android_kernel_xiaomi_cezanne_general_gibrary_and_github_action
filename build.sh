@@ -75,12 +75,6 @@ echo "  "
 # echo "CONFIG_MTK_VCODEC_ENC=n" >> arch/arm64/configs/${KERNEL_CONFIG}
 # echo "CONFIG_MTK_VCU_IPC=n" >> arch/arm64/configs/${KERNEL_CONFIG}
 
-# 1. 强制让 mtk-vcu 只编译一次（正确结构）
-sed -i 's/obj-$(CONFIG_VIDEO_MEDIATEK_VCU) += mtk-vcu.o mtk_vcodec_mem.o/# 禁用重复编译/' drivers/media/platform/mtk-vcu/Makefile
-
-# 2. 确保目录编译正常（生成 built-in.o，不会报错）
-sed -i 's/^# obj-$(CONFIG_VIDEO_MEDIATEK_VCU)/obj-$(CONFIG_VIDEO_MEDIATEK_VCU)/' drivers/media/platform/Makefile
-
 echo "  "
 
 echo -e "\n================================================================================"
@@ -121,6 +115,11 @@ echo "  "
 # scripts/config --file out/.config --disable MTK_VCU_MODULE
 # scripts/config --file out/.config --disable MTK_VCODEC_MODULE
 
+# 官方正确修复：开启 VCU 配置，解决所有 undefined / built-in.o 错误
+# ==============================================================================
+scripts/config --file out/.config --enable MTK_VCU
+scripts/config --file out/.config --enable VIDEO_MEDIATEK_VCU
+scripts/config --file out/.config --disable VIDEO_MEDIATEK_VCU_MODULE
 make O=out olddefconfig > /dev/null 2>&1
 echo "  "
 
