@@ -133,7 +133,7 @@ make ARCH=arm64 CC=clang HOSTCC=gcc \
     O=out CLANG_TRIPLE=aarch64-linux-gnu- \
     CROSS_COMPILE=aarch64-linux-android- \
     LD=ld.lld \
-    -j2 KCFLAGS="-w"
+    -j1 KCFLAGS="-w"
 echo "=========================      Build completed!        ========================="
 echo "================================================================================"
 
