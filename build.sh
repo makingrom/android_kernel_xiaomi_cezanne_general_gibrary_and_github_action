@@ -30,8 +30,8 @@ export NM=llvm-nm
 export OBJCOPY=llvm-objcopy
 export OBJDUMP=llvm-objdump
 export STRIP=llvm-strip
-export HOSTCC=clang
-export HOSTAS=clang
+# export HOSTCC=clang
+# export HOSTAS=clang
 export HOSTLD=ld.lld
 export HOSTAR=llvm-ar
 
