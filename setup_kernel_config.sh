@@ -143,6 +143,9 @@ if [ "${LLVM_CONFIG}" = "true" ]; then
     LLVM_PARAMS=" LLVM=1 LLVM_IAS=1"
     echo "LLVM_PARAMS=$LLVM_PARAMS" >> $GITHUB_ENV 2>/dev/null
     echo "✅ 编译使用 LLVM_CONFIG 参数"
+elif [ "${LLVM_CONFIG}" = "false"]; then
+    echo "LLVM_PARAMS=$LLVM_PARAMS" >> $GITHUB_ENV 2>/dev/null
+    echo "✅ 编译使用 LLVM_CONFIG 参数"
 fi
 
 # ===================== VERSION PARAMS =====================
