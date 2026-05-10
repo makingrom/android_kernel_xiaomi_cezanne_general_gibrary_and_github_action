@@ -62,6 +62,19 @@ echo "======================           completed!               ================
 echo "================================================================================"
 
 echo "  "
+
+# 关闭报错的联发科视频编解码（VCU/VCODEC）
+sed -i '/CONFIG_MTK_VCODEC/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
+sed -i '/CONFIG_MTK_VCU/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
+sed -i '/CONFIG_VIDEO_MEDIATEK_VCU/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
+
+echo "CONFIG_MTK_VCODEC=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+echo "CONFIG_MTK_VCU=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+echo "CONFIG_VIDEO_MEDIATEK_VCU=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+echo "CONFIG_MTK_VCODEC_DEC=n" >> arch/arm64/configs/${KERNEL_CONFIG}
+echo "CONFIG_MTK_VCODEC_ENC=n" >> arch/arm64/configs/${KERNEL_CONFIG}
+echo "CONFIG_MTK_VCU_IPC=n" >> arch/arm64/configs/${KERNEL_CONFIG}
+
 echo "  "
 
 echo -e "\n================================================================================"
@@ -124,14 +137,6 @@ ld.lld --version
 echo "==============================================================================="
 
 echo "  "
-# 关闭报错的联发科视频编解码（VCU/VCODEC）
-sed -i '/CONFIG_MTK_VCODEC/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
-sed -i '/CONFIG_MTK_VCU/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
-sed -i '/CONFIG_VIDEO_MEDIATEK_VCU/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
-
-echo "CONFIG_MTK_VCODEC=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-echo "CONFIG_MTK_VCU=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-echo "CONFIG_VIDEO_MEDIATEK_VCU=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
 echo "  "
 
 echo -e "\n================================================================================"
