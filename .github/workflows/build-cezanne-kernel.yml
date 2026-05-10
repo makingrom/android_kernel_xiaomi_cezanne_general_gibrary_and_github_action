@@ -34,6 +34,7 @@ jobs:
             USE_SETUP_KERNEL_CONFIG
             SETUP_KERNEL_CONFIG_LINK
             USE_MTK_KERNEL_MODULES
+            MTK_KERNEL_MODULES_UPLOAD
             MTK_KERNEL_MODULES_SOURCE_DIR
             MTK_KERNEL_MODULES_SOURCE
             MTK_KERNEL_MODULES_SOURCE_BRANCH
@@ -408,6 +409,7 @@ jobs:
       run: |
         cd kernel_workspace/android-kernel/out
         zip -r mtk_modules.zip out_modules/
+        echo "✅ modules.zip 压缩完成"
         
     - name: Make Anykernel3(制作Anykernel3卡刷包)
       if: env.CHECK_FILE_IS_OK == 'true' && env.USE_CUSTOM_ANYKERNEL3 != 'true'
@@ -422,6 +424,7 @@ jobs:
             cp android-kernel/out/arch/${{ env.ARCH }}/boot/dtbo.img AnyKernel3/
         fi
         rm -rf AnyKernel3/.git* AnyKernel3/README.md
+        echo "✅ Anykernel3.zip 制作完成"
         
     - name: Make Custom-Anykernel3(制作Custom_Anykernel3卡刷包)
       if: env.CHECK_FILE_IS_OK == 'true' && env.USE_CUSTOM_ANYKERNEL3 == 'true'
@@ -445,6 +448,7 @@ jobs:
             cp android-kernel/out/arch/${{ env.ARCH }}/boot/dtbo.img AnyKernel3/
         fi
         rm -rf AnyKernel3/.git* AnyKernel3/README.md
+        echo "✅ Anykernel3.zip 制作完成"
         
     - name: Make boot image(制作合成新的内核镜像)
       if: env.HAVE_SOURCE_BOOT_IMAGE == 'true' && env.CHECK_FILE_IS_OK == 'true'
@@ -466,7 +470,14 @@ jobs:
       with:
         name: ${{ env.KERNEL_IMAGE_NAME }}${{ env.LOCALVERSION }}${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
         path: kernel_workspace/android-kernel/out/arch/${{ env.ARCH }}/boot/${{ env.KERNEL_IMAGE_NAME }}
-            ${{ env.USE_MTK_KERNEL_MODULES == 'true' && 'kernel_workspace/android-kernel/out/mtk_modules.zip' || '' }}
+
+    - name: Upload ${{ env.MTK_KERNEL_MODULES_SOURCE_DIR }} (上传)
+      if: env.MTK_KERNEL_MODULES_UPLOAD == 'true' || env.USE_MTK_KERNEL_MODULES == 'true'
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{ env.MTK_KERNEL_MODULES_SOURCE }}${{ env.MTK_KERNEL_MODULES_SOURCE_BRANCH }}${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
+        path: kernel_workspace/android-kernel/out/modules.zip
+        
     - name: Upload AnyKernel3(上传Upload AnyKernel3)
       if: env.CHECK_FILE_IS_OK == 'true'
       uses: actions/upload-artifact@v4
