@@ -21,7 +21,7 @@ export CLANG_TRIPLE=aarch64-linux-gnu-
 export CROSS_COMPILE=aarch64-linux-androidkernel-
 export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
 export CC=clang
-export AS=clang
+# export AS=clang
 export LD=ld.lld
 export NM=llvm-nm
 export OBJCOPY=llvm-objcopy
@@ -47,7 +47,7 @@ export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
 #export GCC_BIN_PATH="${GCC_PATH}/aarch64-linux-android/bin"
 #export PATH="${GCC_BIN_PATH}:$PATH"
 
-export AS="${GCC_PATH}/bin/aarch64-linux-android-as"
+# export AS="${GCC_PATH}/bin/aarch64-linux-android-as"
 # cp -a /usr/bin/as /usr/bin/as.bak
 # ln -sf ${AS} /usr/bin/as
 # ln -sf ${GCC_PATH}/bin/aarch64-linux-android-as ${GCC_PATH}/bin/as
