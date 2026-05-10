@@ -109,6 +109,7 @@ echo "CLANG_PATH = $CLANG_PATH"
 echo "GCC_PATH = $GCC_PATH"
 echo "PATH = $PATH"
 echo "LD_LIBRARY_PATH = $LD_LIBRARY_PATH"
+free -h
 echo "nproc = $(nproc)"
 ${CROSS_COMPILE}ld -v
 ld.lld --version
