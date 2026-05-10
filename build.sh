@@ -63,17 +63,17 @@ echo "==========================================================================
 
 echo "  "
 
-# 关闭报错的联发科视频编解码（VCU/VCODEC）
-sed -i '/CONFIG_MTK_VCODEC/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
-sed -i '/CONFIG_MTK_VCU/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
-sed -i '/CONFIG_VIDEO_MEDIATEK_VCU/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
+# # 关闭报错的联发科视频编解码（VCU/VCODEC）
+# sed -i '/CONFIG_MTK_VCODEC/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
+# sed -i '/CONFIG_MTK_VCU/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
+# sed -i '/CONFIG_VIDEO_MEDIATEK_VCU/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
 
-echo "CONFIG_MTK_VCODEC=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-echo "CONFIG_MTK_VCU=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-echo "CONFIG_VIDEO_MEDIATEK_VCU=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-echo "CONFIG_MTK_VCODEC_DEC=n" >> arch/arm64/configs/${KERNEL_CONFIG}
-echo "CONFIG_MTK_VCODEC_ENC=n" >> arch/arm64/configs/${KERNEL_CONFIG}
-echo "CONFIG_MTK_VCU_IPC=n" >> arch/arm64/configs/${KERNEL_CONFIG}
+# echo "CONFIG_MTK_VCODEC=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+# echo "CONFIG_MTK_VCU=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+# echo "CONFIG_VIDEO_MEDIATEK_VCU=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+# echo "CONFIG_MTK_VCODEC_DEC=n" >> arch/arm64/configs/${KERNEL_CONFIG}
+# echo "CONFIG_MTK_VCODEC_ENC=n" >> arch/arm64/configs/${KERNEL_CONFIG}
+# echo "CONFIG_MTK_VCU_IPC=n" >> arch/arm64/configs/${KERNEL_CONFIG}
 
 echo "  "
 
@@ -147,7 +147,7 @@ make ARCH=arm64 CC=clang HOSTCC=gcc \
     O=out CLANG_TRIPLE=aarch64-linux-gnu- \
     CROSS_COMPILE=aarch64-linux-android- \
     LD=ld.lld \
-    -j1 KCFLAGS="-w"
+    -j4 KCFLAGS="-w"
 echo "=========================      Build completed!        ========================="
 echo "================================================================================"
 
