@@ -1,6 +1,5 @@
 #!/bin/bash
 
-sync && echo 3 > /proc/sys/vm/drop_caches
 
 echo "================================================================================"
 echo "=======================  Cleaning old build files...   ========================="
@@ -117,10 +116,10 @@ echo "  "
 
 # 官方正确修复：开启 VCU 配置，解决所有 undefined / built-in.o 错误
 # ==============================================================================
-scripts/config --file out/.config --enable MTK_VCU
-scripts/config --file out/.config --enable VIDEO_MEDIATEK_VCU
-scripts/config --file out/.config --disable VIDEO_MEDIATEK_VCU_MODULE
-make O=out olddefconfig > /dev/null 2>&1
+# scripts/config --file out/.config --enable MTK_VCU
+# scripts/config --file out/.config --enable VIDEO_MEDIATEK_VCU
+# scripts/config --file out/.config --disable VIDEO_MEDIATEK_VCU_MODULE
+# make O=out olddefconfig > /dev/null 2>&1
 echo "  "
 
 echo -e "\n==============================================================================="
