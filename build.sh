@@ -75,12 +75,11 @@ echo "  "
 # echo "CONFIG_MTK_VCODEC_ENC=n" >> arch/arm64/configs/${KERNEL_CONFIG}
 # echo "CONFIG_MTK_VCU_IPC=n" >> arch/arm64/configs/${KERNEL_CONFIG}
 
-# 1. 恢复顶层目录编译（必须要有，否则不生成 vcu .o 文件）
-sed -i 's/^# obj-$(CONFIG_VIDEO_MEDIATEK_VCU)/obj-$(CONFIG_VIDEO_MEDIATEK_VCU)/' drivers/media/platform/Makefile
-sed -i 's/^obj-$(CONFIG_VIDEO_MEDIATEK_VCU)	+= $/obj-$(CONFIG_VIDEO_MEDIATEK_VCU)	+= mtk-vcu\//' drivers/media/platform/Makefile
+# 1. 强制让 mtk-vcu 只编译一次（正确结构）
+sed -i 's/obj-$(CONFIG_VIDEO_MEDIATEK_VCU) += mtk-vcu.o mtk_vcodec_mem.o/# 禁用重复编译/' drivers/media/platform/mtk-vcu/Makefile
 
-# 2. 禁用子目录重复编译（这才是正确的！！！）
-sed -i 's/obj-$(CONFIG_VIDEO_MEDIATEK_VCU) += mtk-vcu.o mtk_vcodec_mem.o/#/' drivers/media/platform/mtk-vcu/Makefile
+# 2. 确保目录编译正常（生成 built-in.o，不会报错）
+sed -i 's/^# obj-$(CONFIG_VIDEO_MEDIATEK_VCU)/obj-$(CONFIG_VIDEO_MEDIATEK_VCU)/' drivers/media/platform/Makefile
 
 echo "  "
 
