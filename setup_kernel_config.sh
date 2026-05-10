@@ -7,6 +7,15 @@ KERNEL_CONFIG="${KERNEL_CONFIG}"
 ANDROID_VERSION="${ANDROID_VERSION}"
 KERNEL_VERSION="${KERNEL_VERSION}"
 
+# 关闭报错的联发科视频编解码（VCU/VCODEC）
+sed -i '/CONFIG_MTK_VCODEC/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
+sed -i '/CONFIG_MTK_VCU/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
+sed -i '/CONFIG_VIDEO_MEDIATEK_VCU/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
+
+echo "CONFIG_MTK_VCODEC=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+echo "CONFIG_MTK_VCU=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+echo "CONFIG_VIDEO_MEDIATEK_VCU=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+
 # ===================== KSU 配置 =====================
 if [ "${APPLY_KSU_PATCH}" = "true" ]; then
     echo "当前目录：$(pwd)"
