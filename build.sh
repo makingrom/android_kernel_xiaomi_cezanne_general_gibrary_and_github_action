@@ -28,6 +28,7 @@ export NM=llvm-nm
 export OBJCOPY=llvm-objcopy
 export OBJDUMP=llvm-objdump
 export STRIP=llvm-strip
+export HOSTAS=/usr/bin/as
 export HOSTAR=llvm-ar
 
 # Toolchain paths
