@@ -58,7 +58,7 @@ echo "  "
 
 echo -e "\n================================================================================"
 echo "======================   Generating default config...    ======================"
-ARCH=arm64 make CC=clang HOSTCC=gcc \
+make ARCH=arm64 CC=clang HOSTCC=gcc \
     AR=llvm-ar NM=llvm-nm \
     OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip \
     O=out CLANG_TRIPLE=aarch64-linux-gnu- \
