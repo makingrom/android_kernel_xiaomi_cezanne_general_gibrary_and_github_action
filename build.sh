@@ -46,7 +46,7 @@ export HOSTAR=llvm-ar
 # clang-* && GCC 工具链
 export CLANG_PATH="$(pwd)/../${CUSTOM_CLANG_DIR}"
 export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
-export PATH="${CLANG_PATH}/bin:$PATH"
+export PATH="${CLANG_PATH}/bin:${GCC_PATH}/bin:$PATH"
 export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
 echo "======================           completed!               ======================"
 
@@ -101,6 +101,7 @@ echo "CLANG_PATH = $CLANG_PATH"
 echo "GCC_PATH = $GCC_PATH"
 echo "PATH = $PATH"
 echo "LD_LIBRARY_PATH = $LD_LIBRARY_PATH"
+echo "nproc = $(nproc)"
 ${CROSS_COMPILE}ld -v
 ld.lld --version
 echo "==============================================================================="
@@ -116,7 +117,7 @@ make ARCH=arm64 CC=clang HOSTCC=gcc \
     O=out CLANG_TRIPLE=aarch64-linux-gnu- \
     CROSS_COMPILE=aarch64-linux-android- \
     LD=ld.lld \
-    -j4 KCFLAGS="-w"
+    -j$(nproc) KCFLAGS="-w"
 echo "=========================      Build completed!        ========================="
 echo "================================================================================"
 
