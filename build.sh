@@ -22,7 +22,6 @@ export CROSS_COMPILE=aarch64-linux-androidkernel-
 export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
 export CC=clang
 # export AS=clang
-export AS="${GCC_PATH}/bin/aarch64-linux-android-as"
 export LD=ld.lld
 export LLVM_IAS=1
 export NM=llvm-nm
@@ -48,7 +47,10 @@ export CLANG_PATH="$(pwd)/../${CUSTOM_CLANG_DIR}"
 export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
 #export GCC_BIN_PATH="${GCC_PATH}/aarch64-linux-android/bin"
 #export PATH="${GCC_BIN_PATH}:$PATH"
-export PATH="${CLANG_PATH}/bin:$PATH"
+
+export AS="${GCC_PATH}/bin/aarch64-linux-android-as"
+
+export PATH="${CLANG_PATH}/bin:${GCC_PATH}/bin:$PATH"
 export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
 echo "======================           completed!               ======================"
 
