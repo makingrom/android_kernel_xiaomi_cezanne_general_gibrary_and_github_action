@@ -21,14 +21,12 @@ export CLANG_TRIPLE=aarch64-linux-gnu-
 export CROSS_COMPILE=aarch64-linux-androidkernel-
 export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
 export CC=clang
-# export AS=clang
+export AS=clang
 export LD=ld.lld
-export LLVM_IAS=1
 export NM=llvm-nm
 export OBJCOPY=llvm-objcopy
 export OBJDUMP=llvm-objdump
 export STRIP=llvm-strip
-export HOSTAS=/usr/bin/as
 export HOSTAR=llvm-ar
 
 # Toolchain paths
