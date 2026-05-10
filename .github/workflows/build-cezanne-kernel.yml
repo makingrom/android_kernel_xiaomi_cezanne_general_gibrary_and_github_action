@@ -307,7 +307,7 @@ jobs:
         if [ "${{ env.USE_SETUP_KERNEL_CONFIG }}" = "true" ]; then
             echo "正在设置 kernel-config... "
             rm -f setup_kernel_config.sh
-            curl -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -o build.sh "${{ env.SETUP_KERNEL_CONFIG_LINK }}"
+            curl -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -o setup_kernel_config.sh "${{ env.SETUP_KERNEL_CONFIG_LINK }}"
             chmod +x setup_kernel_config.sh
             ./setup_kernel_config.sh
             echo "✅ kernel-config 设置完成"
