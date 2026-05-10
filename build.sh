@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 echo "================================================================================"
 echo "=======================  Cleaning old build files...   ========================="
@@ -50,8 +49,9 @@ export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
 #export PATH="${GCC_BIN_PATH}:$PATH"
 
 export AS="${GCC_PATH}/bin/aarch64-linux-android-as"
-cp -a /usr/bin/as /usr/bin/as.bak
-ln -sf ${AS} /usr/bin/as
+# cp -a /usr/bin/as /usr/bin/as.bak
+# ln -sf ${AS} /usr/bin/as
+ln -sf ${GCC_PATH}/bin/aarch64-linux-android-as ${GCC_PATH}/bin/as
 
 export PATH="${CLANG_PATH}/bin:${GCC_PATH}/bin:$PATH"
 export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
@@ -135,7 +135,7 @@ echo "=========================      Build completed!        ===================
 echo "================================================================================"
 
 echo "  "
-mv -f /usr/bin/as.bak /usr/bin/as
+# mv -f /usr/bin/as.bak /usr/bin/as
 echo "  "
 
 echo -e "\n================================================================================"
