@@ -1,5 +1,7 @@
 #!/bin/bash
 
+sync && echo 3 > /proc/sys/vm/drop_caches
+
 echo "================================================================================"
 echo "=======================  Cleaning old build files...   ========================="
 make clean O=out
@@ -115,8 +117,8 @@ echo "CLANG_PATH = $CLANG_PATH"
 echo "GCC_PATH = $GCC_PATH"
 echo "PATH = $PATH"
 echo "LD_LIBRARY_PATH = $LD_LIBRARY_PATH"
-free -h
 echo "nproc = $(nproc)"
+free -h
 ${CROSS_COMPILE}ld -v
 ld.lld --version
 echo "==============================================================================="
