@@ -19,11 +19,10 @@ export DEFCONFIG=cezanne_user_defconfig
 export KERNEL_DIR=$(pwd)
 export CLANG_TRIPLE=aarch64-linux-gnu-
 export CROSS_COMPILE=aarch64-linux-androidkernel-
-# export CROSS_COMPILE=aarch64-linux-gnu-
 export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
-# export CC=clang
-export CC="clang --no-integrated-as"
-export AS=clang
+export CC=clang
+# export AS=clang
+export AS="${GCC_PATH}/bin/aarch64-linux-android-as"
 export LD=ld.lld
 export LLVM_IAS=1
 export NM=llvm-nm
@@ -31,10 +30,6 @@ export OBJCOPY=llvm-objcopy
 export OBJDUMP=llvm-objdump
 export STRIP=llvm-strip
 export HOSTAR=llvm-ar
-
-unset HOSTCC
-unset HOSTAS
-unset HOSTLD
 
 # Toolchain paths
 # CLANG_PATH="$(pwd)/tools/clang-r383902"
@@ -53,7 +48,7 @@ export CLANG_PATH="$(pwd)/../${CUSTOM_CLANG_DIR}"
 export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
 #export GCC_BIN_PATH="${GCC_PATH}/aarch64-linux-android/bin"
 #export PATH="${GCC_BIN_PATH}:$PATH"
-export PATH="${CLANG_PATH}/bin:${GCC_BIN_PATH}:${GCC_PATH}/bin:$PATH"
+export PATH="${CLANG_PATH}/bin:$PATH"
 export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
 echo "======================           completed!               ======================"
 
@@ -97,6 +92,9 @@ echo "CLANG_TRIPLE = $CLANG_TRIPLE"
 echo "CROSS_COMPILE = $CROSS_COMPILE"
 echo "CC = $CC"
 echo "AS = $AS"
+which as
+echo $PATH | tr ':' '\n'
+as --version
 echo "LD = $LD"
 echo "LLVM_IAS = $LLVM_IAS"
 echo "NM = $NM"
