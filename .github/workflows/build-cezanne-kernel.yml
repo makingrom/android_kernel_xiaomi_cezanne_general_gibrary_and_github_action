@@ -148,9 +148,10 @@ jobs:
         path: |
             ${{ github.workspace }}/kernel_workspace/android-kernel
             ${{ github.workspace }}/kernel_workspace/${{ env.AARCH64_LINUX_ANDROID_DIR }}
-            ${{ github.workspace }}/kernel_workspace/clang-aosp
-            ${{ github.workspace }}/kernel_workspace/gcc-64
-            ${{ github.workspace }}/kernel_workspace/gcc-32
+            ${{ github.workspace }}/kernel_workspace/${{ env.CUSTOM_GCC_64_DIR }}
+            ${{ github.workspace }}/kernel_workspace/${{ env.CUSTOM_CLANG_DIR }}
+            ${{ github.workspace }}/kernel_workspace/${{ env.CUSTOM_GCC_64_DIR }}
+            ${{ github.workspace }}/kernel_workspace/${{ env.CUSTOM_GCC_32_DIR }}
             ${{ github.workspace }}/kernel_workspace/tools
             ${{ github.workspace }}/kernel_workspace/boot-source.img
         key: ${{ runner.os }}-${{ env.CACHE_VERSION }}-${{ env.KERNEL_CONFIG }}-${{ env.KERNEL_SOURCE_BRANCH }}-USE_MTK_MODULES-${{ env.USE_MTK_KERNEL_MODULES }}-MTK_MODULES_BRANCH-${{ env.MTK_KERNEL_MODULES_SOURCE_BRANCH }}-${{ env.ANDROID_VERSION }}-clang-${{ env.CLANG_BRANCH }}-${{ env.CLANG_VERSION }}-kernel-${{ env.KERNEL_VERSION }}
@@ -761,9 +762,10 @@ jobs:
         path: |
           ${{ github.workspace }}/kernel_workspace/android-kernel
           ${{ github.workspace }}/kernel_workspace/${{ env.AARCH64_LINUX_ANDROID_DIR }}
-          ${{ github.workspace }}/kernel_workspace/clang-aosp
-          ${{ github.workspace }}/kernel_workspace/gcc-64
-          ${{ github.workspace }}/kernel_workspace/gcc-32
+          ${{ github.workspace }}/kernel_workspace/${{ env.CUSTOM_GCC_64_DIR }}
+          ${{ github.workspace }}/kernel_workspace/${{ env.CUSTOM_CLANG_DIR }}
+          ${{ github.workspace }}/kernel_workspace/${{ env.CUSTOM_GCC_64_DIR }}
+          ${{ github.workspace }}/kernel_workspace/${{ env.CUSTOM_GCC_32_DIR }}
           ${{ github.workspace }}/kernel_workspace/tools
           ${{ github.workspace }}/kernel_workspace/boot-source.img
         key: ${{ runner.os }}-${{ env.CACHE_VERSION }}-${{ env.KERNEL_CONFIG }}-${{ env.KERNEL_SOURCE_BRANCH }}-USE_MTK_MODULES-${{ env.USE_MTK_KERNEL_MODULES }}-MTK_MODULES_BRANCH-${{ env.MTK_KERNEL_MODULES_SOURCE_BRANCH }}-${{ env.ANDROID_VERSION }}-clang-${{ env.CLANG_BRANCH }}-${{ env.CLANG_VERSION }}-kernel-${{ env.KERNEL_VERSION }}
