@@ -76,13 +76,13 @@ echo "  "
 # echo "CONFIG_MTK_VCU_IPC=n" >> arch/arm64/configs/${KERNEL_CONFIG}
 
 # 1. 禁用顶层 Makefile 重复编译 mtk-vcu/ 目录（关键！）
-sed -i 's/obj-$(CONFIG_VIDEO_MEDIATEK_VCU)	+= mtk-vcu\/\//' drivers/media/platform/Makefile
-sed -i 's/obj-$(CONFIG_VIDEO_MEDIATEK_VCU) += mtk-vcu/\#/' drivers/media/platform/Makefile
+sed -i 's/obj-$(CONFIG_VIDEO_MEDIATEK_VCU)	+= mtk-vcu\//obj-$(CONFIG_VIDEO_MEDIATEK_VCU)	+= /' drivers/media/platform/Makefile
+#sed -i 's/obj-$(CONFIG_VIDEO_MEDIATEK_VCU) += mtk-vcu/\#/' drivers/media/platform/Makefile
 # sed -i 's/obj-$(CONFIG_VIDEO_MEDIATEK_VCU) += mtk-vcu.o mtk_vcodec_mem.o\#/' drivers/media/platform/mtk-vcu/Makefile
 
 # 2. 强制保证 mtk-vcodec 能找到 vcu 头文件（解决 undefined symbol）
-sed -i '/mtk-vcu/d' drivers/media/platform/mtk-vcodec/Makefile
-echo 'ccflags-y += -I$(srctree)/drivers/media/platform/mtk-vcu' >> drivers/media/platform/mtk-vcodec/Makefile
+# sed -i '/mtk-vcu/d' drivers/media/platform/mtk-vcodec/Makefile
+# echo 'ccflags-y += -I$(srctree)/drivers/media/platform/mtk-vcu' >> drivers/media/platform/mtk-vcodec/Makefile
 
 echo "  "
 
