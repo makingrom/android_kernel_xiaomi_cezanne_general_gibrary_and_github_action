@@ -3,6 +3,22 @@
 
 echo "================================================================================"
 echo "=======================  Cleaning old build files...   ========================="
+# 编译生成文件配置
+# 低端机填Image.gz-dtb，高端机可以选择Image.gz，Image，Image*
+export KERNEL_IMAGE_NAME=Image.gz-dtb
+# 是否 上传MTK驱动模块.ko文件
+export MTK_KERNEL_MODULES_UPLOAD=true
+# 是否 需要dtbo，一般不需要，false即可
+export NEED_DTBO=true
+# 是否 编译完整的 boot.img
+export BUILD_BOOT_IMG=true
+# 原始 boot.img 的下载地址（用于拼接内核镜像生成新 boot.img）
+export SOURCE_BOOT_IMAGE=https://raw.githubusercontent.com/makingrom/LXC-DOCKER-KernelSU_Action/refs/heads/main/boot/boot.img
+echo "=======================           completed!             ======================="
+echo "================================================================================"
+
+echo "================================================================================"
+echo "=======================  Cleaning old build files...   ========================="
 make clean O=out
 make mrproper O=out
 make mrproper
@@ -77,6 +93,19 @@ echo "=========================  Applying custom configs...  ===================
 echo "CONFIG_WERROR=n" >> out/.config
 echo "# CONFIG_BLK_INLINE_ENCRYPTION is not set" >> out/.config
 echo "CONFIG_BLK_INLINE_ENCRYPTION=n" >> out/.config
+
+if [ ${NEED_DTBO} = "true" ]; then
+    # echo "CONFIG_OF_OVERLAY=y" >> out/.config
+    # echo "CONFIG_OF_DTB_OVERLAY_SUPPORT=y" >> out/.config
+    echo "CONFIG_BUILD_ARM64_DTBO_IMAGES=y" >> out/.config
+    echo "CONFIG_DTBO_ENABLE=y" >> out/.config
+else
+    # echo "CONFIG_OF_OVERLAY=n" >> out/.config
+    # echo "CONFIG_OF_DTB_OVERLAY_SUPPORT=n" >> out/.config
+    echo "CONFIG_BUILD_ARM64_DTBO_IMAGES=n" >> out/.config
+    echo "CONFIG_DTBO_ENABLE=n" >> out/.config
+fi
+
 echo "==============================      completed!    =============================="
 echo "================================================================================"
 
