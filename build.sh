@@ -9,7 +9,7 @@ export KERNEL_IMAGE_NAME=Image.gz-dtb
 # 是否 上传MTK驱动模块.ko文件
 export MTK_KERNEL_MODULES_UPLOAD=true
 # 是否 需要dtbo，一般不需要，false即可
-export NEED_DTBO=true
+export NEED_DTBO=false
 # 是否 编译完整的 boot.img
 export BUILD_BOOT_IMG=true
 # 原始 boot.img 的下载地址（用于拼接内核镜像生成新 boot.img）
