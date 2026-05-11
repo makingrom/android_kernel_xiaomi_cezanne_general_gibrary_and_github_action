@@ -288,21 +288,6 @@ jobs:
             echo "LOCALVERSION=" >> $GITHUB_ENV || echo "⚠️ 写入 LOCALVERSION 失败"
         fi
         
-    - name: Download source boot image(下载直链内核镜像)
-      if: env.BUILD_BOOT_IMG == 'true'
-      run: |
-        cd $GITHUB_WORKSPACE/kernel_workspace
-        if [ -f boot-source.img ]; then
-            echo "✅ boot-source.img 文件已存在（缓存恢复），跳过下载！"
-            echo "FORMAT_MKBOOTING=$(echo `tools/unpack_bootimg.py --boot_img=boot-source.img --format mkbootimg`)" >> $GITHUB_ENV
-            echo "HAVE_SOURCE_BOOT_IMAGE=true" >> $GITHUB_ENV || echo "⚠️ 设置 HAVE_SOURCE_BOOT_IMAGE 失败"
-        else
-            echo "📥 boot-source.img 文件不存在，开始下载..."
-            wget -O boot-source.img ${{ env.SOURCE_BOOT_IMAGE }}
-            echo "FORMAT_MKBOOTING=$(echo `tools/unpack_bootimg.py --boot_img=boot-source.img --format mkbootimg`)" >> $GITHUB_ENV
-            echo "HAVE_SOURCE_BOOT_IMAGE=true" >> $GITHUB_ENV || echo "⚠️ 设置 HAVE_SOURCE_BOOT_IMAGE 失败"
-        fi
-
     - name: Download mkbootimg tools(下载mkbootimg解包工具)
       if: env.BUILD_BOOT_IMG == 'true'
       run: |
@@ -338,8 +323,6 @@ jobs:
             echo "✅ kernel-config 设置完成"
         fi
         
-
-
     - name: Build kernel
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
@@ -458,6 +441,21 @@ jobs:
         fi
         rm -rf AnyKernel3/.git* AnyKernel3/README.md
         echo "✅ Anykernel3.zip 制作完成"
+        
+    - name: Download source boot image(下载直链内核镜像)
+      if: env.BUILD_BOOT_IMG == 'true'
+      run: |
+        cd $GITHUB_WORKSPACE/kernel_workspace
+        if [ -f boot-source.img ]; then
+            echo "✅ boot-source.img 文件已存在（缓存恢复），跳过下载！"
+            echo "FORMAT_MKBOOTING=$(echo `tools/unpack_bootimg.py --boot_img=boot-source.img --format mkbootimg`)" >> $GITHUB_ENV
+            echo "HAVE_SOURCE_BOOT_IMAGE=true" >> $GITHUB_ENV || echo "⚠️ 设置 HAVE_SOURCE_BOOT_IMAGE 失败"
+        else
+            echo "📥 boot-source.img 文件不存在，开始下载..."
+            wget -O boot-source.img ${{ env.SOURCE_BOOT_IMAGE }}
+            echo "FORMAT_MKBOOTING=$(echo `tools/unpack_bootimg.py --boot_img=boot-source.img --format mkbootimg`)" >> $GITHUB_ENV
+            echo "HAVE_SOURCE_BOOT_IMAGE=true" >> $GITHUB_ENV || echo "⚠️ 设置 HAVE_SOURCE_BOOT_IMAGE 失败"
+        fi
         
     - name: Make boot image(制作合成新的内核镜像)
       if: env.HAVE_SOURCE_BOOT_IMAGE == 'true' && env.CHECK_FILE_IS_OK == 'true'
