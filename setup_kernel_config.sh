@@ -24,7 +24,7 @@ export USE_VERSION_PARAMS_CONFIG=false
 # 自定义编译版本配置
 export VERSION_PARAMS=
 # 是否 开启kvm(高端机可用)，百分之90的用户用不到kvm 开启(true)/关闭(false)/默认(空)
-export USE_ENABLE_KVM=false
+export USE_ENABLE_KVM=true
 # 是否 启用栈保护兼容修复 开启(true)/关闭(false)/默认(空)
 export DISABLE_STACK_PROTECTOR=false
 # 是否 开启 LXC and DOCKER
@@ -34,7 +34,7 @@ export LXC_PATCH=false
 # 是否 关闭CONFIG_ANDROID_PARANOID_NETWORK配置防止docker and lxc出现网络问题
 export ANDROID_PARANOID_NETWORK_OFF=false
 # 是否 启用专属内核配置 骁龙QUALCOMM(true)/联发科MEDIATEK(false)平台/默认(空)
-export Device_Processor_Selection=
+export Device_Processor_Selection=false
 
 # # 关闭报错的联发科视频编解码（VCU/VCODEC）
 # sed -i '/CONFIG_MTK_VCODEC/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
