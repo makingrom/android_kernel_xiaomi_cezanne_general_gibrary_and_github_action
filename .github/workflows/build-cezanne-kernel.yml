@@ -38,10 +38,10 @@ jobs:
             MTK_KERNEL_MODULES_SOURCE_DIR
             MTK_KERNEL_MODULES_SOURCE
             MTK_KERNEL_MODULES_SOURCE_BRANCH
-            USE_AARCH64_LINUX_ANDROID
-            AARCH64_LINUX_ANDROID_BRANCH
-            AARCH64_LINUX_ANDROID_SOURCE
-            AARCH64_LINUX_ANDROID_DIR
+            USE_GCC_AND_CLANG
+            GCC_AND_CLANG_BRANCH
+            GCC_AND_CLANG_SOURCE
+            GCC_AND_CLANG_DIR
             KERNEL_IMAGE_NAME
             ADD_LOCALVERSION_TO_FILENAME
             METHOD_OK
@@ -116,11 +116,18 @@ jobs:
         large-packages: true
         docker-images: true
         swap-storage: false
+
+    # - name: Set swap to 10G
+    #   uses: pierotofy/set-swap-space@master
+    #   with:
+    #     swap-size-gb: 10
         
-    - name: Set swap to 10G
-      uses: pierotofy/set-swap-space@master
+    - name: Setup ccache
+      if: env.ENABLE_CCACHE == 'true'
+      uses: hendrikmuhs/ccache-action@v1.2
       with:
-        swap-size-gb: 10
+        key: build-kernel-${{ env.DEVICE }}${{ env.LOCALVERSION }}${{ env.UPLOADNAME }}
+        max-size: 2G
         
     - name: Setup build kernel environment(构建编译内核环境)
       run: |
@@ -151,42 +158,55 @@ jobs:
       with:
         path: |
             ${{ github.workspace }}/kernel_workspace/android-kernel
-            ${{ github.workspace }}/kernel_workspace/${{ env.AARCH64_LINUX_ANDROID_DIR }}
-            ${{ github.workspace }}/kernel_workspace/${{ env.CUSTOM_GCC_64_DIR }}
+            ${{ github.workspace }}/kernel_workspace/${{ env.MTK_KERNEL_MODULES_SOURCE_DIR }}
+            ${{ github.workspace }}/kernel_workspace/${{ env.GCC_AND_CLANG_DIR }}
             ${{ github.workspace }}/kernel_workspace/${{ env.CUSTOM_CLANG_DIR }}
             ${{ github.workspace }}/kernel_workspace/${{ env.CUSTOM_GCC_64_DIR }}
             ${{ github.workspace }}/kernel_workspace/${{ env.CUSTOM_GCC_32_DIR }}
             ${{ github.workspace }}/kernel_workspace/tools
             ${{ github.workspace }}/kernel_workspace/boot-source.img
-        key: build-cache-${{ env.CACHE_VERSION }}-${{ env.ARCH }}-${{ env.KERNEL_VERSION }}-${{ env.ANDROID_VERSION }}-${{ env.KERNEL_SOURCE_BRANCH }}-${{ env.MTK_KERNEL_MODULES_SOURCE_BRANCH }}-${{ env.AARCH64_LINUX_ANDROID_BRANCH }}-${{ env.CUSTOM_CLANG_BRANCH }}-${{ env.CUSTOM_GCC_64_BRANCH }}-${{ env.CUSTOM_GCC_32_BRANCH }}-${{ env.CUSTOM_ANYKERNEL3_BRANCH }}
+        key: build-cache-${{ env.CACHE_VERSION }}-${{ env.ARCH }}-${{ env.KERNEL_VERSION }}-${{ env.ANDROID_VERSION }}-${{ env.KERNEL_SOURCE_BRANCH }}-${{ env.MTK_KERNEL_MODULES_SOURCE_BRANCH }}-${{ env.GCC_AND_CLANG_BRANCH }}-${{ env.CUSTOM_CLANG_BRANCH }}-${{ env.CUSTOM_GCC_64_BRANCH }}-${{ env.CUSTOM_GCC_32_BRANCH }}-${{ env.CUSTOM_ANYKERNEL3_BRANCH }}
         restore-keys: |
-            ${{ env.CACHE_VERSION }}-${{ env.ARCH }}-${{ env.KERNEL_VERSION }}-${{ env.ANDROID_VERSION }}-${{ env.KERNEL_SOURCE_BRANCH }}-${{ env.MTK_KERNEL_MODULES_SOURCE_BRANCH }}-${{ env.AARCH64_LINUX_ANDROID_BRANCH }}-${{ env.CUSTOM_CLANG_BRANCH }}-${{ env.CUSTOM_GCC_64_BRANCH }}-${{ env.CUSTOM_GCC_32_BRANCH }}-${{ env.CUSTOM_ANYKERNEL3_BRANCH }}
+            ${{ env.CACHE_VERSION }}-${{ env.ARCH }}-${{ env.KERNEL_VERSION }}-${{ env.ANDROID_VERSION }}-${{ env.KERNEL_SOURCE_BRANCH }}-${{ env.MTK_KERNEL_MODULES_SOURCE_BRANCH }}-${{ env.GCC_AND_CLANG_BRANCH }}-${{ env.CUSTOM_CLANG_BRANCH }}-${{ env.CUSTOM_GCC_64_BRANCH }}-${{ env.CUSTOM_GCC_32_BRANCH }}-${{ env.CUSTOM_ANYKERNEL3_BRANCH }}
         
     - name: Download Custom-Clang(下载Custom-Clang编译器)
-      if: env.USE_CUSTOM_CLANG == 'true'
+      if: env.USE_CUSTOM_CLANG != 'false' || env.USE_GCC_AND_CLANG != 'false'
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
-        if [ ! -d ${{ env.CUSTOM_CLANG_DIR }} ]; then
-            echo "📥 ${{ env.CUSTOM_CLANG_DIR }} 目录不存在，开始下载克隆..."
-            if [[ ${{ env.CUSTOM_CLANG_SOURCE }} == *'.tar.gz' ]]; then
-                wget -O clang.tar.gz ${{ env.CUSTOM_CLANG_SOURCE }}
-                mkdir ${{ env.CUSTOM_CLANG_DIR }}
-                tar -C ${{ env.CUSTOM_CLANG_DIR }}/ -zxvf clang.tar.gz
-            elif [[ ${{ env.CUSTOM_CLANG_SOURCE }} =~ git ]]; then
-                git clone ${{ env.CUSTOM_CLANG_SOURCE }} -b ${{ env.CUSTOM_CLANG_BRANCH }} ${{ env.CUSTOM_CLANG_DIR }} --depth=1
-                cd ${{ env.CUSTOM_CLANG_DIR }} && git pull
-                cd ..
-            elif [[ ${{ env.CUSTOM_CLANG_SOURCE }} == *'.zip' ]]; then
-                wget -O clang.zip ${{ env.CUSTOM_CLANG_SOURCE }}
-                mkdir ${{ env.CUSTOM_CLANG_DIR }}
-                unzip clang.zip -d ${{ env.CUSTOM_CLANG_DIR }}/
-            else
-                echo "请确认clang工具链的文件格式！！！" && exit 1
-            fi
-        else
-            echo "✅ ${{ env.CUSTOM_CLANG_DIR }} 目录已存在（缓存恢复），跳过下载！"
-        fi
 
+        if [[ "${{ env.USE_GCC_AND_CLANG }}" = "true" && "${{ env.USE_CUSTOM_CLANG }}" != "true" ]]; then
+            if [ ! -d ${{ env.GCC_AND_CLANG_DIR }} ]; then
+                echo "📥 ${{ env.GCC_AND_CLANG_BRANCH }} 目录不存在，开始下载克隆..."
+                git clone --recursive ${{ env.GCC_AND_CLANG_SOURCE }} -b ${{ env.GCC_AND_CLANG_BRANCH }} ${{ env.GCC_AND_CLANG_DIR }} --depth=1
+            else
+                echo "✅ ${{ env.GCC_AND_CLANG_DIR }} 目录已存在（缓存恢复），跳过下载！开始同步！"
+                cd ${{ env.GCC_AND_CLANG_DIR }} && git pull
+                cd ..
+            fi
+        fi
+        
+        if [[ "${{ env.USE_GCC_AND_CLANG }}" != "true" && "${{ env.USE_CUSTOM_CLANG }}" == "true" ]]; then
+            if [ ! -d ${{ env.CUSTOM_CLANG_DIR }} ]; then
+                echo "📥 ${{ env.CUSTOM_CLANG_DIR }} 目录不存在，开始下载克隆..."
+                if [[ ${{ env.CUSTOM_CLANG_SOURCE }} == *'.tar.gz' ]]; then
+                    wget -O clang.tar.gz ${{ env.CUSTOM_CLANG_SOURCE }}
+                    mkdir ${{ env.CUSTOM_CLANG_DIR }}
+                    tar -C ${{ env.CUSTOM_CLANG_DIR }}/ -zxvf clang.tar.gz
+                elif [[ ${{ env.CUSTOM_CLANG_SOURCE }} =~ git ]]; then
+                    git clone ${{ env.CUSTOM_CLANG_SOURCE }} -b ${{ env.CUSTOM_CLANG_BRANCH }} ${{ env.CUSTOM_CLANG_DIR }} --depth=1
+                    cd ${{ env.CUSTOM_CLANG_DIR }} && git pull
+                    cd ..
+                elif [[ ${{ env.CUSTOM_CLANG_SOURCE }} == *'.zip' ]]; then
+                    wget -O clang.zip ${{ env.CUSTOM_CLANG_SOURCE }}
+                    mkdir ${{ env.CUSTOM_CLANG_DIR }}
+                    unzip clang.zip -d ${{ env.CUSTOM_CLANG_DIR }}/
+                else
+                    echo "请确认clang工具链的文件格式！！！" && exit 1
+                fi
+            else
+                echo "✅ ${{ env.CUSTOM_CLANG_DIR }} 目录已存在（缓存恢复），跳过下载！"
+            fi
+        fi
         
     - name: Download Custom-Gcc
       if: env.USE_CUSTOM_GCC_64 == 'true' || env.USE_CUSTOM_GCC_32 == 'true'
@@ -237,37 +257,20 @@ jobs:
             echo "GCC_32=CROSS_COMPILE_ARM32=$GITHUB_WORKSPACE/kernel_workspace/${{ env.CUSTOM_GCC_32_DIR }}/bin/${{ env.CUSTOM_GCC_32_BIN }}" >> $GITHUB_ENV || echo "⚠️ 写入 gcc-32 失败"
         fi
         
-    - name: Download mkbootimg tools(下载mkbootimg解包工具)
-      if: env.BUILD_BOOT_IMG == 'true'
-      run: |
-        cd $GITHUB_WORKSPACE/kernel_workspace
-        if [ ! -d "tools" ]; then
-            echo "📥 tools 目录不存在，开始下载克隆..."
-            git clone https://android.googlesource.com/platform/system/tools/mkbootimg tools -b master-kernel-build-2022 --depth=1
-        else
-            echo "✅ tools 目录已存在（缓存恢复），跳过下载！"
-        fi
         
-    - name: Download kernel source(下载内核源码以及工具链)
+    - name: Download kernel source(下载内核源码以及驱动模块)
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
-        if [[ "${{ env.USE_AARCH64_LINUX_ANDROID }}" = "true" && "${{ env.USE_CUSTOM_CLANG }}" == "false" ]]; then
-            if [ ! -d ${{ env.AARCH64_LINUX_ANDROID_DIR }} ]; then
-                echo "📥 ${{ env.AARCH64_LINUX_ANDROID_BRANCH }} 目录不存在，开始下载克隆..."
-                git clone --recursive ${{ env.AARCH64_LINUX_ANDROID_SOURCE }} -b ${{ env.AARCH64_LINUX_ANDROID_BRANCH }} ${{ env.AARCH64_LINUX_ANDROID_DIR }} --depth=1
-            else
-                echo "✅ ${{ env.AARCH64_LINUX_ANDROID_DIR }} 目录已存在（缓存恢复），跳过下载！开始同步！"
-                cd ${{ env.AARCH64_LINUX_ANDROID_DIR }} && git pull
-                cd ..
-            fi
-        fi
+        
         if [ ! -d "android-kernel" ]; then
             echo "📥 android-kernel 目录不存在，开始下载克隆..."
             git clone --recursive ${{ env.KERNEL_SOURCE }} -b ${{ env.KERNEL_SOURCE_BRANCH }} android-kernel --depth=1
             cd android-kernel
+            cd ..
         else
             echo "✅ android-kernel 目录已存在（缓存恢复），跳过下载！开始同步！"
             cd android-kernel && git pull
+            cd ..
         fi
         if [ "${{ env.USE_MTK_KERNEL_MODULES }}" = "true" ]; then
             if [ ! -d ${{ env.MTK_KERNEL_MODULES_SOURCE_DIR }} ]; then
@@ -299,7 +302,28 @@ jobs:
             echo "FORMAT_MKBOOTING=$(echo `tools/unpack_bootimg.py --boot_img=boot-source.img --format mkbootimg`)" >> $GITHUB_ENV
             echo "HAVE_SOURCE_BOOT_IMAGE=true" >> $GITHUB_ENV || echo "⚠️ 设置 HAVE_SOURCE_BOOT_IMAGE 失败"
         fi
-  
+
+    - name: Download mkbootimg tools(下载mkbootimg解包工具)
+      if: env.BUILD_BOOT_IMG == 'true'
+      run: |
+        cd $GITHUB_WORKSPACE/kernel_workspace
+        if [ ! -d "tools" ]; then
+            echo "📥 tools 目录不存在，开始下载克隆..."
+            git clone https://android.googlesource.com/platform/system/tools/mkbootimg tools -b master-kernel-build-2022 --depth=1
+        else
+            echo "✅ tools 目录已存在（缓存恢复），跳过下载！"
+        fi
+        
+    - name: Setup KernelSU(开启KSU)
+      if: env.ENABLE_KERNELSU == 'true'
+      run: |
+        cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
+        
+        curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s ${{ env.KERNELSU_TAG }}
+        KSU_VERSION=$(cd KernelSU && expr $(/usr/bin/git rev-list --count HEAD) + 10200)
+        echo "UPLOADNAME=-KernelSU_$KSU_VERSION" >> $GITHUB_ENV || echo "⚠️ 写入 UPLOADNAME 失败"
+        echo "✅ kernelsu 的 setup.sh 下载完成"
+        
     - name: Setup Configuration for Kernel(开启内核选项)
       run: |
         echo "当前目录：$(pwd)"
@@ -314,23 +338,8 @@ jobs:
             echo "✅ kernel-config 设置完成"
         fi
         
-    - name: Setup KernelSU(开启KSU)
-      if: env.ENABLE_KERNELSU == 'true'
-      run: |
-        cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
-        
-        curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -s ${{ env.KERNELSU_TAG }}
-        KSU_VERSION=$(cd KernelSU && expr $(/usr/bin/git rev-list --count HEAD) + 10200)
-        echo "UPLOADNAME=-KernelSU_$KSU_VERSION" >> $GITHUB_ENV || echo "⚠️ 写入 UPLOADNAME 失败"
 
 
-    - name: Setup ccache
-      if: env.ENABLE_CCACHE == 'true'
-      uses: hendrikmuhs/ccache-action@v1.2
-      with:
-        key: build-kernel-${{ env.DEVICE }}${{ env.LOCALVERSION }}${{ env.UPLOADNAME }}
-        max-size: 2G
-        
     - name: Build kernel
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
@@ -498,18 +507,24 @@ jobs:
       with:
         name: boot${{ env.LOCALVERSION }}${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
         path: kernel_workspace/boot.img
-        
+
+    - name: 强制删除旧缓存
+      run: |
+        gh cache delete "${{ env.CACHE_VERSION }}-${{ env.ARCH }}-${{ env.KERNEL_VERSION }}-${{ env.ANDROID_VERSION }}-${{ env.KERNEL_SOURCE_BRANCH }}-${{ env.MTK_KERNEL_MODULES_SOURCE_BRANCH }}-${{ env.GCC_AND_CLANG_BRANCH }}-${{ env.CUSTOM_CLANG_BRANCH }}-${{ env.CUSTOM_GCC_64_BRANCH }}-${{ env.CUSTOM_GCC_32_BRANCH }}-${{ env.CUSTOM_ANYKERNEL3_BRANCH }}" || true
+      env:
+        GH_TOKEN: ${{ github.token }}
+            
     - name: 强制保存缓存
       if: always()  # 关键：无论前面步骤成功/失败，都执行
       uses: actions/cache/save@v3
       with:
         path: |
           ${{ github.workspace }}/kernel_workspace/android-kernel
-          ${{ github.workspace }}/kernel_workspace/${{ env.AARCH64_LINUX_ANDROID_DIR }}
-          ${{ github.workspace }}/kernel_workspace/${{ env.CUSTOM_GCC_64_DIR }}
+          ${{ github.workspace }}/kernel_workspace/${{ env.MTK_KERNEL_MODULES_SOURCE_DIR }}
+          ${{ github.workspace }}/kernel_workspace/${{ env.GCC_AND_CLANG_DIR }}
           ${{ github.workspace }}/kernel_workspace/${{ env.CUSTOM_CLANG_DIR }}
           ${{ github.workspace }}/kernel_workspace/${{ env.CUSTOM_GCC_64_DIR }}
           ${{ github.workspace }}/kernel_workspace/${{ env.CUSTOM_GCC_32_DIR }}
           ${{ github.workspace }}/kernel_workspace/tools
           ${{ github.workspace }}/kernel_workspace/boot-source.img
-        key: ${{ env.CACHE_VERSION }}-${{ env.ARCH }}-${{ env.KERNEL_VERSION }}-${{ env.ANDROID_VERSION }}-${{ env.KERNEL_SOURCE_BRANCH }}-${{ env.MTK_KERNEL_MODULES_SOURCE_BRANCH }}-${{ env.AARCH64_LINUX_ANDROID_BRANCH }}-${{ env.CUSTOM_CLANG_BRANCH }}-${{ env.CUSTOM_GCC_64_BRANCH }}-${{ env.CUSTOM_GCC_32_BRANCH }}-${{ env.CUSTOM_ANYKERNEL3_BRANCH }}
+        key: ${{ env.CACHE_VERSION }}-${{ env.ARCH }}-${{ env.KERNEL_VERSION }}-${{ env.ANDROID_VERSION }}-${{ env.KERNEL_SOURCE_BRANCH }}-${{ env.MTK_KERNEL_MODULES_SOURCE_BRANCH }}-${{ env.GCC_AND_CLANG_BRANCH }}-${{ env.CUSTOM_CLANG_BRANCH }}-${{ env.CUSTOM_GCC_64_BRANCH }}-${{ env.CUSTOM_GCC_32_BRANCH }}-${{ env.CUSTOM_ANYKERNEL3_BRANCH }}
