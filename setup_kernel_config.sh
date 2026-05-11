@@ -287,34 +287,80 @@ fi
 
 echo "====================== 处理器平台选择（骁龙/联发科）======================"
 if [ "${Device_Processor_Selection}" = "true" ]; then
-    echo "✅ 启用 【骁龙平台】 专属配置"
+
+    echo "✅ 启用 【骁龙(QCOM)平台】 专属配置（智能判断：关则开，开则不动，不存在则添加）"
     sed -i 's/CONFIG_MTK_.*=y//g' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
     sed -i '/CONFIG_MTK_/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
 
-    echo "CONFIG_QCOM_SCM=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    echo "CONFIG_QCOM_CLK=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    echo "CONFIG_QCOM_SPMI=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    echo "CONFIG_MSM_SLEEP=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    echo "CONFIG_QCOM_RTP=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    echo "CONFIG_QCOM_SPSS=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    echo "CONFIG_QCOM_CLK_V2=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-fi
+    for cfg in \
+    CONFIG_QCOM_SCM \
+    CONFIG_QCOM_CLK \
+    CONFIG_QCOM_SPMI \
+    CONFIG_MSM_SLEEP \
+    CONFIG_QCOM_RTP \
+    CONFIG_QCOM_SPSS \
+    CONFIG_QCOM_CLK_V2 \
+    ; do
+        if grep -q "${cfg}=n" arch/${ARCH}/configs/${KERNEL_CONFIG}; then
+            # 如果是关闭 → 打开
+            sed -i "s/${cfg}=n/${cfg}=y/g" arch/${ARCH}/configs/${KERNEL_CONFIG}
+        elif ! grep -q "${cfg}=" arch/${ARCH}/configs/${KERNEL_CONFIG}; then
+            # 如果不存在 → 添加并打开
+            echo "${cfg}=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+        fi
+        # 如果已经是=y → 不做任何操作
+    done
+    # ======== 特别处理：必须关闭的参数）========
+    echo "✅ 智能处理已知冲突，强制关闭"
+    for discfg in \
+    ; do
+        if grep -q "${discfg}=y" arch/${ARCH}/configs/${KERNEL_CONFIG}; then
+            sed -i "s/${discfg}=y/${discfg}=n/g" arch/${ARCH}/configs/${KERNEL_CONFIG}
+        fi
+        if ! grep -q "${discfg}=" arch/${ARCH}/configs/${KERNEL_CONFIG}; then
+            echo "${discfg}=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+        fi
+    done
+    
+elif [ "${Device_Processor_Selection}" = "false" ]; then
 
-if [ "${Device_Processor_Selection}" = "false" ]; then
-    echo "✅ 启用 【联发科平台】 专属配置"
+    echo "✅ 启用 【联发科平台】 专属配置（智能判断：关则开，开则不动，不存在则添加）"
     sed -i 's/CONFIG_QCOM_.*=y//g' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
     sed -i '/CONFIG_QCOM_/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
 
-    echo "CONFIG_MTK_EMI=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    echo "CONFIG_MTK_PMIC=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    echo "CONFIG_MTK_CLKMGR=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    echo "CONFIG_MTK_COMBO=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    echo "CONFIG_MTK_NFC_SUPPORT=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    echo "CONFIG_MTK_DRV=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    echo "CONFIG_MTK_BOOT=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    echo "CONFIG_MTK_FB=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    echo "CONFIG_MTK_GPU=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    sed -i 's/CONFIG_MTK_NFC_CLKBUF_ENABLE=y/CONFIG_MTK_NFC_CLKBUF_ENABLE=n/g' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
+    # 批量 MTK 配置项：关闭→打开，打开→不动，不存在→添加
+    for cfg in \
+    CONFIG_MTK_EMI \
+    CONFIG_MTK_PMIC \
+    CONFIG_MTK_CLKMGR \
+    CONFIG_MTK_COMBO \
+    CONFIG_MTK_NFC_SUPPORT \
+    CONFIG_MTK_DRV \
+    CONFIG_MTK_BOOT \
+    CONFIG_MTK_GPU \
+    CONFIG_MTK_NFC_CLKBUF_ENABLE \
+    ; do
+        if grep -q "${cfg}=n" arch/${ARCH}/configs/${KERNEL_CONFIG}; then
+            # 如果是关闭 → 打开
+            sed -i "s/${cfg}=n/${cfg}=y/g" arch/${ARCH}/configs/${KERNEL_CONFIG}
+        elif ! grep -q "${cfg}=" arch/${ARCH}/configs/${KERNEL_CONFIG}; then
+            # 如果不存在 → 添加并打开
+            echo "${cfg}=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+        fi
+        # 如果已经是=y → 不做任何操作
+    done
+    # ======== 特别处理：必须关闭的参数）========
+    echo "✅ 智能处理已知冲突，强制关闭"
+    for discfg in \
+    CONFIG_MTK_FB \
+    ; do
+        if grep -q "${discfg}=y" arch/${ARCH}/configs/${KERNEL_CONFIG}; then
+            sed -i "s/${discfg}=y/${discfg}=n/g" arch/${ARCH}/configs/${KERNEL_CONFIG}
+        fi
+        if ! grep -q "${discfg}=" arch/${ARCH}/configs/${KERNEL_CONFIG}; then
+            echo "${discfg}=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+        fi
+    done
 fi
 
 echo "======================== LLVM_CONFIG ==============================="
