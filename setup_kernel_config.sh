@@ -1,22 +1,55 @@
 #!/bin/bash
 set -e
 
+echo "================================================================"
+echo "======================  正在进行变量配置...  ====================="
 # 自动从环境变量读取所有配置（和 GitHub Action 环境完全兼容）
 ARCH="${ARCH}"
 KERNEL_CONFIG="${KERNEL_CONFIG}"
 ANDROID_VERSION="${ANDROID_VERSION}"
 KERNEL_VERSION="${KERNEL_VERSION}"
 
-# 关闭报错的联发科视频编解码（VCU/VCODEC）
-sed -i '/CONFIG_MTK_VCODEC/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
-sed -i '/CONFIG_MTK_VCU/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
-sed -i '/CONFIG_VIDEO_MEDIATEK_VCU/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
+# 是否 应用 KernelSU 补丁 开启(true)/关闭(false)/默认(空)
+export APPLY_KSU_PATCH=
+# 是否 添加 Kprobes 调试配置（KernelSU 部分功能依赖 Kprobes）开启(true)/关闭(false)/默认(空)
+export ADD_KPROBES_CONFIG=false
+# 是否 添加 OverlayFS 配置（文件系统叠加，KernelSU 挂载模块需要）开启(true)/关闭(false)/默认(空)
+export ADD_OVERLAYFS_CONFIG=false
+# 是否 开启 LTO（链接时优化）开启(true)/关闭(false)/默认(空)
+export USE_DISABLE_LTO=false
+# 是否 开启「警告转错误」（-Werror）开启(true)/关闭(false)/默认(空)
+export DISABLE_CC_WERROR=false
+# 是否 使用自定义编译版本配置 开启(true)/关闭(默认false)
+export USE_VERSION_PARAMS_CONFIG=false
+# 自定义编译版本配置
+export VERSION_PARAMS=
+# 是否 开启kvm(高端机可用)，百分之90的用户用不到kvm 开启(true)/关闭(false)/默认(空)
+export USE_ENABLE_KVM=false
+# 是否 启用栈保护兼容修复 开启(true)/关闭(false)/默认(空)
+export DISABLE_STACK_PROTECTOR=false
+# 是否 开启 LXC and DOCKER
+export LXC_DOCKER=false
+# 是否 打入 LXC 补丁
+export LXC_PATCH=false
+# 是否 关闭CONFIG_ANDROID_PARANOID_NETWORK配置防止docker and lxc出现网络问题
+export ANDROID_PARANOID_NETWORK_OFF=false
+# 是否 启用专属内核配置 骁龙QUALCOMM(true)/联发科MEDIATEK(false)平台/默认(空)
+export Device_Processor_Selection=
 
-echo "CONFIG_MTK_VCODEC=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-echo "CONFIG_MTK_VCU=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-echo "CONFIG_VIDEO_MEDIATEK_VCU=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+# # 关闭报错的联发科视频编解码（VCU/VCODEC）
+# sed -i '/CONFIG_MTK_VCODEC/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
+# sed -i '/CONFIG_MTK_VCU/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
+# sed -i '/CONFIG_VIDEO_MEDIATEK_VCU/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
 
-# ===================== KSU 配置 =====================
+# echo "CONFIG_MTK_VCODEC=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+# echo "CONFIG_MTK_VCU=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+# echo "CONFIG_VIDEO_MEDIATEK_VCU=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+
+
+echo "======================   变量配置完成...    ======================="
+echo " "
+echo "=================================================================="
+echo " =======================   开始配置 KSU     ======================="
 if [ "${APPLY_KSU_PATCH}" = "true" ]; then
     echo "当前目录：$(pwd)"
     wget https://raw.githubusercontent.com/Frostleaft07/KernelSU-Patch/refs/heads/main/hooks-k4.19/official_hook_4.19.patch
@@ -52,7 +85,7 @@ if [ "${APPLY_KSU_PATCH}" = "" ]; then
     echo "✅ 保持默认 KSU 配置"
 fi
 
-# ===================== KPROBES =====================
+echo "========================== KPROBES =========================="
 if [ "${ADD_KPROBES_CONFIG}" = "true" ]; then
     sed -i '/CONFIG_MODULES/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
     sed -i '/CONFIG_KPROBES/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
@@ -83,7 +116,7 @@ if [ "${ADD_KPROBES_CONFIG}" = "" ]; then
     echo "✅ 保持默认 kprobes 配置"
 fi
 
-# ===================== OverlayFS =====================
+echo "========================= OverlayFS ==========================="
 if [ "${ADD_OVERLAYFS_CONFIG}" = "true" ]; then
     sed -i '/CONFIG_OVERLAY_FS/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
     echo "CONFIG_OVERLAY_FS=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
@@ -100,7 +133,7 @@ if [ "${ADD_OVERLAYFS_CONFIG}" = "" ]; then
     echo "✅ 保持默认 OverlayFS 配置"
 fi
 
-# ===================== LTO =====================
+echo "========================== LTO ================================="
 if [ "${USE_DISABLE_LTO}" = "true" ]; then
     sed -i 's/CONFIG_LTO=n/CONFIG_LTO=y/' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
     sed -i 's/CONFIG_LTO_CLANG=n/CONFIG_LTO_CLANG=y/' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
@@ -121,7 +154,7 @@ if [ "${USE_DISABLE_LTO}" = "" ]; then
     echo "✅ 保持默认 LTO 配置"
 fi
 
-# ===================== CC_WERROR =====================
+echo "========================= CC_WERROR ==============================="
 if [ "${DISABLE_CC_WERROR}" = "true" ]; then
     sed -i '/CONFIG_CC_WERROR/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
     echo "CONFIG_CC_WERROR=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
@@ -138,17 +171,7 @@ if [ "${DISABLE_CC_WERROR}" = "" ]; then
     echo "✅ 保持默认错误警告配置"
 fi
 
-# ===================== LLVM_CONFIG =====================
-if [ "${LLVM_CONFIG}" = "true" ]; then
-    LLVM_PARAMS=" LLVM=1 LLVM_IAS=1"
-    echo "LLVM_PARAMS=$LLVM_PARAMS" >> $GITHUB_ENV 2>/dev/null
-    echo "✅ 编译使用 LLVM_CONFIG 参数"
-elif [ "${LLVM_CONFIG}" = "false" ]; then
-    echo "LLVM_PARAMS=$LLVM_PARAMS" >> $GITHUB_ENV 2>/dev/null
-    echo "✅ 编译使用 LLVM_CONFIG 参数"
-fi
-
-# ===================== VERSION PARAMS =====================
+echo "======================= VERSION PARAMS ============================="
 if [ "${USE_VERSION_PARAMS_CONFIG}" = "false" ]; then
     ANDROID_VER_INT=$(echo $ANDROID_VERSION | awk '{print int($0)}')
 
@@ -170,12 +193,15 @@ if [ "${USE_VERSION_PARAMS_CONFIG}" = "false" ]; then
             VERSION_PARAMS="CONFIG_LTO_CLANG=y"
         fi
     fi
-
+    echo "VERSION_PARAMS=$VERSION_PARAMS" >> $GITHUB_ENV 2>/dev/null
+    echo "VERSION_PARAMS = $VERSION_PARAMS"
+    echo "✅ VERSION_PARAMS 已赋值..."
+else
     echo "VERSION_PARAMS=$VERSION_PARAMS" >> $GITHUB_ENV 2>/dev/null
     echo "✅ VERSION_PARAMS 已赋值..."
 fi
 
-# ===================== KVM =====================
+echo "============================= KVM ================================"
 if [ "${USE_ENABLE_KVM}" = "true" ]; then
     echo "CONFIG_KVM=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
     echo "CONFIG_KVM_ARM64=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
@@ -200,7 +226,7 @@ if [ "${USE_ENABLE_KVM}" = "" ]; then
     echo "✅ 保持内核默认 KVM 状态"
 fi
 
-# ===================== STACK PROTECTOR =====================
+echo "======================== STACK PROTECTOR ==========================="
 if [ "${DISABLE_STACK_PROTECTOR}" = "true" ]; then
     sed -i 's/# CONFIG_CC_STACKPROTECTOR_STRONG is not set/CONFIG_CC_STACKPROTECTOR_STRONG=y/g' arch/${ARCH}/configs/${KERNEL_CONFIG}
     sed -i 's/# CONFIG_CC_STACKPROTECTOR is not set/CONFIG_CC_STACKPROTECTOR=y/g' arch/${ARCH}/configs/${KERNEL_CONFIG}
@@ -217,7 +243,7 @@ if [ "${DISABLE_STACK_PROTECTOR}" = "" ]; then
     echo "✅ 保留默认栈保护配置"
 fi
 
-# ===================== LXC DOCKER =====================
+echo "============================= LXC DOCKER ============================"
 if [ "${LXC_DOCKER}" = "true" ]; then
     if [ ! -f LXC-DOCKER-OPEN-CONFIG.sh ]; then
         wget https://raw.githubusercontent.com/makingrom/LXC-DOCKER-KernelSU_Action/refs/heads/main/Lxc_Docker/LXC-DOCKER-OPEN-CONFIG.sh
@@ -246,7 +272,7 @@ if [ "${LXC_PATCH}" = "true" ]; then
     echo "✅ LXC补丁执行完毕"
 fi
 
-# ===================== ANDROID PARANOID NETWORK =====================
+echo "======================= ANDROID PARANOID NETWORK ======================="
 if [ "${ANDROID_PARANOID_NETWORK_OFF}" = "true" ]; then
     sed -i '/CONFIG_ANDROID_PARANOID_NETWORK/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
     echo "# CONFIG_ANDROID_PARANOID_NETWORK is not set" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
@@ -259,7 +285,7 @@ if [ "${ANDROID_PARANOID_NETWORK_OFF}" = "false" ]; then
     echo "✅ ANDROID_PARANOID_NETWORK 已开启"
 fi
 
-# ===================== 处理器平台选择（骁龙/联发科）=====================
+echo "====================== 处理器平台选择（骁龙/联发科）======================"
 if [ "${Device_Processor_Selection}" = "true" ]; then
     echo "✅ 启用 【骁龙平台】 专属配置"
     sed -i 's/CONFIG_MTK_.*=y//g' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
@@ -291,4 +317,15 @@ if [ "${Device_Processor_Selection}" = "false" ]; then
     sed -i 's/CONFIG_MTK_NFC_CLKBUF_ENABLE=y/CONFIG_MTK_NFC_CLKBUF_ENABLE=n/g' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
 fi
 
+echo "======================== LLVM_CONFIG ==============================="
+if [ "${LLVM_CONFIG}" = "true" ]; then
+    LLVM_PARAMS=" LLVM=1 LLVM_IAS=1"
+    echo "LLVM_PARAMS=$LLVM_PARAMS" >> $GITHUB_ENV 2>/dev/null
+    echo "✅ 编译使用 LLVM_CONFIG 参数"
+elif [ "${LLVM_CONFIG}" = "false" ]; then
+    echo "LLVM_PARAMS=$LLVM_PARAMS" >> $GITHUB_ENV 2>/dev/null
+    echo "✅ 编译使用 LLVM_CONFIG 参数"
+fi
+
 echo -e "\n🎉 内核配置脚本执行完成！"
+echo "======================================================================"
