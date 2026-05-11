@@ -99,11 +99,15 @@ if [ ${NEED_DTBO} = "true" ]; then
     # echo "CONFIG_OF_DTB_OVERLAY_SUPPORT=y" >> out/.config
     echo "CONFIG_BUILD_ARM64_DTBO_IMAGES=y" >> out/.config
     echo "CONFIG_DTBO_ENABLE=y" >> out/.config
+    echo "CONFIG_BUILD_ARM64_DTBO_IMAGES = ${CONFIG_BUILD_ARM64_DTBO_IMAGES}"
+    echo "CONFIG_DTBO_ENABLE = ${CONFIG_DTBO_ENABLE}"
 else
     # echo "CONFIG_OF_OVERLAY=n" >> out/.config
     # echo "CONFIG_OF_DTB_OVERLAY_SUPPORT=n" >> out/.config
     echo "CONFIG_BUILD_ARM64_DTBO_IMAGES=n" >> out/.config
     echo "CONFIG_DTBO_ENABLE=n" >> out/.config
+    echo "CONFIG_BUILD_ARM64_DTBO_IMAGES = ${CONFIG_BUILD_ARM64_DTBO_IMAGES}"
+    echo "CONFIG_DTBO_ENABLE = ${CONFIG_DTBO_ENABLE}"
 fi
 
 echo "==============================      completed!    =============================="
