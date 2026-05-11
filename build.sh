@@ -36,15 +36,9 @@ export LC_ALL=C
 export CLANG_FORCE_COLOR_DIAGNOSTICS=0
 export KBUILD_VERBOSE=0
 
-# Toolchain paths
-# CLANG_PATH="$(pwd)/tools/clang-r383902"
-# GCC_PATH="$(pwd)/tools/aarch64-linux-android-4.9"
-# export PATH=${CLANG_PATH}/bin:${GCC_PATH}/bin:$PATH
-# export LD_LIBRARY_PATH=${CLANG_PATH}/lib64:$LD_LIBRARY_PATH
-
 # proton-clang 工具链
-# export CLANG_PATH="$(pwd)/../${AARCH64_LINUX_ANDROID_DIR}"
-# export GCC_PATH="$(pwd)/../${AARCH64_LINUX_ANDROID_DIR}"
+# export CLANG_PATH="$(pwd)/../${GCC_AND_CLANG_DIR}"
+# export GCC_PATH="$(pwd)/../${GCC_AND_CLANG_DIR}"
 # export PATH="${CLANG_PATH}/bin:$PATH"
 # export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
 
@@ -61,19 +55,6 @@ echo "======================           completed!               ================
 echo "================================================================================"
 
 echo "  "
-
-# # 关闭报错的联发科视频编解码（VCU/VCODEC）
-# sed -i '/CONFIG_MTK_VCODEC/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
-# sed -i '/CONFIG_MTK_VCU/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
-# sed -i '/CONFIG_VIDEO_MEDIATEK_VCU/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
-
-# echo "CONFIG_MTK_VCODEC=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-# echo "CONFIG_MTK_VCU=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-# echo "CONFIG_VIDEO_MEDIATEK_VCU=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-# echo "CONFIG_MTK_VCODEC_DEC=n" >> arch/arm64/configs/${KERNEL_CONFIG}
-# echo "CONFIG_MTK_VCODEC_ENC=n" >> arch/arm64/configs/${KERNEL_CONFIG}
-# echo "CONFIG_MTK_VCU_IPC=n" >> arch/arm64/configs/${KERNEL_CONFIG}
-
 echo "  "
 
 echo -e "\n================================================================================"
@@ -84,7 +65,7 @@ make ARCH=arm64 CC=clang HOSTCC=gcc \
     O=out CLANG_TRIPLE=aarch64-linux-gnu- \
     CROSS_COMPILE=aarch64-linux-android- \
     LD=ld.lld \
-    cezanne_user_defconfig
+    ${DEFCONFIG}
 echo "=========================         completed!           ========================="
 echo "================================================================================"
 
@@ -96,30 +77,11 @@ echo "=========================  Applying custom configs...  ===================
 echo "CONFIG_WERROR=n" >> out/.config
 echo "# CONFIG_BLK_INLINE_ENCRYPTION is not set" >> out/.config
 echo "CONFIG_BLK_INLINE_ENCRYPTION=n" >> out/.config
-echo "  completed!"
+echo "==============================      completed!    =============================="
 echo "================================================================================"
 
 
 echo "  "
-
-# # 强制关闭所有冲突的 VCU/VCODEC 配置
-# scripts/config --file out/.config --disable MTK_VCU
-# scripts/config --file out/.config --disable MTK_VCODEC
-# scripts/config --file out/.config --disable MTK_VCODEC_DEC
-# scripts/config --file out/.config --disable MTK_VCODEC_ENC
-# scripts/config --file out/.config --disable VIDEO_MEDIATEK_VCU
-
-# # 强制 MTK_VCU 只编译进内核，禁止编译成模块（=y 内置，=m 模块）
-# scripts/config --file out/.config --set-val MTK_VCU y
-# scripts/config --file out/.config --disable MTK_VCU_MODULE
-# scripts/config --file out/.config --disable MTK_VCODEC_MODULE
-
-# 官方正确修复：开启 VCU 配置，解决所有 undefined / built-in.o 错误
-# ==============================================================================
-# scripts/config --file out/.config --enable MTK_VCU
-# scripts/config --file out/.config --enable VIDEO_MEDIATEK_VCU
-# scripts/config --file out/.config --disable VIDEO_MEDIATEK_VCU_MODULE
-# make O=out olddefconfig > /dev/null 2>&1
 echo "  "
 
 echo -e "\n==============================================================================="
@@ -144,20 +106,15 @@ echo "HOSTCC = $HOSTCC"
 echo "HOSTAS = $HOSTAS"
 echo "HOSTLD = $HOSTLD"
 echo "HOSTAR = $HOSTAR"
+echo "==============================================================================="
 echo "CLANG_PATH = $CLANG_PATH"
 echo "GCC_PATH = $GCC_PATH"
 echo "PATH = $PATH"
 echo "LD_LIBRARY_PATH = $LD_LIBRARY_PATH"
+echo "==============================================================================="
 echo "nproc = $(nproc)"
-echo "==============================================================================="
-grep -r "MTK_VCU" --include=Kconfig | grep -E "select|default"
-echo "==============================================================================="
-# 查找所有 Kconfig 里 select / depends on MTK_VCU 的地方
-grep -r "MTK_VCU" --include="Kconfig" ./
-echo "==============================================================================="
 # 查找所有 Makefile 里调用 mtk-vcu 的地方
-grep -r "mtk-vcu" --include="Makefile" ./
-echo "==============================================================================="
+# grep -r "mtk-vcu" --include="Makefile" ./
 free -h
 ${CROSS_COMPILE}ld -v
 ld.lld --version
@@ -174,7 +131,7 @@ make ARCH=arm64 CC=clang HOSTCC=gcc \
     O=out CLANG_TRIPLE=aarch64-linux-gnu- \
     CROSS_COMPILE=aarch64-linux-android- \
     LD=ld.lld \
-    -j2 KCFLAGS="-w"
+    -j4 KCFLAGS="-w"
 echo "=========================      Build completed!        ========================="
 echo "================================================================================"
 
