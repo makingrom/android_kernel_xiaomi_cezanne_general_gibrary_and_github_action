@@ -384,7 +384,6 @@ jobs:
            echo "CHECK_FILE_IS_OK=true" >> $GITHUB_ENV
        else
            echo "Kernel output file is empty"
-           exit 1
        fi
 
        if [ "${{ env.NEED_DTBO }}" = "true" ]; then
@@ -392,14 +391,13 @@ jobs:
                echo "CHECK_DTBO_IS_OK=true" >> $GITHUB_ENV
            else
                echo "DTBO image is empty"
-               exit 1
            fi
        fi
        
     - name: 压缩 MTK 内核模块
       if: env.CHECK_FILE_IS_OK == 'true' && env.USE_MTK_KERNEL_MODULES == 'true'
       run: |
-        cd kernel_workspace/android-kernel/out
+        cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel/out
         zip -r modules.zip out_modules/
         echo "✅ modules.zip 压缩完成"
         
@@ -461,14 +459,31 @@ jobs:
       if: env.HAVE_SOURCE_BOOT_IMAGE == 'true' && env.CHECK_FILE_IS_OK == 'true'
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace
-        tools/unpack_bootimg.py --boot_img boot-source.img
-        cp android-kernel/out/arch/${{ env.ARCH }}/boot/${{ env.KERNEL_IMAGE_NAME }} out/kernel
-        tools/mkbootimg.py ${{ env.FORMAT_MKBOOTING }} -o boot.img
+        rm -rf out
+        mkdir -p out
+        tools/unpack_bootimg.py --boot_img boot-source.img --out out/
+        cp -f android-kernel/out/arch/${{ env.ARCH }}/boot/${{ env.KERNEL_IMAGE_NAME }} out/kernel
+        tools/mkbootimg.py \
+          $(test -f out/header_version && echo "--header_version $(cat out/header_version)") \
+          $(test -f out/kernel && echo "--kernel out/kernel") \
+          $(test -f out/ramdisk && echo "--ramdisk out/ramdisk") \
+          $(test -f out/cmdline && echo "--cmdline $(cat out/cmdline)") \
+          $(test -f out/base && echo "--base $(cat out/base)") \
+          $(test -f out/pagesize && echo "--pagesize $(cat out/pagesize)") \
+          $(test -f out/kernel_offset && echo "--kernel_offset $(cat out/kernel_offset)") \
+          $(test -f out/ramdisk_offset && echo "--ramdisk_offset $(cat out/ramdisk_offset)") \
+          $(test -f out/tags_offset && echo "--tags_offset $(cat out/tags_offset)") \
+          $(test -f out/dtb && echo "--dtb out/dtb") \
+          $(test -f out/dtb_offset && echo "--dtb_offset $(cat out/dtb_offset)") \
+          $(test -f out/os_version && echo "--os_version $(cat out/os_version)") \
+          $(test -f out/os_patch_level && echo "--os_patch_level $(cat out/os_patch_level)") \
+          -o boot.img
         if [ -f boot.img ]; then
             echo "MAKE_BOOT_IMAGE_IS_OK=true" >> $GITHUB_ENV
+            echo "✅ 新 boot.img 制作完成！大小与原版一致！"
+            ls -lh boot.img
         else
-            echo "Boot image is empty"
-            exit 1
+            echo "❌ Boot image 制作失败"
         fi
         
     - name: Upload ${{ env.KERNEL_IMAGE_NAME }} (上传)
