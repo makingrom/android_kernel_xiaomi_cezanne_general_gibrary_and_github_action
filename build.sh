@@ -14,6 +14,12 @@ export NEED_DTBO=false
 export BUILD_BOOT_IMG=true
 # 原始 boot.img 的下载地址（用于拼接内核镜像生成新 boot.img）
 export SOURCE_BOOT_IMAGE=https://raw.githubusercontent.com/makingrom/LXC-DOCKER-KernelSU_Action/refs/heads/main/boot/boot.img
+echo "================================================================================"
+echo "KERNEL_IMAGE_NAME=${KERNEL_IMAGE_NAME}" >> $GITHUB_ENV
+echo "MTK_KERNEL_MODULES_UPLOAD=${MTK_KERNEL_MODULES_UPLOAD}" >> $GITHUB_ENV
+echo "NEED_DTBO=${NEED_DTBO}" >> $GITHUB_ENV
+echo "BUILD_BOOT_IMG=${BUILD_BOOT_IMG}" >> $GITHUB_ENV
+echo "SOURCE_BOOT_IMAGE=${SOURCE_BOOT_IMAGE}" >> $GITHUB_ENV
 echo "=======================           completed!             ======================="
 echo "================================================================================"
 
