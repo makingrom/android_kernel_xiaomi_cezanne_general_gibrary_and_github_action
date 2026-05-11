@@ -478,6 +478,10 @@ jobs:
           $(test -f out/os_version && echo "--os_version $(cat out/os_version)") \
           $(test -f out/os_patch_level && echo "--os_patch_level $(cat out/os_patch_level)") \
           -o boot.img
+        ORIGINAL_SIZE=$(stat -c "%s" boot-source.img)
+        echo "原 boot 大小: $ORIGINAL_SIZE 字节"
+        truncate -s $ORIGINAL_SIZE boot.img
+        echo "已填充新 boot.img 到原版大小: $(stat -c "%s" boot.img) 字节"
         if [ -f boot.img ]; then
             echo "MAKE_BOOT_IMAGE_IS_OK=true" >> $GITHUB_ENV
             echo "✅ 新 boot.img 制作完成！大小与原版一致！"
