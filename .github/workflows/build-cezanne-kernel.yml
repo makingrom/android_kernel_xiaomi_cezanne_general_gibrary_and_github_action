@@ -408,7 +408,7 @@ jobs:
       if: env.CHECK_FILE_IS_OK == 'true' && env.USE_MTK_KERNEL_MODULES == 'true'
       run: |
         cd kernel_workspace/android-kernel/out
-        zip -r mtk_modules.zip out_modules/
+        zip -r modules.zip out_modules/
         echo "✅ modules.zip 压缩完成"
         
     - name: Make Anykernel3(制作Anykernel3卡刷包)
@@ -476,7 +476,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: ${{ env.MTK_KERNEL_MODULES_SOURCE }}${{ env.MTK_KERNEL_MODULES_SOURCE_BRANCH }}${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
-        path: kernel_workspace/android-kernel/out/modules.zip
+        path: kernel_workspace/android-kernel/out/out_modules/modules.zip
         
     - name: Upload AnyKernel3(上传Upload AnyKernel3)
       if: env.CHECK_FILE_IS_OK == 'true'
