@@ -304,9 +304,11 @@ if [ "${Device_Processor_Selection}" = "true" ]; then
         if grep -q "${cfg}=n" arch/${ARCH}/configs/${KERNEL_CONFIG}; then
             # 如果是关闭 → 打开
             sed -i "s/${cfg}=n/${cfg}=y/g" arch/${ARCH}/configs/${KERNEL_CONFIG}
+            echo "${cfg} = y"
         elif ! grep -q "${cfg}=" arch/${ARCH}/configs/${KERNEL_CONFIG}; then
             # 如果不存在 → 添加并打开
             echo "${cfg}=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+            echo "${cfg} = y"
         fi
         # 如果已经是=y → 不做任何操作
     done
@@ -316,9 +318,11 @@ if [ "${Device_Processor_Selection}" = "true" ]; then
     ; do
         if grep -q "${discfg}=y" arch/${ARCH}/configs/${KERNEL_CONFIG}; then
             sed -i "s/${discfg}=y/${discfg}=n/g" arch/${ARCH}/configs/${KERNEL_CONFIG}
+            echo "${discfg} = n"
         fi
         if ! grep -q "${discfg}=" arch/${ARCH}/configs/${KERNEL_CONFIG}; then
             echo "${discfg}=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+            echo "${discfg} = n"
         fi
     done
     
@@ -343,9 +347,11 @@ elif [ "${Device_Processor_Selection}" = "false" ]; then
         if grep -q "${cfg}=n" arch/${ARCH}/configs/${KERNEL_CONFIG}; then
             # 如果是关闭 → 打开
             sed -i "s/${cfg}=n/${cfg}=y/g" arch/${ARCH}/configs/${KERNEL_CONFIG}
+            echo "${cfg} = y"
         elif ! grep -q "${cfg}=" arch/${ARCH}/configs/${KERNEL_CONFIG}; then
             # 如果不存在 → 添加并打开
             echo "${cfg}=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+            echo "${cfg} = y"
         fi
         # 如果已经是=y → 不做任何操作
     done
@@ -356,9 +362,11 @@ elif [ "${Device_Processor_Selection}" = "false" ]; then
     ; do
         if grep -q "${discfg}=y" arch/${ARCH}/configs/${KERNEL_CONFIG}; then
             sed -i "s/${discfg}=y/${discfg}=n/g" arch/${ARCH}/configs/${KERNEL_CONFIG}
+            echo "${discfg} = n"
         fi
         if ! grep -q "${discfg}=" arch/${ARCH}/configs/${KERNEL_CONFIG}; then
             echo "${discfg}=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+            echo "${discfg} = n"
         fi
     done
 fi
