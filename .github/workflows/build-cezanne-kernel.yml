@@ -479,12 +479,12 @@ jobs:
       with:
         name: ${{ env.KERNEL_IMAGE_NAME }}${{ env.LOCALVERSION }}${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
         path: kernel_workspace/android-kernel/out/arch/${{ env.ARCH }}/boot/${{ env.KERNEL_IMAGE_NAME }}
-
+        
     - name: Upload ${{ env.MTK_KERNEL_MODULES_SOURCE_DIR }} (上传)
       if: env.MTK_KERNEL_MODULES_UPLOAD == 'true' || env.USE_MTK_KERNEL_MODULES == 'true'
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.MTK_KERNEL_MODULES_SOURCE }}${{ env.MTK_KERNEL_MODULES_SOURCE_BRANCH }}${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
+        name: ${{ env.MTK_KERNEL_MODULES_SOURCE_BRANCH }}-${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
         path: kernel_workspace/android-kernel/out/modules.zip
         
     - name: Upload AnyKernel3(上传Upload AnyKernel3)
@@ -507,13 +507,13 @@ jobs:
       with:
         name: boot${{ env.LOCALVERSION }}${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
         path: kernel_workspace/boot.img
-
+        
     - name: 强制删除旧缓存
       run: |
         gh cache delete "${{ env.CACHE_VERSION }}-${{ env.ARCH }}-${{ env.KERNEL_VERSION }}-${{ env.ANDROID_VERSION }}-${{ env.KERNEL_SOURCE_BRANCH }}-${{ env.MTK_KERNEL_MODULES_SOURCE_BRANCH }}-${{ env.GCC_AND_CLANG_BRANCH }}-${{ env.CUSTOM_CLANG_BRANCH }}-${{ env.CUSTOM_GCC_64_BRANCH }}-${{ env.CUSTOM_GCC_32_BRANCH }}-${{ env.CUSTOM_ANYKERNEL3_BRANCH }}" || true
       env:
         GH_TOKEN: ${{ github.token }}
-            
+        
     - name: 强制保存缓存
       if: always()  # 关键：无论前面步骤成功/失败，都执行
       uses: actions/cache/save@v3
