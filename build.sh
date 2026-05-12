@@ -7,6 +7,8 @@ echo "=======================  Cleaning old build files...   ===================
 # 固定内核版本
 SUBLEVEL = 186
 LOCALVERSION =
+# 是否将 WLAN 模块编译进内核
+CONFIG_WLAN_DRV_BUILD_IN=y
 # 低端机填Image.gz-dtb，高端机可以选择Image.gz，Image
 export KERNEL_IMAGE_NAME=Image.gz-dtb
 # 是否 上传MTK驱动模块.ko文件
