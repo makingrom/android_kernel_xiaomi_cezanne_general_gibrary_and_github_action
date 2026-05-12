@@ -1467,8 +1467,6 @@ int kvm_arch_init(void *opaque)
 	int ret, cpu;
 	bool in_hyp_mode;
 
-	devtmpfs_create_device(NULL, MKDEV(10, 232), 0660, NULL, "kvm");
-
 	if (!is_hyp_mode_available()) {
 		kvm_info("HYP mode not available\n");
 		return -ENODEV;
