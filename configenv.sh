@@ -26,7 +26,7 @@ SETUP_KERNEL_CONFIG_LINK=https://raw.githubusercontent.com/makingrom/android_ker
 # 是否 启用MTK内核专属模块
 USE_MTK_KERNEL_MODULES=true
 # MTK内核模块保存目录
-MTK_KERNEL_MODULES_SOURCE_DIR=mtk-kernel-moudules-cezanne-r-oss
+MTK_KERNEL_MODULES_SOURCE_DIR=mtk-kernel-modules-cezanne-r-oss
 # MTK内核模块源
 MTK_KERNEL_MODULES_SOURCE=https://github.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action.git
 # MTK内核模块分支
