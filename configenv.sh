@@ -38,7 +38,7 @@ MTK_KERNEL_MODULES_SOURCE_BRANCH=mtk-kernel-modules-cezanne-r-oss
 METHOD_OK=A
 
 # 使用自定义的 GCC && CLANG 综合工具链USE_GCC_AND_CLANG
-USE_GCC_AND_CLANG=false
+USE_GCC_AND_CLANG=true
 # 工具链目录
 GCC_AND_CLANG_DIR=proton-clang
 # 工具链克隆源
@@ -46,8 +46,8 @@ GCC_AND_CLANG_SOURCE=https://github.com/makingrom/proton-clang.git
 # 克隆源分支
 GCC_AND_CLANG_BRANCH=master
 
-# 是否「使用自定义 Clang」，改用下方配置的 AOSP 官方 Clang
-USE_CUSTOM_CLANG=true
+# 是否「使用自定义 Clang」，改用下方配置的 AOSP 官方 Clang，空则不使用
+USE_CUSTOM_CLANG=
 # 自定义 Clang 的仓库地址 / 分支（因 USE_CUSTOM_CLANG=false，这两个参数无效）
 CUSTOM_CLANG_DIR=clang-r383902
 CUSTOM_CLANG_SOURCE=https://github.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action.git
@@ -70,7 +70,7 @@ CLANG_BRANCH=master-kernel-build-2022
 CLANG_VERSION=r450784e
 
 # 启用 ARM64/ARM32 版本的 GCC 编译器
-ENABLE_GCC_ARM64=true
+ENABLE_GCC_ARM64=false
 ENABLE_GCC_ARM32=false
 # 是否「自定义 ARM64 GCC」，用默认版本
 USE_CUSTOM_GCC_64=true
@@ -123,11 +123,11 @@ LLVM_PARAMS=
 # 低端机填Image.gz-dtb，高端机可以选择Image.gz，Image，Image*
 KERNEL_IMAGE_NAME=Image.gz-dtb
 # 是否 上传MTK驱动模块.ko文件
-MTK_KERNEL_MODULES_UPLOAD=true
+MTK_KERNEL_MODULES_UPLOAD=false
 # 是否 需要dtbo，一般不需要，false即可
 NEED_DTBO=false
 # 是否 编译完整的 boot.img
-BUILD_BOOT_IMG=true
+BUILD_BOOT_IMG=false
 # 原始 boot.img 的下载地址（用于拼接内核镜像生成新 boot.img）
 SOURCE_BOOT_IMAGE=https://raw.githubusercontent.com/makingrom/LXC-DOCKER-KernelSU_Action/refs/heads/main/boot/boot.img
 
