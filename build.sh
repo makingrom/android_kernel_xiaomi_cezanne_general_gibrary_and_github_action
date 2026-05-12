@@ -7,10 +7,6 @@ echo "=======================  Cleaning old build files...   ===================
 # 固定内核版本
 SUBLEVEL = 186
 LOCALVERSION =
-# 是否将 WLAN 模块编译进内核
-CONFIG_WLAN_DRV_BUILD_IN=y
-# 芯片型号
-CONFIG_MTK_COMBO_CHIP="CONSYS_6885"
 # 低端机填Image.gz-dtb，高端机可以选择Image.gz，Image
 export KERNEL_IMAGE_NAME=Image.gz-dtb
 # 是否 上传MTK驱动模块.ko文件
@@ -123,6 +119,15 @@ echo "CONFIG_PROC_FS=y" >> out/.config
 echo "CONFIG_KALLSYMS=y" >> out/.config
 echo "CONFIG_KALLSYMS_ALL=y" >> out/.config
 echo "CONFIG_CPU_IDLE_MT6889=y" >> out/.config
+# 是否 将模块编译进内核
+echo "CONFIG_WLAN_DRV_BUILD_IN=y" >> out/.config
+echo "CONFIG_MTK_COMBO_WLAN=y" >> out/.config
+echo "CONFIG_MTK_COMBO_BT=y" >> out/.config
+echo "CONFIG_MTK_COMBO_FM=y" >> out/.config
+echo "CONFIG_MTK_COMBO_GPS=y" >> out/.config
+echo "CONFIG_MTK_FPSGO=y" >> out/.config
+echo "CONFIG_MTK_MET_DRV=y" >> out/.config
+echo "CONFIG_MTK_UDC=y" >> out/.config
 
 if [ ${NEED_DTBO} = "true" ]; then
     # echo "CONFIG_OF_OVERLAY=y" >> out/.config
