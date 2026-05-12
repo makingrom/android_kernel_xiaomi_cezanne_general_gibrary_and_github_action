@@ -12,7 +12,7 @@ ANDROID_VERSION=11
 # 内核版本(4.4/4.14/4.19/5.4)
 KERNEL_VERSION=4.14
 # 缓存版本（修改后不用原缓存）
-CACHE_VERSION=0.01
+CACHE_VERSION=0.02
 # 编译设备的硬件架构 ARM64(x86、x86_64、arm、arm64)
 ARCH=arm64
 # 是否使用build-kernel.bash
@@ -38,7 +38,7 @@ MTK_KERNEL_MODULES_SOURCE_BRANCH=mtk-kernel-modules-cezanne-r-oss
 METHOD_OK=A
 
 # 使用自定义的 GCC && CLANG 综合工具链USE_GCC_AND_CLANG
-USE_GCC_AND_CLANG=true
+USE_GCC_AND_CLANG=false
 # 工具链目录
 GCC_AND_CLANG_DIR=proton-clang
 # 工具链克隆源
@@ -47,11 +47,11 @@ GCC_AND_CLANG_SOURCE=https://github.com/makingrom/proton-clang.git
 GCC_AND_CLANG_BRANCH=master
 
 # 是否「使用自定义 Clang」，改用下方配置的 AOSP 官方 Clang，空则不使用
-USE_CUSTOM_CLANG=
+USE_CUSTOM_CLANG=true
 # 自定义 Clang 的仓库地址 / 分支（因 USE_CUSTOM_CLANG=false，这两个参数无效）
-CUSTOM_CLANG_DIR=clang-r383902
+CUSTOM_CLANG_DIR=clang-r416183b
 CUSTOM_CLANG_SOURCE=https://github.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action.git
-CUSTOM_CLANG_BRANCH=clang-r383902
+CUSTOM_CLANG_BRANCH=clang-r416183b
 # 强制指定 Clang 的「架构前缀」为 ARM64 Linux 标准（而非 Android 专属）
 CUSTOM_CMDS:CLANG_TRIPLE=aarch64-linux-gnu-
 
@@ -70,7 +70,7 @@ CLANG_BRANCH=master-kernel-build-2022
 CLANG_VERSION=r450784e
 
 # 启用 ARM64/ARM32 版本的 GCC 编译器
-ENABLE_GCC_ARM64=false
+ENABLE_GCC_ARM64=true
 ENABLE_GCC_ARM32=false
 # 是否「自定义 ARM64 GCC」，用默认版本
 USE_CUSTOM_GCC_64=true
@@ -89,7 +89,7 @@ CUSTOM_GCC_32_BIN=arm-linux-androideabi-
 
 # Kernel集成、生成AnyKernel3包
 # 是否 KernelSU 集成
-ENABLE_KERNELSU= false
+ENABLE_KERNELSU=false
 # 指定要集成的 KernelSU 版本（v0.9.5 是稳定版）
 KERNELSU_TAG=v0.9.5
 # KernelSU 产物的大小 / 哈希校验值（可选）
