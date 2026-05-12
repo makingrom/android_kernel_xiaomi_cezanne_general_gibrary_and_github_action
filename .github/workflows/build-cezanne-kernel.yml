@@ -301,6 +301,7 @@ jobs:
            echo "CHECK_FILE_IS_OK=true" >> $GITHUB_ENV
        else
            echo "Kernel output file is empty"
+           exit 1
        fi
 
        if [ "${{ env.NEED_DTBO }}" = "true" ]; then
@@ -308,6 +309,7 @@ jobs:
                echo "CHECK_DTBO_IS_OK=true" >> $GITHUB_ENV
            else
                echo "DTBO image is empty"
+               exit 1
            fi
        fi
        
