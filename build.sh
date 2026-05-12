@@ -4,6 +4,9 @@
 echo "================================================================================"
 echo "=======================  Cleaning old build files...   ========================="
 # 编译生成文件配置
+# 固定内核版本
+SUBLEVEL = 186
+LOCALVERSION =
 # 低端机填Image.gz-dtb，高端机可以选择Image.gz，Image
 export KERNEL_IMAGE_NAME=Image.gz-dtb
 # 是否 上传MTK驱动模块.ko文件
@@ -110,6 +113,11 @@ echo "=========================  Applying custom configs...  ===================
 echo "CONFIG_WERROR=n" >> out/.config
 echo "# CONFIG_BLK_INLINE_ENCRYPTION is not set" >> out/.config
 echo "CONFIG_BLK_INLINE_ENCRYPTION=n" >> out/.config
+# 系统设置读取内核版本必须依赖的开关
+echo "CONFIG_PROC_SYS_KERNEL_VERSION=y" >> out/.config
+echo "CONFIG_PROC_FS=y" >> out/.config
+echo "CONFIG_KALLSYMS=y" >> out/.config
+echo "CONFIG_KALLSYMS_ALL=y" >> out/.config
 
 if [ ${NEED_DTBO} = "true" ]; then
     # echo "CONFIG_OF_OVERLAY=y" >> out/.config
