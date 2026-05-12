@@ -313,14 +313,12 @@ jobs:
            fi
        fi
        
-    - name: 压缩 内核模块 和生成的 Image
+    - name: 压缩 内核模块
       if: env.CHECK_FILE_IS_OK == 'true'
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel/out
         zip -r modules.zip out_modules/
-        zip -r Image.zip out_Image/
         echo "✅ modules.zip 压缩完成"
-        echo "✅ Image.zip 压缩完成"
         
     - name: Make Anykernel3(制作Anykernel3卡刷包)
       if: env.CHECK_FILE_IS_OK == 'true' && env.USE_CUSTOM_ANYKERNEL3 != 'true'
@@ -412,18 +410,18 @@ jobs:
         fi
         
     - name: Upload ${{ env.KERNEL_IMAGE_NAME }} (上传)
-      if: env.CHECK_FILE_IS_OK == 'true' && env.KERNEL_IMAGE_NAME != 'Image.zip'
+      if: env.CHECK_FILE_IS_OK == 'true'
       uses: actions/upload-artifact@v4
       with:
         name: ${{ env.KERNEL_IMAGE_NAME }}${{ env.LOCALVERSION }}${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
         path: kernel_workspace/android-kernel/out/arch/${{ env.ARCH }}/boot/${{ env.KERNEL_IMAGE_NAME }}
         
     - name: Upload ${{ env.KERNEL_IMAGE_NAME }} (上传)
-      if: env.CHECK_FILE_IS_OK == 'true' && env.KERNEL_IMAGE_NAME == 'Image.zip'
+      if: env.CHECK_FILE_IS_OK == 'true' && env.KERNEL_ALL_IMAGE_UPLOAD == 'true'
       uses: actions/upload-artifact@v4
       with:
         name: ${{ env.KERNEL_IMAGE_NAME }}${{ env.LOCALVERSION }}${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
-        path: kernel_workspace/android-kernel/out/${{ env.KERNEL_IMAGE_NAME }}
+        path: kernel_workspace/android-kernel/out/out_Image/*
         
     - name: Upload ${{ env.MTK_KERNEL_MODULES_SOURCE_DIR }} (上传)
       if: env.MTK_KERNEL_MODULES_UPLOAD == 'true' || env.USE_MTK_KERNEL_MODULES == 'true'
