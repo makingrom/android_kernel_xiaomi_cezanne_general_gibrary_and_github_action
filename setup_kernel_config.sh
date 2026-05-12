@@ -211,6 +211,9 @@ if [ "${USE_ENABLE_KVM}" = "true" ]; then
     echo "CONFIG_KVM_ARM_HOST=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
     echo "CONFIG_CPU_IDLE_MT6889=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
     echo "CONFIG_HAVE_HW_BREAKPOINT=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+    echo "CONFIG_MTK_HYPERVISOR=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+    echo "CONFIG_MTK_SEC_VM=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+    echo "CONFIG_TRUSTY_VIRTUALIZATION=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
     echo "✅ KVM 已开启"
 fi
 
@@ -225,6 +228,9 @@ if [ "${USE_ENABLE_KVM}" = "false" ]; then
     echo "CONFIG_KVM_ARM_HOST=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
     echo "CONFIG_CPU_IDLE_MT6889=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
     echo "CONFIG_HAVE_HW_BREAKPOINT=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+    echo "CONFIG_MTK_HYPERVISOR=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+    echo "CONFIG_MTK_SEC_VM=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+    echo "CONFIG_TRUSTY_VIRTUALIZATION=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
     echo "✅ KVM 已关闭"
 fi
 
