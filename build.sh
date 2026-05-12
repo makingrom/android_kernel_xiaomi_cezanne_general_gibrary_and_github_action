@@ -60,20 +60,22 @@ export LC_ALL=C
 export CLANG_FORCE_COLOR_DIAGNOSTICS=0
 export KBUILD_VERBOSE=0
 
-# proton-clang 工具链
-# export CLANG_PATH="$(pwd)/../${GCC_AND_CLANG_DIR}"
-# export GCC_PATH="$(pwd)/../${GCC_AND_CLANG_DIR}"
-# export PATH="${CLANG_PATH}/bin:$PATH"
-# export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
+proton-clang 工具链
+export CLANG_PATH="$(pwd)/../${GCC_AND_CLANG_DIR}"
+export GCC_PATH="$(pwd)/../${GCC_AND_CLANG_DIR}"
+export PATH="${CLANG_PATH}/bin:$PATH"
+export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
 
 # clang-* && GCC 工具链
-export CLANG_PATH="$(pwd)/../${CUSTOM_CLANG_DIR}"
-export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
+
 #export GCC_BIN_PATH="${GCC_PATH}/aarch64-linux-android/bin"
 #export PATH="${GCC_BIN_PATH}:$PATH"
 
-export PATH="${CLANG_PATH}/bin:${GCC_PATH}/bin:$PATH"
-export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
+
+# export CLANG_PATH="$(pwd)/../${CUSTOM_CLANG_DIR}"
+# export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
+# export PATH="${CLANG_PATH}/bin:${GCC_PATH}/bin:$PATH"
+# export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
 echo "======================           completed!               ======================"
 
 echo "================================================================================"
