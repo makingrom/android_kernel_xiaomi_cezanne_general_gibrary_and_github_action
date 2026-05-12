@@ -7,13 +7,13 @@ echo "=======================  Cleaning old build files...   ===================
 # 低端机填Image.gz-dtb，高端机可以选择Image.gz，Image
 export KERNEL_IMAGE_NAME=Image.gz-dtb
 # 是否 上传MTK驱动模块.ko文件
-export MTK_KERNEL_MODULES_UPLOAD=true
+export MTK_KERNEL_MODULES_UPLOAD=false
 #打包上传生成的三个Image文件
-export KERNEL_ALL_IMAGE_UPLOAD=true
+export KERNEL_ALL_IMAGE_UPLOAD=false
 # 是否 需要dtbo，一般不需要，false即可
 export NEED_DTBO=false
 # 是否 编译完整的 boot.img
-export BUILD_BOOT_IMG=true
+export BUILD_BOOT_IMG=false
 # 原始 boot.img 的下载地址（用于拼接内核镜像生成新 boot.img）
 export SOURCE_BOOT_IMAGE=https://raw.githubusercontent.com/makingrom/LXC-DOCKER-KernelSU_Action/refs/heads/main/boot/boot.img
 echo "================================================================================"
