@@ -217,7 +217,7 @@ for CONFIG in "${CONFIG_LIST[@]}"; do
     VALUE="${!CONFIG}"
     echo "${CONFIG}=${VALUE}"
     echo "${CONFIG}=${VALUE}" >> $GITHUB_ENV
-    echo "========================================================="
+    echo "===================================================================="
 done
 
 echo "✅ 所有环境变量已从 env.sh 加载完成！"
