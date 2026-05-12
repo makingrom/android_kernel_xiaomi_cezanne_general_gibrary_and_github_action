@@ -49,90 +49,91 @@ endif
 
         ifneq (,$(filter $(CONFIG_MTK_COMBO_CHIP), "CONSYS_6885" "CONSYS_6893"))
             export MTK_COMBO_CHIP=CONNAC2X2_SOC3_0
-            PATH_TO_WMT_DRV      = mtk-kernel-modules-cezanne-r-oss/connectivity/conninfra
+            PATH_TO_WMT_DRV      = ${MTK_KERNEL_MODULES_SOURCE_DIR}/connectivity/conninfra
         else ifneq (,$(filter $(CONFIG_MTK_COMBO_CHIP), "CONSYS_6779" "CONSYS_6873" "CONSYS_6853"))
             export MTK_COMBO_CHIP=CONNAC2X2
-            PATH_TO_WMT_DRV      = mtk-kernel-modules-cezanne-r-oss/connectivity/common
+            PATH_TO_WMT_DRV      = ${MTK_KERNEL_MODULES_SOURCE_DIR}/connectivity/common
         else
             export MTK_COMBO_CHIP=CONNAC
-            PATH_TO_WMT_DRV      = mtk-kernel-modules-cezanne-r-oss/connectivity/common
+            PATH_TO_WMT_DRV      = ${MTK_KERNEL_MODULES_SOURCE_DIR}/connectivity/common
         endif
 
-        PATH_TO_WLAN_CHR_DRV = mtk-kernel-modules-cezanne-r-oss/connectivity/wlan/adaptor
-        PATH_TO_WLAN_DRV     = mtk-kernel-modules-cezanne-r-oss/connectivity/wlan/core/gen4m
+        PATH_TO_WLAN_CHR_DRV = ${MTK_KERNEL_MODULES_SOURCE_DIR}/connectivity/wlan/adaptor
+        PATH_TO_WLAN_DRV     = ${MTK_KERNEL_MODULES_SOURCE_DIR}/connectivity/wlan/core/gen4m
 
         ABS_PATH_TO_WMT_DRV      = $(srctree)/../$(PATH_TO_WMT_DRV)
         ABS_PATH_TO_WLAN_CHR_DRV = $(srctree)/../$(PATH_TO_WLAN_CHR_DRV)
         ABS_PATH_TO_WLAN_DRV     = $(srctree)/../$(PATH_TO_WLAN_DRV)
 
         # check wlan driver folder
-        ifeq (,$(wildcard $(ABS_PATH_TO_WMT_DRV)))
-            $(error $(ABS_PATH_TO_WMT_DRV) is not existed)
+        WLAN_DRIVER_READY := false
+        ifneq ($(wildcard $(ABS_PATH_TO_WMT_DRV)),)
+        ifneq ($(wildcard $(ABS_PATH_TO_WLAN_CHR_DRV)),)
+        ifneq ($(wildcard $(ABS_PATH_TO_WLAN_DRV)),)
+            WLAN_DRIVER_READY := true
         endif
-        ifeq (,$(wildcard $(ABS_PATH_TO_WLAN_CHR_DRV)))
-            $(error $(ABS_PATH_TO_WLAN_CHR_DRV) is not existed)
         endif
-        ifeq (,$(wildcard $(ABS_PATH_TO_WLAN_DRV)))
-            $(error $(ABS_PATH_TO_WLAN_DRV) is not existed)
         endif
-
-        $(warning symbolic link to $(PATH_TO_WMT_DRV))
-        $(warning symbolic link to $(PATH_TO_WLAN_CHR_DRV))
-        $(warning symbolic link to $(PATH_TO_WLAN_DRV))
-
-        $(shell unlink $(srctree)/$(src)/wmt_drv 2>/dev/null)
-        $(shell unlink $(srctree)/$(src)/wmt_chrdev_wifi 2>/dev/null)
-        $(shell unlink $(srctree)/$(src)/wlan_drv_gen4m 2>/dev/null)
-
-        $(shell ln -s $(ABS_PATH_TO_WMT_DRV)      $(srctree)/$(src)/wmt_drv)
-        $(shell ln -s $(ABS_PATH_TO_WLAN_CHR_DRV) $(srctree)/$(src)/wmt_chrdev_wifi)
-        $(shell ln -s $(ABS_PATH_TO_WLAN_DRV)     $(srctree)/$(src)/wlan_drv_gen4m)
-
-        # for gen4m options
-        export CONFIG_MTK_COMBO_WIFI_HIF=axi
-        export WLAN_CHIP_ID=$(MTK_PLATFORM_ID)
-        export MTK_ANDROID_WMT=y
-        export MTK_ANDROID_EMI=y
-        export ADAPTOR_OPTS=$(MTK_COMBO_CHIP)
-
-        WLAN_IP_SET_1_SERIES := 6765 6761 6885 6893
-        WLAN_IP_SET_2_SERIES := 3967 6785
-        WLAN_IP_SET_3_SERIES := 6779 6873 6853
-        ifneq ($(filter $(WLAN_IP_SET_3_SERIES), $(WLAN_CHIP_ID)),)
-            $(info WIFI_IP_SET is 3)
-            export WIFI_IP_SET=3
-        else ifneq ($(filter $(WLAN_IP_SET_2_SERIES), $(WLAN_CHIP_ID)),)
-            $(info WIFI_IP_SET is 2)
-            export WIFI_IP_SET=2
-        else
-            $(info WIFI_IP_SET is 1)
-            export WIFI_IP_SET=1
-        endif
-
-        # Do build-in for xxx.c checking
-        subdir-ccflags-y += -D MTK_WCN_REMOVE_KERNEL_MODULE
-        subdir-ccflags-y += -D MTK_WCN_BUILT_IN_DRIVER
-        obj-y += wmt_drv/
-        obj-y += wmt_chrdev_wifi/
-        obj-y += wlan_drv_gen4m/
+		ifeq ($(WLAN_DRIVER_READY),true)
+	        $(shell unlink $(srctree)/$(src)/wmt_drv 2>/dev/null)
+	        $(shell unlink $(srctree)/$(src)/wmt_chrdev_wifi 2>/dev/null)
+	        $(shell unlink $(srctree)/$(src)/wlan_drv_gen4m 2>/dev/null)
+	
+	        $(shell ln -s $(ABS_PATH_TO_WMT_DRV)      $(srctree)/$(src)/wmt_drv)
+	        $(shell ln -s $(ABS_PATH_TO_WLAN_CHR_DRV) $(srctree)/$(src)/wmt_chrdev_wifi)
+	        $(shell ln -s $(ABS_PATH_TO_WLAN_DRV)     $(srctree)/$(src)/wlan_drv_gen4m)
+		
+	        # for gen4m options
+	        export CONFIG_MTK_COMBO_WIFI_HIF=axi
+	        export WLAN_CHIP_ID=$(MTK_PLATFORM_ID)
+	        export MTK_ANDROID_WMT=y
+	        export MTK_ANDROID_EMI=y
+	        export ADAPTOR_OPTS=$(MTK_COMBO_CHIP)
+	
+	        WLAN_IP_SET_1_SERIES := 6765 6761 6885 6893
+	        WLAN_IP_SET_2_SERIES := 3967 6785
+	        WLAN_IP_SET_3_SERIES := 6779 6873 6853
+	        ifneq ($(filter $(WLAN_IP_SET_3_SERIES), $(WLAN_CHIP_ID)),)
+	            $(info WIFI_IP_SET is 3)
+	            export WIFI_IP_SET=3
+	        else ifneq ($(filter $(WLAN_IP_SET_2_SERIES), $(WLAN_CHIP_ID)),)
+	            $(info WIFI_IP_SET is 2)
+	            export WIFI_IP_SET=2
+	        else
+	            $(info WIFI_IP_SET is 1)
+	            export WIFI_IP_SET=1
+	        endif
+	
+	        # Do build-in for xxx.c checking
+	        subdir-ccflags-y += -D MTK_WCN_REMOVE_KERNEL_MODULE
+	        subdir-ccflags-y += -D MTK_WCN_BUILT_IN_DRIVER
+	        obj-y += wmt_drv/
+	        obj-y += wmt_chrdev_wifi/
+	        obj-y += wlan_drv_gen4m/
+		else
+			# 任意一个路径缺失 → 完全跳过，不报错
+            $(warning === WLAN Driver Path Missing, Skip Compile ===)
+		endif
 
 		# For BT built-in mode start @{
 		ifneq (,$(filter $(CONFIG_MTK_COMBO_CHIP), "CONSYS_6885"))
-			PATH_TO_BT_DRV       = mtk-kernel-modules-cezanne-r-oss/connectivity/bt/mt66xx/connac2
+			PATH_TO_BT_DRV       = ${MTK_KERNEL_MODULES_SOURCE_DIR}/connectivity/bt/mt66xx/connac2
 			export _MTK_BT_CHIP=MTK_CONSYS_MT6885
 		else ifneq (,$(filter $(CONFIG_MTK_COMBO_CHIP), "CONSYS_6893"))
-			PATH_TO_BT_DRV       = mtk-kernel-modules-cezanne-r-oss/connectivity/bt/mt66xx/connac2
+			PATH_TO_BT_DRV       = ${MTK_KERNEL_MODULES_SOURCE_DIR}/connectivity/bt/mt66xx/connac2
 			export _MTK_BT_CHIP=MTK_CONSYS_MT6893
 		else
-			PATH_TO_BT_DRV       = mtk-kernel-modules-cezanne-r-oss/connectivity/bt/mt66xx/legacy
+			PATH_TO_BT_DRV       = ${MTK_KERNEL_MODULES_SOURCE_DIR}/connectivity/bt/mt66xx/legacy
 		endif
 
 		ABS_PATH_TO_BT_DRV       = $(srctree)/../$(PATH_TO_BT_DRV)
-
-		$(shell unlink $(srctree)/$(src)/bt 2>/dev/null)
-		$(shell ln -s $(ABS_PATH_TO_BT_DRV)      $(srctree)/$(src)/bt)
-
-		obj-y += bt/
+		ifeq ($(wildcard $(ABS_PATH_TO_BT_DRV)),)
+            $(warning WARNING: BT driver not found, skip!)
+        else
+			$(shell unlink $(srctree)/$(src)/bt 2>/dev/null)
+			$(shell ln -s $(ABS_PATH_TO_BT_DRV)      $(srctree)/$(src)/bt)
+			obj-y += bt/
+		endif
         # @} For BT built-in mode end
 
         # For FM built-in mode start @{
@@ -151,71 +152,68 @@ endif
         endif
         export CFG_FM_CHIP_ID=$(MTK_PLATFORM_ID)
         export CFG_FM_CHIP=$(FM_CHIP)
-        PATH_TO_FMRADIO_DRV       = mtk-kernel-modules-cezanne-r-oss/connectivity/fmradio
+        PATH_TO_FMRADIO_DRV       = ${MTK_KERNEL_MODULES_SOURCE_DIR}/connectivity/fmradio
         ABS_PATH_TO_FMRADIO_DRV  = $(srctree)/../$(PATH_TO_FMRADIO_DRV)
-        $(shell unlink $(srctree)/$(src)/fmradio 2>/dev/null)
-        $(shell ln -s $(ABS_PATH_TO_FMRADIO_DRV)      $(srctree)/$(src)/fmradio)
-        obj-y += fmradio/
+
+		ifeq ($(wildcard $(ABS_PATH_TO_FMRADIO_DRV)),)
+            $(warning WARNING: FM driver not found, skip!)
+        else
+	        $(shell unlink $(srctree)/$(src)/fmradio 2>/dev/null)
+	        $(shell ln -s $(ABS_PATH_TO_FMRADIO_DRV)      $(srctree)/$(src)/fmradio)
+	        obj-y += fmradio/
+		endif
         # @} For FM built-in mode end
 
         # For GPS built-in mode start @{
-        PATH_TO_GPS_DRV      = mtk-kernel-modules-cezanne-r-oss/connectivity/gps
+        PATH_TO_GPS_DRV      = ${MTK_KERNEL_MODULES_SOURCE_DIR}/connectivity/gps
         ABS_PATH_TO_GPS_DRV      = $(srctree)/../$(PATH_TO_GPS_DRV)
-        ifeq (,$(wildcard $(ABS_PATH_TO_GPS_DRV)))
-            $(error $(ABS_PATH_TO_GPS_DRV) is not existed)
-        endif
-        $(warning symbolic link to $(PATH_TO_GPS_DRV))
-        $(shell unlink $(srctree)/$(src)/gps_drv 2>/dev/null)
-        $(shell ln -s $(ABS_PATH_TO_GPS_DRV)      $(srctree)/$(src)/gps_drv)
-        obj-y += gps_drv/
+
+		ifeq ($(wildcard $(ABS_PATH_TO_GPS_DRV)),)
+            $(warning WARNING: GPS driver not found, skip!)
+        else
+	        $(shell unlink $(srctree)/$(src)/gps_drv 2>/dev/null)
+	        $(shell ln -s $(ABS_PATH_TO_GPS_DRV)      $(srctree)/$(src)/gps_drv)
+	        obj-y += gps_drv/
+		endif
         # @} For GPS built-in mode end
 
-		# For FPSGO_CUS built-in mode start @{
-        PATH_TO_FPSGO_DRV     = mtk-kernel-modules-cezanne-r-oss/fpsgo_cus
+		# For FPSGO built-in mode start @{
+        PATH_TO_FPSGO_DRV     = ${MTK_KERNEL_MODULES_SOURCE_DIR}/fpsgo_cus
         ABS_PATH_TO_FPSGO_DRV = $(srctree)/../$(PATH_TO_FPSGO_DRV)
 
-        ifeq (,$(wildcard $(ABS_PATH_TO_FPSGO_DRV)))
-            $(error $(ABS_PATH_TO_FPSGO_DRV) is not existed)
-        endif
-
-        $(warning symbolic link to $(PATH_TO_FPSGO_DRV))
-
-        $(shell unlink $(srctree)/$(src)/fpsgo 2>/dev/null)
-        $(shell ln -s $(ABS_PATH_TO_FPSGO_DRV)     $(srctree)/$(src)/fpsgo)
-
-        obj-y += fpsgo/
+		ifeq ($(wildcard $(ABS_PATH_TO_FPSGO_DRV)),)
+            $(warning WARNING: FPSGO driver not found, skip!)
+        else
+	        $(shell unlink $(srctree)/$(src)/fpsgo 2>/dev/null)
+	        $(shell ln -s $(ABS_PATH_TO_FPSGO_DRV)     $(srctree)/$(src)/fpsgo)
+	        obj-y += fpsgo/
+		endif
         # @} For FPSGO built-in mode end
 
         # For MET built-in mode start @{
-        PATH_TO_MET_DRV       = mtk-kernel-modules-cezanne-r-oss/met_drv_v2
+        PATH_TO_MET_DRV       = ${MTK_KERNEL_MODULES_SOURCE_DIR}/met_drv_v2
         ABS_PATH_TO_MET_DRV   = $(srctree)/../$(PATH_TO_MET_DRV)
 
-        ifeq (,$(wildcard $(ABS_PATH_TO_MET_DRV)))
-            $(error $(ABS_PATH_TO_MET_DRV) is not existed)
-        endif
-
-        $(warning symbolic link to $(PATH_TO_MET_DRV))
-
-        $(shell unlink $(srctree)/$(src)/met_drv 2>/dev/null)
-        $(shell ln -s $(ABS_PATH_TO_MET_DRV)       $(srctree)/$(src)/met_drv)
-
-        obj-y += met_drv/
+		ifeq ($(wildcard $(ABS_PATH_TO_MET_DRV)),)
+            $(warning WARNING: MET driver not found, skip!)
+        else
+	        $(shell unlink $(srctree)/$(src)/met_drv 2>/dev/null)
+	        $(shell ln -s $(ABS_PATH_TO_MET_DRV)       $(srctree)/$(src)/met_drv)
+	        obj-y += met_drv/
+		endif
         # @} For MET built-in mode end
 
         # For UDC built-in mode start @{
-        PATH_TO_UDC_DRV       = mtk-kernel-modules-cezanne-r-oss/udc
+        PATH_TO_UDC_DRV       = ${MTK_KERNEL_MODULES_SOURCE_DIR}/udc
         ABS_PATH_TO_UDC_DRV   = $(srctree)/../$(PATH_TO_UDC_DRV)
 
-        ifeq (,$(wildcard $(ABS_PATH_TO_UDC_DRV)))
-            $(error $(ABS_PATH_TO_UDC_DRV) is not existed)
+		ifeq ($(wildcard $(ABS_PATH_TO_UDC_DRV)),)
+            $(warning WARNING: UDC driver not found, skip!)
+        else
+	        $(shell unlink $(srctree)/$(src)/udc 2>/dev/null)
+	        $(shell ln -s $(ABS_PATH_TO_UDC_DRV)       $(srctree)/$(src)/udc)
+	        obj-y += udc/
         endif
-
-        $(warning symbolic link to $(PATH_TO_UDC_DRV))
-
-        $(shell unlink $(srctree)/$(src)/udc 2>/dev/null)
-        $(shell ln -s $(ABS_PATH_TO_UDC_DRV)       $(srctree)/$(src)/udc)
-
-        obj-y += udc/
         # @} For UDC built-in mode end
 
     endif
