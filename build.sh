@@ -48,7 +48,7 @@ export CLANG_TRIPLE=aarch64-linux-gnu-
 export CROSS_COMPILE=aarch64-linux-android-
 export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
 export CC=clang
-export AS=clang
+export AS="clang -fintegrated-as"
 export HOSTCC=gcc
 export LLVM_IAS=1
 export LD=ld.lld
@@ -93,7 +93,7 @@ echo "  "
 echo -e "\n================================================================================"
 echo "======================   Generating default config...    ======================"
 make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
-    AR=${AR} NM=${NM} \
+    AS=${AS} AR=${AR} NM=${NM} \
     OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
     O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
     CROSS_COMPILE=${CROSS_COMPILE} \
@@ -180,7 +180,7 @@ echo "  "
 echo -e "\n================================================================================"
 echo "======================  Starting kernel compilation...  ======================="
 make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
-    AR=${AR} NM=${NM} \
+    AS=${AS} AR=${AR} NM=${NM} \
     OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
     O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
     CROSS_COMPILE=${CROSS_COMPILE} \
