@@ -90,9 +90,6 @@ page_owner=on loop.max_part=7";
 			enable-method = "psci";
 			clock-frequency = <1701000000>;
 			cpu-idle-states = <&cpuoff_l &clusteroff_l &mcusysoff>;
-			el2-reg = <1>;
-		    virtualization = <1>;
-		    status = "okay";
 		};
 
 		cpu1: cpu@001 {
@@ -102,9 +99,6 @@ page_owner=on loop.max_part=7";
 			enable-method = "psci";
 			clock-frequency = <1701000000>;
 			cpu-idle-states = <&cpuoff_l &clusteroff_l &mcusysoff>;
-			el2-reg = <1>;
-			virtualization = <1>;
-			status = "okay";
 		};
 
 		cpu2: cpu@002 {
@@ -114,9 +108,6 @@ page_owner=on loop.max_part=7";
 			enable-method = "psci";
 			clock-frequency = <1701000000>;
 			cpu-idle-states = <&cpuoff_l &clusteroff_l &mcusysoff>;
-			el2-reg = <1>;
-			virtualization = <1>;
-			status = "okay";
 		};
 
 		cpu3: cpu@003 {
@@ -126,9 +117,6 @@ page_owner=on loop.max_part=7";
 			enable-method = "psci";
 			clock-frequency = <1701000000>;
 			cpu-idle-states = <&cpuoff_l &clusteroff_l &mcusysoff>;
-			el2-reg = <1>;
-			virtualization = <1>;
-			status = "okay";
 		};
 
 		cpu4: cpu@100 {
@@ -138,9 +126,6 @@ page_owner=on loop.max_part=7";
 			enable-method = "psci";
 			clock-frequency = <2171000000>;
 			cpu-idle-states = <&cpuoff_b &clusteroff_b &mcusysoff>;
-			el2-reg = <1>;
-			virtualization = <1>;
-			status = "okay";
 		};
 
 		cpu5: cpu@101 {
@@ -150,9 +135,6 @@ page_owner=on loop.max_part=7";
 			enable-method = "psci";
 			clock-frequency = <2171000000>;
 			cpu-idle-states = <&cpuoff_b &clusteroff_b &mcusysoff>;
-			el2-reg = <1>;
-			virtualization = <1>;
-			status = "okay";
 		};
 
 		cpu6: cpu@102 {
@@ -162,9 +144,6 @@ page_owner=on loop.max_part=7";
 			enable-method = "psci";
 			clock-frequency = <2171000000>;
 			cpu-idle-states = <&cpuoff_b &clusteroff_b &mcusysoff>;
-			el2-reg = <1>;
-			virtualization = <1>;
-			status = "okay";
 		};
 
 		cpu7: cpu@103 {
@@ -174,20 +153,6 @@ page_owner=on loop.max_part=7";
 			enable-method = "psci";
 			clock-frequency = <2171000000>;
 			cpu-idle-states = <&cpuoff_b &clusteroff_b &mcusysoff>;
-			el2-reg = <1>;
-			virtualization = <1>;
-			status = "okay";
-		};
-
-		virtualization {
-		    compatible = "arm,virtualization";
-		    status = "okay";
-		    hyp-enabled = <1>;
-		};
-
-		el2_pwr: el2-pwr {
-		    compatible = "arm,el2-power";
-		    status = "okay";
 		};
 
 		cpu-map {
