@@ -58,8 +58,7 @@ export OBJCOPY=llvm-objcopy
 export OBJDUMP=llvm-objdump
 export STRIP=llvm-strip
 export HOSTAR=llvm-ar
-export CLANG_FLAGS="--target=aarch64-linux-gnu -fintegrated-as"
-export CFLAGS="-fintegrated-as"
+
 
 # 让 make 不输出颜色 + 不输出冗余日志 → 彻底关闭 stdout 风暴
 export TERM=dumb
@@ -98,8 +97,7 @@ make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
     OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
     O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
     CROSS_COMPILE=${CROSS_COMPILE} \
-    LD=${LD} CLANG_FLAGS=${CLANG_FLAGS} \
-    CFLAGS=${CFLAGS} \
+    LD=${LD} \
     ${DEFCONFIG}
 echo "=========================         completed!           ========================="
 echo "================================================================================"
@@ -186,8 +184,7 @@ make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
     OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
     O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
     CROSS_COMPILE=${CROSS_COMPILE} \
-    LD=${LD} CLANG_FLAGS=${CLANG_FLAGS} \
-    CFLAGS=${CFLAGS} \
+    LD=${LD} \
     -j4 KCFLAGS="-w"
 echo "=========================      Build completed!        ========================="
 echo "================================================================================"
