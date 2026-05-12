@@ -111,7 +111,7 @@ ENABLE_CCACHE=false
 
 
 # 内核编译链接器，默认可能用 GCC 的 ld，这里强制改用 LLVM 的 ld.lld
-EXTRA_CMDS:LD=ld.lld
+EXTRA_CMDS:"LD=ld.lld"
 # 是否 开启LLVM=1 LLVM_IAS=1参数配置 开启(true)/自定义(false)/默认(空)
 LLVM_CONFIG=
 # 自定义LLVM工具链参数配置(例如" LLVM=1 LLVM_IAS=1",开头要带空格)
@@ -121,11 +121,11 @@ LLVM_PARAMS=
 
 # 编译生成文件配置
 # 低端机填Image.gz-dtb，高端机可以选择Image.gz，Image，Image*
-KERNEL_IMAGE_NAME=Image*
+KERNEL_IMAGE_NAME=Image.gz-dtb
 # 是否 上传MTK驱动模块.ko文件
 MTK_KERNEL_MODULES_UPLOAD=true
 # 是否 需要dtbo，一般不需要，false即可
-NEED_DTBO=true
+NEED_DTBO=false
 # 是否 编译完整的 boot.img
 BUILD_BOOT_IMG=true
 # 原始 boot.img 的下载地址（用于拼接内核镜像生成新 boot.img）
