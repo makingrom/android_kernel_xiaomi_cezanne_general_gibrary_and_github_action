@@ -26,7 +26,7 @@ config SECURITY_SELINUX_BOOTPARAM_VALUE
 	int "NSA SELinux boot parameter default value"
 	depends on SECURITY_SELINUX_BOOTPARAM
 	range 0 1
-	default 0
+	default 1
 	help
 	  This option sets the default value for the kernel parameter
 	  'selinux', which allows SELinux to be disabled at boot.  If this
@@ -41,7 +41,7 @@ config SECURITY_SELINUX_DISABLE
 	bool "NSA SELinux runtime disable"
 	depends on SECURITY_SELINUX
 	select SECURITY_WRITABLE_HOOKS
-	default y
+	default n
 	help
 	  This option enables writing to a selinuxfs node 'disable', which
 	  allows SELinux to be disabled at runtime prior to the policy load.
@@ -61,7 +61,7 @@ config SECURITY_SELINUX_DISABLE
 config SECURITY_SELINUX_DEVELOP
 	bool "NSA SELinux Development Support"
 	depends on SECURITY_SELINUX
-	default y
+	default n
 	help
 	  This enables the development support option of NSA SELinux,
 	  which is useful for experimenting with SELinux and developing
