@@ -190,10 +190,6 @@ page_owner=on loop.max_part=7";
 		    status = "okay";
 		};
 
-		&el2_reg {
-		    status = "okay";
-		};
-
 		cpu-map {
 			cluster0 {
 				core0 {
