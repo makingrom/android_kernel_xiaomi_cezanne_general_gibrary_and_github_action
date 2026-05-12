@@ -44,17 +44,22 @@ export ARCH=arm64
 export DEFCONFIG=cezanne_user_defconfig
 export KERNEL_DIR=$(pwd)
 export CLANG_TRIPLE=aarch64-linux-gnu-
-export CROSS_COMPILE=aarch64-linux-androidkernel-
+# export CROSS_COMPILE=aarch64-linux-androidkernel-
+export CROSS_COMPILE=aarch64-linux-android-
 export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
 export CC=clang
 # export AS=clang
+export HOSTCC=gcc
+export LLVM_IAS=1
 export LD=ld.lld
+export AR=llvm-ar
 export NM=llvm-nm
 export OBJCOPY=llvm-objcopy
 export OBJDUMP=llvm-objdump
 export STRIP=llvm-strip
 export HOSTAR=llvm-ar
 export CLANG_FLAGS="--target=aarch64-linux-gnu -fintegrated-as"
+export CFLAGS="-fintegrated-as"
 
 # 让 make 不输出颜色 + 不输出冗余日志 → 彻底关闭 stdout 风暴
 export TERM=dumb
@@ -88,13 +93,13 @@ echo "  "
 
 echo -e "\n================================================================================"
 echo "======================   Generating default config...    ======================"
-make ARCH=arm64 CC=clang HOSTCC=gcc \
-    AR=llvm-ar NM=llvm-nm \
-    OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip \
-    O=out CLANG_TRIPLE=aarch64-linux-gnu- \
-    CROSS_COMPILE=aarch64-linux-android- \
-    LD=ld.lld \
-    CFLAGS="-fintegrated-as" \
+make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
+    AR=${AR} NM=${NM} \
+    OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
+    O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
+    CROSS_COMPILE=${CROSS_COMPILE} \
+    LD=${LD} CLANG_FLAGS=${CLANG_FLAGS} \
+    CFLAGS=${CFLAGS} \
     ${DEFCONFIG}
 echo "=========================         completed!           ========================="
 echo "================================================================================"
@@ -144,8 +149,10 @@ which as
 echo $PATH | tr ':' '\n'
 as --version
 echo "LD = $LD"
-echo "LLVM_IAS = $LLVM_IAS"
+echo "HOSTCC = $HOSTCC"
+echo "AR = $AR"
 echo "NM = $NM"
+echo "LLVM_IAS = $LLVM_IAS"
 echo "OBJCOPY = $OBJCOPY"
 echo "OBJDUMP = $OBJDUMP"
 echo "STRIP = $STRIP"
@@ -154,6 +161,7 @@ echo "HOSTAS = $HOSTAS"
 echo "HOSTLD = $HOSTLD"
 echo "HOSTAR = $HOSTAR"
 echo "CLANG_FLAGS = $CLANG_FLAGS"
+echo "CFLAGS = $CFLAGS"
 echo "==============================================================================="
 echo "CLANG_PATH = $CLANG_PATH"
 echo "GCC_PATH = $GCC_PATH"
@@ -173,13 +181,13 @@ echo "  "
 
 echo -e "\n================================================================================"
 echo "======================  Starting kernel compilation...  ======================="
-make ARCH=arm64 CC=clang HOSTCC=gcc \
-    AR=llvm-ar NM=llvm-nm \
-    OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip \
-    O=out CLANG_TRIPLE=aarch64-linux-gnu- \
-    CROSS_COMPILE=aarch64-linux-android- \
-    LD=ld.lld \
-    CFLAGS="-fintegrated-as" \
+make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
+    AR=${AR} NM=${NM} \
+    OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
+    O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
+    CROSS_COMPILE=${CROSS_COMPILE} \
+    LD=${LD} CLANG_FLAGS=${CLANG_FLAGS} \
+    CFLAGS=${CFLAGS} \
     -j4 KCFLAGS="-w"
 echo "=========================      Build completed!        ========================="
 echo "================================================================================"
