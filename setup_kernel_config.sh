@@ -24,7 +24,7 @@ export USE_VERSION_PARAMS_CONFIG=false
 # 自定义编译版本配置
 export VERSION_PARAMS=
 # 是否 开启kvm(高端机可用)，百分之90的用户用不到kvm 开启(true)/关闭(false)/默认(空)
-export USE_ENABLE_KVM=true
+export USE_ENABLE_KVM=false
 # 是否 启用栈保护兼容修复 开启(true)/关闭(false)/默认(空)
 export DISABLE_STACK_PROTECTOR=false
 # 是否 开启 LXC and DOCKER
