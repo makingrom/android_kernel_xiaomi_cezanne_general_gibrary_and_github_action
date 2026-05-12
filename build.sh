@@ -118,6 +118,7 @@ echo "CONFIG_PROC_SYS_KERNEL_VERSION=y" >> out/.config
 echo "CONFIG_PROC_FS=y" >> out/.config
 echo "CONFIG_KALLSYMS=y" >> out/.config
 echo "CONFIG_KALLSYMS_ALL=y" >> out/.config
+echo "CONFIG_CPU_IDLE_MT6889=y" >> out/.config
 
 if [ ${NEED_DTBO} = "true" ]; then
     # echo "CONFIG_OF_OVERLAY=y" >> out/.config
