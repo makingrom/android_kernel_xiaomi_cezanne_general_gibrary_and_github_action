@@ -12,7 +12,7 @@ ANDROID_VERSION=11
 # 内核版本(4.4/4.14/4.19/5.4)
 KERNEL_VERSION=4.14
 # 缓存版本（修改后不用原缓存）
-CACHE_VERSION=0.05
+CACHE_VERSION=0.06
 # 编译设备的硬件架构 ARM64(x86、x86_64、arm、arm64)
 ARCH=arm64
 # 是否使用build-kernel.bash
