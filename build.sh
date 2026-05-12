@@ -19,6 +19,7 @@ export SOURCE_BOOT_IMAGE=https://raw.githubusercontent.com/makingrom/LXC-DOCKER-
 echo "================================================================================"
 echo "KERNEL_IMAGE_NAME=${KERNEL_IMAGE_NAME}" >> $GITHUB_ENV
 echo "MTK_KERNEL_MODULES_UPLOAD=${MTK_KERNEL_MODULES_UPLOAD}" >> $GITHUB_ENV
+echo "KERNEL_ALL_IMAGE_UPLOAD=${KERNEL_ALL_IMAGE_UPLOAD}" >> $GITHUB_ENV
 echo "NEED_DTBO=${NEED_DTBO}" >> $GITHUB_ENV
 echo "BUILD_BOOT_IMG=${BUILD_BOOT_IMG}" >> $GITHUB_ENV
 echo "SOURCE_BOOT_IMAGE=${SOURCE_BOOT_IMAGE}" >> $GITHUB_ENV
@@ -53,6 +54,7 @@ export OBJCOPY=llvm-objcopy
 export OBJDUMP=llvm-objdump
 export STRIP=llvm-strip
 export HOSTAR=llvm-ar
+export CLANG_FLAGS="--target=aarch64-linux-gnu -fintegrated-as"
 
 # 让 make 不输出颜色 + 不输出冗余日志 → 彻底关闭 stdout 风暴
 export TERM=dumb
@@ -92,6 +94,7 @@ make ARCH=arm64 CC=clang HOSTCC=gcc \
     O=out CLANG_TRIPLE=aarch64-linux-gnu- \
     CROSS_COMPILE=aarch64-linux-android- \
     LD=ld.lld \
+    CFLAGS="-fintegrated-as" \
     ${DEFCONFIG}
 echo "=========================         completed!           ========================="
 echo "================================================================================"
@@ -150,6 +153,7 @@ echo "HOSTCC = $HOSTCC"
 echo "HOSTAS = $HOSTAS"
 echo "HOSTLD = $HOSTLD"
 echo "HOSTAR = $HOSTAR"
+echo "CLANG_FLAGS = $CLANG_FLAGS"
 echo "==============================================================================="
 echo "CLANG_PATH = $CLANG_PATH"
 echo "GCC_PATH = $GCC_PATH"
@@ -175,6 +179,7 @@ make ARCH=arm64 CC=clang HOSTCC=gcc \
     O=out CLANG_TRIPLE=aarch64-linux-gnu- \
     CROSS_COMPILE=aarch64-linux-android- \
     LD=ld.lld \
+    CFLAGS="-fintegrated-as" \
     -j4 KCFLAGS="-w"
 echo "=========================      Build completed!        ========================="
 echo "================================================================================"
