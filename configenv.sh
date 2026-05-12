@@ -49,9 +49,9 @@ GCC_AND_CLANG_BRANCH=master
 # 是否「使用自定义 Clang」，改用下方配置的 AOSP 官方 Clang，空则不使用
 USE_CUSTOM_CLANG=true
 # 自定义 Clang 的仓库地址 / 分支（因 USE_CUSTOM_CLANG=false，这两个参数无效）
-CUSTOM_CLANG_DIR=clang-r416183b
+CUSTOM_CLANG_DIR=clang-r536225
 CUSTOM_CLANG_SOURCE=https://github.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action.git
-CUSTOM_CLANG_BRANCH=clang-r416183b
+CUSTOM_CLANG_BRANCH=clang-r536225
 # 强制指定 Clang 的「架构前缀」为 ARM64 Linux 标准（而非 Android 专属）
 CUSTOM_CMDS:CLANG_TRIPLE=aarch64-linux-gnu-
 
