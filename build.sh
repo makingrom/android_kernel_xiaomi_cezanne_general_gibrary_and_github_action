@@ -4,10 +4,12 @@
 echo "================================================================================"
 echo "=======================  Cleaning old build files...   ========================="
 # 编译生成文件配置
-# 低端机填Image.gz-dtb，高端机可以选择Image.gz，Image，Image.zip(打包上传生成的三个Image文件)
-export KERNEL_IMAGE_NAME=Image.zip
+# 低端机填Image.gz-dtb，高端机可以选择Image.gz，Image
+export KERNEL_IMAGE_NAME=Image.gz-dtb
 # 是否 上传MTK驱动模块.ko文件
 export MTK_KERNEL_MODULES_UPLOAD=true
+#打包上传生成的三个Image文件
+export KERNEL_ALL_IMAGE_UPLOAD=true
 # 是否 需要dtbo，一般不需要，false即可
 export NEED_DTBO=false
 # 是否 编译完整的 boot.img
@@ -193,4 +195,5 @@ echo "  "
 echo -e "\n================================================================================"
 echo "================== Kernel: out/arch/arm64/boot/Image.gz-dtb  =================="
 echo "=======================  All modules: out/out_modules/  ========================"
+echo "=======================  All Image: out/out_Image/  ========================"
 echo "================================================================================"
