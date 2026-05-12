@@ -129,6 +129,32 @@ echo "CONFIG_MTK_FPSGO=y" >> out/.config
 echo "CONFIG_MTK_MET_DRV=y" >> out/.config
 echo "CONFIG_MTK_UDC=y" >> out/.config
 
+# 修复编译弹窗问题
+echo "CONFIG_MTK_GPS_SUPPORT=y" >> out/.config
+echo "CONFIG_MTK_GPS_REGISTER_SETTING=n" >> out/.config
+echo "CONFIG_MTK_COMBO_COMM=n" >> out/.config
+echo "CONFIG_MTK_COMBO_ANT=n" >> out/.config
+echo "CONFIG_SILENTOLDCONFIG=y" >> out/.config
+
+# Combo 完整配置
+echo "CONFIG_MTK_COMBO=y" >> out/.config
+echo "CONFIG_MTK_COMBO_CHIP_CONSYS_6885=y" >> out/.config
+echo "CONFIG_MTK_COMBO_PLAT_PATH=\"\"" >> out/.config
+echo "CONFIG_MTK_COMBO_COMM=n" >> out/.config
+echo "CONFIG_MTK_COMBO_BT=y" >> out/.config
+echo "CONFIG_MTK_COMBO_ANT=n" >> out/.config
+echo "CONFIG_MTK_COMBO_GPS=y" >> out/.config
+echo "CONFIG_MTK_COMBO_WIFI=y" >> out/.config
+
+# GPS 配置
+echo "CONFIG_MTK_GPS_SUPPORT=y" >> out/.config
+echo "CONFIG_MTK_GPS_REGISTER_SETTING=n" >> out/.config
+
+# WiFi 配置
+echo "CONFIG_MTK_PASSPOINT_R1_SUPPORT=n" >> out/.config
+echo "CONFIG_MTK_PASSPOINT_R2_SUPPORT=n" >> out/.config
+echo "CONFIG_WLAN_DRV_BUILD_IN=y" >> out/.config
+
 if [ ${NEED_DTBO} = "true" ]; then
     # echo "CONFIG_OF_OVERLAY=y" >> out/.config
     # echo "CONFIG_OF_DTB_OVERLAY_SUPPORT=y" >> out/.config
