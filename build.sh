@@ -180,8 +180,11 @@ echo "  "
 echo -e "\n================================================================================"
 echo "======================  Collecting all driver modules...  ======================"
 rm -rf out/out_modules
+rm -rf out/out_Image
 mkdir -p out/out_modules
+mkdir -p out/out_Image
 find out -name "*.ko" -type f -exec cp {} out/out_modules/ \;
+cp out/arch/arm64/boot/Image* out/out_Image/
 echo "================================================================================"
 
 echo "  "
