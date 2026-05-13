@@ -7,6 +7,9 @@ MINOR_VERSION := $(shell echo $(KERNEL_VERSION) | cut -f2 -d.)
 VERSION_CHECK := $(shell test $(MAJOR_VERSION) -ge 5 || test $(MAJOR_VERSION) -ge 4 -a $(MINOR_VERSION) -ge 19 && echo true)
 
 ifeq ($(VERSION_CHECK), true)
+ifeq ($(CONFIG_MTK_MET_DRV),y)
+$(warning MET built-in, skip met.ko)
+else
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := met.ko
@@ -14,4 +17,5 @@ LOCAL_STRIP_MODULE := true
 
 include $(MTK_KERNEL_MODULE)
 
+endif
 endif # Kernel version >= 4.19
