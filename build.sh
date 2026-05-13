@@ -16,7 +16,7 @@ export KERNEL_ALL_IMAGE_UPLOAD=false
 # 是否 需要dtbo，一般不需要，false即可
 export NEED_DTBO=false
 # 是否 编译完整的 boot.img
-export BUILD_BOOT_IMG=false
+export BUILD_BOOT_IMG=true
 # 原始 boot.img 的下载地址（用于拼接内核镜像生成新 boot.img）
 export SOURCE_BOOT_IMAGE=https://raw.githubusercontent.com/makingrom/LXC-DOCKER-KernelSU_Action/refs/heads/main/boot/boot.img
 echo "================================================================================"
