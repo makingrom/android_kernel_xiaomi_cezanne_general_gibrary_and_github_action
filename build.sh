@@ -162,6 +162,12 @@ echo "CONFIG_MTK_PASSPOINT_R1_SUPPORT=n" >> out/.config
 echo "CONFIG_MTK_PASSPOINT_R2_SUPPORT=n" >> out/.config
 echo "CONFIG_WLAN_DRV_BUILD_IN=y" >> out/.config
 
+# TCP 配置
+echo "CONFIG_TCP_CONG_ADVANCED=y" >> out/.config
+echo "CONFIG_TCP_CONG_BIC=y" >> out/.config
+echo "CONFIG_TCP_CONG_CUBIC=y" >> out/.config
+echo "CONFIG_DEFAULT_CUBIC=y" >> out/.config
+
 if [ ${NEED_DTBO} = "true" ]; then
     # echo "CONFIG_OF_OVERLAY=y" >> out/.config
     # echo "CONFIG_OF_DTB_OVERLAY_SUPPORT=y" >> out/.config
