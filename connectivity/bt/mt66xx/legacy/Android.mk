@@ -1,6 +1,7 @@
 LOCAL_PATH := $(call my-dir)
 
 ifeq ($(MTK_BT_SUPPORT),yes)
+ifneq ($(CONFIG_MTK_COMBO_BT),y)
 ifneq ($(MTK_BT_CHIP), $(filter $(MTK_BT_CHIP), MTK_CONSYS_MT6885 MTK_CONSYS_MT6893))
 
 include $(CLEAR_VARS)
@@ -17,5 +18,6 @@ ifeq ($(MTK_BT_CHIP), $(filter $(MTK_BT_CHIP), MTK_CONSYS_MT6873 MTK_CONSYS_MT68
 endif
 $(linked_module): OPTS += $(BT_OPTS)
 
+endif
 endif
 endif
