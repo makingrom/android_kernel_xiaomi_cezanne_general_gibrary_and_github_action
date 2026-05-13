@@ -234,17 +234,18 @@ echo "  "
 
 echo -e "\n================================================================================"
 echo "======================  Starting kernel compilation...  ======================="
-make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
-    AS=${AS} AR=${AR} NM=${NM} \
-    OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
-    O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
-    CROSS_COMPILE=${CROSS_COMPILE} \
-    LD=${LD} \
-    -j4 KCFLAGS="-w"
+# make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
+#     AS=${AS} AR=${AR} NM=${NM} \
+#     OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
+#     O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
+#     CROSS_COMPILE=${CROSS_COMPILE} \
+#     LD=${LD} \
+#     -j4 KCFLAGS="-w"
 echo "=========================      Build completed!        ========================="
 echo "================================================================================"
 
 echo "  "
+make O=out modules SUBDIRS=drivers/misc/mediatek/connectivity
 echo "  "
 
 echo -e "\n================================================================================"
