@@ -213,6 +213,15 @@ ld.lld --version
 echo "==============================================================================="
 
 echo "  "
+
+make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
+AS=${AS} AR=${AR} NM=${NM} \
+OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
+O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
+CROSS_COMPILE=${CROSS_COMPILE} \
+LD=${LD} \
+oldconfig
+
 echo "  "
 
 echo -e "\n================================================================================"
