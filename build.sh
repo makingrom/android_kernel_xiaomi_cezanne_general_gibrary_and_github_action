@@ -55,7 +55,6 @@ echo "  "
 # sed -i '/CONFIG_MTK_UDC/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
 
 
-
 # # 编译驱动总开关配置 y/m/n
 # echo "CONFIG_MTK_COMBO=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
 # echo "CONFIG_MTK_COMBO_CHIP_CONSYS_6885=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
@@ -146,6 +145,11 @@ echo "=========================  Applying custom configs...  ===================
 echo "CONFIG_WERROR=n" >> out/.config
 echo "# CONFIG_BLK_INLINE_ENCRYPTION is not set" >> out/.config
 echo "CONFIG_BLK_INLINE_ENCRYPTION=n" >> out/.config
+
+sed -i '/struct task_struct {/a \ \ int cpu_prefer;' include/linux/sched.h
+echo "#define SCHED_PREFER_NONE 0" >> include/linux/sched.h
+sed -i 's/-mgeneral-regs-only//' drivers/power/supply/ti_cezanne/Makefile
+sed -i 's/extern inline int typec_pd_start_entry/int typec_pd_start_entry/' drivers/misc/mediatek/typec/tcpc_cezanne/inc/tcpci_typec.h
 
 # 是否 将内核自带的模块编译进内核
 echo "CONFIG_LCD_CLASS_DEVICE=y" >> out/.config
