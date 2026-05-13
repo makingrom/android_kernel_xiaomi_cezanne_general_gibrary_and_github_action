@@ -7,6 +7,13 @@ ifeq ($(filter $(WLAN_MT76XX_CHIPS), $(MTK_COMBO_CHIP)),)
 ifneq (true,$(strip $(TARGET_NO_KERNEL)))
 ifneq ($(filter yes,$(MTK_COMBO_SUPPORT)),)
 
+# ======================== 关键修改 ========================
+# 当 WLAN 内置时，不编译 wmt_drv.ko
+ifeq ($(CONFIG_MTK_COMBO_WLAN),y)
+$(warning WMT driver built-in, skip wmt_drv.ko)
+else
+# ==========================================================
+
 include $(CLEAR_VARS)
 LOCAL_MODULE := wmt_drv.ko
 LOCAL_PROPRIETARY_MODULE := true
@@ -23,6 +30,10 @@ WMT_OPTS += MTK_PLATFORM_WMT=$(MTK_PLATFORM)
 WMT_OPTS += TARGET_BOARD_PLATFORM_WMT=$(TARGET_BOARD_PLATFORM)
 
 $(linked_module): OPTS += $(WMT_OPTS)
+
+# ======================== 关闭判断 ========================
+endif
+# ==========================================================
 
 else
         $(warning wmt_drv-MTK_COMBO_SUPPORT: [$(MTK_COMBO_SUPPORT)])
