@@ -464,7 +464,7 @@ jobs:
         path: kernel_workspace/android-kernel/out/out_Image/*
         
     - name: Upload ${{ env.MTK_KERNEL_MODULES_SOURCE_DIR }} (上传)
-      if: env.MTK_KERNEL_MODULES_UPLOAD == 'true' || env.USE_MTK_KERNEL_MODULES == 'true'
+      if: env.MTK_KERNEL_MODULES_UPLOAD == 'true' && env.USE_MTK_KERNEL_MODULES == 'true'
       uses: actions/upload-artifact@v4
       with:
         name: ${{ env.MTK_KERNEL_MODULES_SOURCE_BRANCH }}-${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
