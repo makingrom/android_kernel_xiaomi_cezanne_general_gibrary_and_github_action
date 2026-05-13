@@ -152,12 +152,12 @@ sed -i 's/^int cpu_prefer;$//g' include/linux/sched.h
 sed -i 's/-mgeneral-regs-only//' drivers/power/supply/ti_cezanne/Makefile
 sed -i 's/extern inline int typec_pd_start_entry/int typec_pd_start_entry/' drivers/misc/mediatek/typec/tcpc_cezanne/inc/tcpci_typec.h
 
-# 是否 将内核自带的模块编译进内核
-echo "CONFIG_LCD_CLASS_DEVICE=y" >> out/.config
-echo "CONFIG_IKHEADERS=y" >> out/.config
-echo "CONFIG_BRIDGE_NETFILTER=y" >> out/.config
-echo "CONFIG_TCP_CONG_WESTWOOD=y" >> out/.config
-echo "CONFIG_TCP_CONG_HTCP=y" >> out/.config
+# # 是否 将内核自带的模块编译进内核
+# echo "CONFIG_LCD_CLASS_DEVICE=y" >> out/.config
+# echo "CONFIG_IKHEADERS=y" >> out/.config
+# echo "CONFIG_BRIDGE_NETFILTER=y" >> out/.config
+# echo "CONFIG_TCP_CONG_WESTWOOD=y" >> out/.config
+# echo "CONFIG_TCP_CONG_HTCP=y" >> out/.config
 
 # # 写入到 out/.config（严格按你的要求）
 # echo "CONFIG_MTK_COMBO=y" >> out/.config
