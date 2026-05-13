@@ -513,3 +513,11 @@ jobs:
           ${{ github.workspace }}/kernel_workspace/tools
           ${{ github.workspace }}/kernel_workspace/boot-source.img
         key: ${{ env.CACHE_VERSION }}-${{ env.ARCH }}-${{ env.KERNEL_VERSION }}-${{ env.ANDROID_VERSION }}-${{ env.KERNEL_SOURCE_BRANCH }}-${{ env.MTK_KERNEL_MODULES_SOURCE_BRANCH }}-${{ env.GCC_AND_CLANG_BRANCH }}-${{ env.CUSTOM_CLANG_BRANCH }}-${{ env.CUSTOM_GCC_64_BRANCH }}-${{ env.CUSTOM_GCC_32_BRANCH }}-${{ env.CUSTOM_ANYKERNEL3_BRANCH }}
+
+    - name: 强制保存 APT 依赖缓存
+      if: always()
+      uses: actions/cache/save@v3
+      with:
+        path: ${{ github.workspace }}/kernel_workspace/kernel_environment
+        key: apt-env-cache-${{ env.ARCH }}
+        
