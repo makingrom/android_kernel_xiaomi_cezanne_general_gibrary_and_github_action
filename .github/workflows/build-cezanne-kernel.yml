@@ -45,31 +45,57 @@ jobs:
       with:
         key: build-kernel-${{ env.DEVICE }}${{ env.LOCALVERSION }}${{ env.UPLOADNAME }}
         max-size: 2G
-        
-    - name: Setup build kernel environment(构建编译内核环境)
+
+    - name: 缓存 APT 依赖安装包（单独缓存）
+      uses: actions/cache@v3
+      with:
+        # 只缓存这个文件夹！你的依赖备份目录
+        path: ${{ github.workspace }}/kernel_workspace/kernel_environment
+        # 缓存 key（固定即可，不需要复杂变量）
+        key: apt-packages-cache-${{ env.ARCH }}
+        # 找不到完全匹配的，就用同架构任意缓存
+        restore-keys: |
+          apt-packages-cache-${{ env.ARCH }}
+
+    - name: Setup build kernel environment(构建编译内核环境带自动依赖缓存)
       run: |
         echo "BUILD_TIME=$(TZ=Asia/Shanghai date "+%Y%m%d%H%M")" >> $GITHUB_ENV
         echo "DEVICE=$(echo ${{ env.KERNEL_CONFIG }} | sed 's!vendor/!!;s/_defconfig//;s/_user//;s/-perf//')" >> $GITHUB_ENV
+
+        # 自定义目录（你指定的）
+        WORKSPACE="${{ github.workspace }}"
+        KERNEL_ENV="$WORKSPACE/kernel_workspace/kernel_environment"
+        APT_CACHE="/var/cache/apt/archives"
+
+        mkdir -p "$WORKSPACE/kernel_workspace"
+        mkdir -p "$KERNEL_ENV"
+        mkdir -p "$APT_CACHE"
+
+        # ==========================================
+        # 检查缓存：如果有缓存，直接恢复
+        # ==========================================
+        if [ -n "$(ls -A $KERNEL_ENV 2>/dev/null)" ]; then
+          echo "✅ 找到 APT 依赖缓存，直接恢复，不联网下载！"
+          cp -f "$KERNEL_ENV"/*.deb "$APT_CACHE/" 2>/dev/null
+        else
+          echo "🆕 无缓存，将全新下载依赖并自动备份"
+        fi
+
+        # 安装依赖
         sudo apt-get update
-        sudo apt-get install git ccache automake flex lzop bison gperf build-essential zip curl zlib1g-dev g++-multilib libxml2-utils bzip2 libbz2-dev libbz2-1.0 libghc-bzlib-dev squashfs-tools pngcrush schedtool dpkg-dev liblz4-tool make optipng maven libssl-dev pwgen libswitch-perl policycoreutils minicom libxml-sax-base-perl libxml-simple-perl bc libc6-dev-i386 lib32ncurses5-dev libx11-dev lib32z-dev libgl1-mesa-dev xsltproc unzip device-tree-compiler python2 python3
-        mkdir -p $GITHUB_WORKSPACE/kernel_workspace
-    
-    - name: 切换python(python/python2/python3)
-      if: env.SWITCH_PYTHON != ''
-      run: |
-        if [ ${{ env.SWITCH_PYTHON }} = true ]; then
-            sudo rm /usr/bin/python
-            sudo ln -s /usr//bin/python3 /usr/bin/python
-        fi
-        if [ ${{ env.SWITCH_PYTHON }} = false ]; then
-            sudo rm /bin/python
-            sudo ln -s /bin/python2 /bin/python
-        fi
-        export PYTHON=/usr/bin/python
-        python --version
-        python2 --version
-        python3 --version
-        
+        sudo apt-get install -y \
+          git ccache automake flex lzop bison gperf build-essential zip curl \
+          zlib1g-dev g++-multilib libxml2-utils bzip2 libbz2-dev libbz2-1.0 \
+          libghc-bzlib-dev squashfs-tools pngcrush schedtool dpkg-dev liblz4-tool \
+          make optipng maven libssl-dev pwgen libswitch-perl policycoreutils minicom \
+          libxml-sax-base-perl libxml-simple-perl bc libc6-dev-i386 lib32ncurses5-dev \
+          libx11-dev lib32z-dev libgl1-mesa-dev xsltproc unzip device-tree-compiler \
+          python2 python3
+
+        # 备份所有下载的 deb 到你的专属缓存目录
+        echo "✅ 备份依赖包到 $KERNEL_ENV"
+        cp -f "$APT_CACHE"/*.deb "$KERNEL_ENV/" 2>/dev/null
+
     - name: 缓存内核源码与工具链
       uses: actions/cache@v3
       with:
@@ -85,6 +111,22 @@ jobs:
         key: build-cache-${{ env.CACHE_VERSION }}-${{ env.ARCH }}-${{ env.KERNEL_VERSION }}-${{ env.ANDROID_VERSION }}-${{ env.KERNEL_SOURCE_BRANCH }}-${{ env.MTK_KERNEL_MODULES_SOURCE_BRANCH }}-${{ env.GCC_AND_CLANG_BRANCH }}-${{ env.CUSTOM_CLANG_BRANCH }}-${{ env.CUSTOM_GCC_64_BRANCH }}-${{ env.CUSTOM_GCC_32_BRANCH }}-${{ env.CUSTOM_ANYKERNEL3_BRANCH }}
         restore-keys: |
             ${{ env.CACHE_VERSION }}-${{ env.ARCH }}-${{ env.KERNEL_VERSION }}-${{ env.ANDROID_VERSION }}-${{ env.KERNEL_SOURCE_BRANCH }}-${{ env.MTK_KERNEL_MODULES_SOURCE_BRANCH }}-${{ env.GCC_AND_CLANG_BRANCH }}-${{ env.CUSTOM_CLANG_BRANCH }}-${{ env.CUSTOM_GCC_64_BRANCH }}-${{ env.CUSTOM_GCC_32_BRANCH }}-${{ env.CUSTOM_ANYKERNEL3_BRANCH }}
+        
+    - name: 切换python(python/python2/python3)
+      if: env.SWITCH_PYTHON != ''
+      run: |
+        if [ ${{ env.SWITCH_PYTHON }} = true ]; then
+            sudo rm /usr/bin/python
+            sudo ln -s /usr//bin/python3 /usr/bin/python
+        fi
+        if [ ${{ env.SWITCH_PYTHON }} = false ]; then
+            sudo rm /bin/python
+            sudo ln -s /bin/python2 /bin/python
+        fi
+        export PYTHON=/usr/bin/python
+        python --version
+        python2 --version
+        python3 --version
         
     - name: Download Custom-Clang(下载Custom-Clang编译器)
       if: env.USE_CUSTOM_CLANG != 'false' || env.USE_GCC_AND_CLANG != 'false'
