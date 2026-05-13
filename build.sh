@@ -113,12 +113,6 @@ echo "=========================  Applying custom configs...  ===================
 echo "CONFIG_WERROR=n" >> out/.config
 echo "# CONFIG_BLK_INLINE_ENCRYPTION is not set" >> out/.config
 echo "CONFIG_BLK_INLINE_ENCRYPTION=n" >> out/.config
-# 系统设置读取内核版本必须依赖的开关
-echo "CONFIG_PROC_SYS_KERNEL_VERSION=y" >> out/.config
-echo "CONFIG_PROC_FS=y" >> out/.config
-echo "CONFIG_KALLSYMS=y" >> out/.config
-echo "CONFIG_KALLSYMS_ALL=y" >> out/.config
-echo "CONFIG_CPU_IDLE_MT6889=y" >> out/.config
 
 # 是否 将内核自带的模块编译进内核
 echo "CONFIG_LCD_CLASS_DEVICE=y" >> out/.config
