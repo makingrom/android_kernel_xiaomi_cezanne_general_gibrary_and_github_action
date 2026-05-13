@@ -245,6 +245,9 @@ echo "=========================      Build completed!        ===================
 echo "================================================================================"
 
 echo "  "
+
+make O=out prepare
+
 make O=out modules SUBDIRS=drivers/misc/mediatek/connectivity
 echo "  "
 
