@@ -68,16 +68,16 @@ jobs:
     
         mkdir -p "$KERNEL_ENV" "$APT_CACHE"
     
-        # 严格检查缓存有效性
+        # 严格检查缓存 + 【修复：sudo 复制】
         if [ "$(ls -1 $KERNEL_ENV/*.deb 2>/dev/null | wc -l)" -gt 0 ]; then
           echo "✅ 找到 APT 依赖缓存，开始恢复..."
-          cp -v "$KERNEL_ENV"/*.deb "$APT_CACHE/"
-          echo "✅ 恢复完成！共复制 $(ls -1 $KERNEL_ENV/*.deb 2>/dev/null | wc -l) 个包"
+          sudo cp -v "$KERNEL_ENV"/*.deb "$APT_CACHE/"  # 👈 这里加了 sudo
+          echo "✅ 恢复完成！"
         else
-          echo "🆕 缓存为空或无效，将全新下载并备份"
+          echo "🆕 缓存为空，全新下载并备份"
         fi
     
-        # 安装依赖（优先使用本地包）
+        # 安装依赖
         sudo apt-get update
         sudo apt-get install -y --fix-missing \
           git ccache automake flex lzop bison gperf build-essential zip curl \
@@ -88,10 +88,9 @@ jobs:
           libx11-dev lib32z-dev libgl1-mesa-dev xsltproc unzip device-tree-compiler \
           python2 python3
     
-        # 备份新下载的包
-        echo "✅ 备份依赖包到 $KERNEL_ENV"
+        # 备份缓存（这里不需要 sudo）
+        echo "✅ 备份依赖包到缓存目录"
         cp -v "$APT_CACHE"/*.deb "$KERNEL_ENV/" 2>/dev/null
-        echo "✅ 备份完成！当前缓存包数：$(ls -1 $KERNEL_ENV/*.deb 2>/dev/null | wc -l)"
 
     - name: 缓存内核源码与工具链
       uses: actions/cache@v3
