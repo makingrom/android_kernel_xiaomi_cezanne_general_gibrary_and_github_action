@@ -1,4 +1,9 @@
+# 自动内置/模块
+ifeq ($(CONFIG_MTK_MET_DRV),y)
+obj-y += met_drv.o
+else
 obj-m := met.o
+endif
 
 ccflags-y += -I$(srctree)/include/
 
