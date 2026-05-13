@@ -89,7 +89,7 @@ CUSTOM_GCC_32_BIN=arm-linux-androideabi-
 
 # Kernel集成、生成AnyKernel3包
 # 是否 KernelSU 集成
-ENABLE_KERNELSU=true
+ENABLE_KERNELSU=false
 # 指定要集成的 KernelSU 版本（v0.9.5 是稳定版）
 KERNELSU_TAG=v0.9.5
 # KernelSU 产物的大小 / 哈希校验值（可选）
