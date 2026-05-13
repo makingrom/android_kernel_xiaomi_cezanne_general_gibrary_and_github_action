@@ -129,7 +129,10 @@ echo "CONFIG_MTK_COMBO_FM=y" >> out/.config
 echo "CONFIG_MTK_COMBO_GPS=y" >> out/.config
 echo "CONFIG_MTK_FPSGO=y" >> out/.config
 echo "CONFIG_MTK_MET_DRV=y" >> out/.config
+echo "CONFIG_MTK_MET_BUILT_IN=y" >> out/.config
+echo "CONFIG_MTK_MET_PLF=y" >> out/.config
 echo "CONFIG_MTK_UDC=y" >> out/.config
+
 
 # 修复编译弹窗问题
 echo "CONFIG_MTK_GPS_SUPPORT=y" >> out/.config
