@@ -61,9 +61,6 @@ ccflags-y += -I$(srctree)/drivers/misc/mediatek/base/power/include/clkbuf_v1/$(M
 ccflags-y += -I$(srctree)/drivers/devfreq
 ###############################################################################
 
-MODULE_NAME := gps_drv
-obj-m += $(MODULE_NAME).o
-
 GPS_DRV_CONTROL_LNA := n
 SELECT_GPS_DL_DRV := n
 GPS_DL_HAS_MOCK := n
@@ -122,48 +119,48 @@ ccflags-y += -I$(GPS_SRC_FOLDER)/data_link/hal/inc
 ccflags-y += -I$(GPS_SRC_FOLDER)/data_link/hw/inc
 ccflags-y += -I$(GPS_SRC_FOLDER)/data_link_mock/mock/inc
 
-$(MODULE_NAME)-objs += gps_dl_module.o
-$(MODULE_NAME)-objs += data_link/gps_dl_context.o
+gps_drv-objs += gps_dl_module.o
+gps_drv-objs += data_link/gps_dl_context.o
 
-$(MODULE_NAME)-objs += data_link/lib/gps_dl_dma_buf.o
-$(MODULE_NAME)-objs += data_link/lib/gps_dl_lib_misc.o
-$(MODULE_NAME)-objs += data_link/lib/gps_dl_hist_rec.o
-$(MODULE_NAME)-objs += data_link/lib/gps_dl_time_tick.o
-$(MODULE_NAME)-objs += data_link/lib/gps_dl_name_list.o
+gps_drv-objs += data_link/lib/gps_dl_dma_buf.o
+gps_drv-objs += data_link/lib/gps_dl_lib_misc.o
+gps_drv-objs += data_link/lib/gps_dl_hist_rec.o
+gps_drv-objs += data_link/lib/gps_dl_time_tick.o
+gps_drv-objs += data_link/lib/gps_dl_name_list.o
 
-$(MODULE_NAME)-objs += data_link/hw/gps_dl_hw_conn_infra.o
-$(MODULE_NAME)-objs += data_link/hw/gps_dl_hw_bgf.o
-$(MODULE_NAME)-objs += data_link/hw/gps_dl_hw_gps.o
-$(MODULE_NAME)-objs += data_link/hw/gps_dl_hw_power_ctrl.o
-$(MODULE_NAME)-objs += data_link/hw/gps_dl_hw_usrt_apb.o
-$(MODULE_NAME)-objs += data_link/hw/gps_dl_hw_util.o
+gps_drv-objs += data_link/hw/gps_dl_hw_conn_infra.o
+gps_drv-objs += data_link/hw/gps_dl_hw_bgf.o
+gps_drv-objs += data_link/hw/gps_dl_hw_gps.o
+gps_drv-objs += data_link/hw/gps_dl_hw_power_ctrl.o
+gps_drv-objs += data_link/hw/gps_dl_hw_usrt_apb.o
+gps_drv-objs += data_link/hw/gps_dl_hw_util.o
 
-$(MODULE_NAME)-objs += data_link/hal/gps_dl_hal.o
-$(MODULE_NAME)-objs += data_link/hal/gps_dl_hal_util.o
-$(MODULE_NAME)-objs += data_link/hal/gps_dsp_fsm.o
-$(MODULE_NAME)-objs += data_link/hal/gps_dl_power_ctrl.o
-$(MODULE_NAME)-objs += data_link/hal/gps_dl_isr.o
-$(MODULE_NAME)-objs += data_link/hal/gps_dl_dma.o
-$(MODULE_NAME)-objs += data_link/hal/gps_dl_mcub.o
-$(MODULE_NAME)-objs += data_link/hal/gps_dl_zbus.o
-$(MODULE_NAME)-objs += data_link/hal/gps_dl_conn_infra.o
+gps_drv-objs += data_link/hal/gps_dl_hal.o
+gps_drv-objs += data_link/hal/gps_dl_hal_util.o
+gps_drv-objs += data_link/hal/gps_dsp_fsm.o
+gps_drv-objs += data_link/hal/gps_dl_power_ctrl.o
+gps_drv-objs += data_link/hal/gps_dl_isr.o
+gps_drv-objs += data_link/hal/gps_dl_dma.o
+gps_drv-objs += data_link/hal/gps_dl_mcub.o
+gps_drv-objs += data_link/hal/gps_dl_zbus.o
+gps_drv-objs += data_link/hal/gps_dl_conn_infra.o
 
-$(MODULE_NAME)-objs += data_link/link/gps_dl_subsys_reset.o
-$(MODULE_NAME)-objs += data_link/gps_each_link.o
+gps_drv-objs += data_link/link/gps_dl_subsys_reset.o
+gps_drv-objs += data_link/gps_each_link.o
 
-$(MODULE_NAME)-objs += data_link/linux/gps_data_link_devices.o
-$(MODULE_NAME)-objs += data_link/linux/gps_each_device.o
-$(MODULE_NAME)-objs += data_link/linux/gps_dl_linux.o
-$(MODULE_NAME)-objs += data_link/linux/gps_dl_linux_plat_drv.o
-$(MODULE_NAME)-objs += data_link/linux/gps_dl_linux_reserved_mem.o
-$(MODULE_NAME)-objs += data_link/linux/gps_dl_emi.o
-$(MODULE_NAME)-objs += data_link/linux/gps_dl_ctrld.o
-$(MODULE_NAME)-objs += data_link/linux/gps_dl_procfs.o
-$(MODULE_NAME)-objs += data_link/linux/gps_dl_osal.o
+gps_drv-objs += data_link/linux/gps_data_link_devices.o
+gps_drv-objs += data_link/linux/gps_each_device.o
+gps_drv-objs += data_link/linux/gps_dl_linux.o
+gps_drv-objs += data_link/linux/gps_dl_linux_plat_drv.o
+gps_drv-objs += data_link/linux/gps_dl_linux_reserved_mem.o
+gps_drv-objs += data_link/linux/gps_dl_emi.o
+gps_drv-objs += data_link/linux/gps_dl_ctrld.o
+gps_drv-objs += data_link/linux/gps_dl_procfs.o
+gps_drv-objs += data_link/linux/gps_dl_osal.o
 
 ifeq ($(GPS_DL_HAS_MOCK),y)
-$(MODULE_NAME)-objs += data_link_mock/mock/gps_mock_mvcd.o
-$(MODULE_NAME)-objs += data_link_mock/mock/gps_mock_hal.o
+gps_drv-objs += data_link_mock/mock/gps_mock_mvcd.o
+gps_drv-objs += data_link_mock/mock/gps_mock_hal.o
 ccflags-y += -DGPS_DL_HAS_MOCK=1
 endif
 
@@ -199,27 +196,36 @@ ccflags-y += -I$(GPS_SRC_FOLDER)/lna_ctrl/inc
 endif
 
 ifeq ($(CONFIG_MTK_CONN_MT3337_CHIP_SUPPORT),y)
-        $(MODULE_NAME)-objs += gps_mt3337.o
+        gps_drv-objs += gps_mt3337.o
 else
-        $(MODULE_NAME)-objs += stp_chrdev_gps.o
+        gps_drv-objs += stp_chrdev_gps.o
 ifeq ($(CONFIG_ARCH_MTK_PROJECT),"k6833v1_64_swrgo")
-        $(MODULE_NAME)-objs += stp_chrdev_gps2.o
+        gps_drv-objs += stp_chrdev_gps2.o
 endif
 ifeq ($(CONFIG_MACH_MT6833),y)
-        $(MODULE_NAME)-objs += stp_chrdev_gps2.o
+        gps_drv-objs += stp_chrdev_gps2.o
 endif
 ifeq ($(GPS_DRV_CONTROL_LNA),y)
-        $(MODULE_NAME)-objs += lna_ctrl/src/gps_lna_drv.o
+        gps_drv-objs += lna_ctrl/src/gps_lna_drv.o
 endif
 endif
 ifneq ($(CONFIG_MTK_GPS_EMI),)
-$(MODULE_NAME)-objs += gps_emi.o
+gps_drv-objs += gps_emi.o
 endif
 ifneq ($(CONFIG_MTK_CONNSYS_DEDICATED_LOG_PATH),)
-$(MODULE_NAME)-objs += fw_log_gps.o
+gps_drv-objs += fw_log_gps.o
 endif
 
 endif
 
-endif #ifeq ($(CONFIG_MTK_GPS_SUPPORT), y)
+# ============================================================================
+# 🔥 智能切换：内置 / 模块
+# ============================================================================
+ifeq ($(CONFIG_MTK_COMBO_GPS),y)
+obj-y += gps_drv.o
+else ifeq ($(CONFIG_MTK_COMBO_GPS),m)
+obj-m += gps_drv.o
+endif
+
+endif #ifeq ($(CONFIG_MTK_COMBO_GPS), y)
 # EOF
