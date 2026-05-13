@@ -159,29 +159,25 @@ echo "CONFIG_BRIDGE_NETFILTER=y" >> out/.config
 echo "CONFIG_TCP_CONG_WESTWOOD=y" >> out/.config
 echo "CONFIG_TCP_CONG_HTCP=y" >> out/.config
 
-# 写入到 out/.config（严格按你的要求）
-echo "CONFIG_MTK_COMBO=y" >> out/.config
-echo "CONFIG_MTK_COMBO_CHIP_CONSYS_6885=y" >> out/.config
-echo "CONFIG_WLAN_DRV_BUILD_IN=y" >> out/.config
-echo "CONFIG_DEFAULT_CUBIC=y" >> out/.config
-echo "CONFIG_MTK_COMBO_WLAN=y" >> out/.config
-echo "CONFIG_MTK_COMBO_BT=y" >> out/.config
-echo "CONFIG_MTK_COMBO_FM=y" >> out/.config
-echo "CONFIG_MTK_COMBO_GPS=y" >> out/.config
-echo "CONFIG_MTK_FPSGO=y" >> out/.config
-echo "CONFIG_MTK_MET_DRV=y" >> out/.config
-echo "CONFIG_MTK_MET_PLF=y" >> out/.config
-echo "CONFIG_MTK_MET_BUILT_IN=y" >> out/.config
-echo "CONFIG_MTK_UDC=y" >> out/.config
-echo "MTK_GPS_REGISTER_SETTING=y" >> out/.config
-echo "MTK_GPS_EMI=y" >> out/.config
+# # 写入到 out/.config（严格按你的要求）
+# echo "CONFIG_MTK_COMBO=y" >> out/.config
+# echo "CONFIG_MTK_COMBO_CHIP_CONSYS_6885=y" >> out/.config
+# echo "CONFIG_WLAN_DRV_BUILD_IN=y" >> out/.config
+# echo "CONFIG_DEFAULT_CUBIC=y" >> out/.config
+# echo "CONFIG_MTK_COMBO_WLAN=y" >> out/.config
+# echo "CONFIG_MTK_COMBO_BT=y" >> out/.config
+# echo "CONFIG_MTK_COMBO_FM=y" >> out/.config
+# echo "CONFIG_MTK_COMBO_GPS=y" >> out/.config
+# echo "CONFIG_MTK_FPSGO=y" >> out/.config
+# echo "CONFIG_MTK_MET_DRV=y" >> out/.config
+# echo "CONFIG_MTK_MET_PLF=y" >> out/.config
+# echo "CONFIG_MTK_MET_BUILT_IN=y" >> out/.config
+# echo "CONFIG_MTK_UDC=y" >> out/.config
+# echo "MTK_GPS_REGISTER_SETTING=y" >> out/.config
+# echo "MTK_GPS_EMI=y" >> out/.config
 
-sed -i '/struct task_struct {/a \ \ int cpu_prefer;' include/linux/sched.h
-echo "#define SCHED_PREFER_NONE 0" >> include/linux/sched.h
-
-
-# 芯片型号
-echo "CONFIG_MTK_COMBO_CHIP_CONSYS_6885=y" >> out/.config
+# # 芯片型号
+# echo "CONFIG_MTK_COMBO_CHIP_CONSYS_6885=y" >> out/.config
 
 if [ ${NEED_DTBO} = "true" ]; then
     # echo "CONFIG_OF_OVERLAY=y" >> out/.config
@@ -248,13 +244,13 @@ echo "==========================================================================
 
 echo "  "
 
-make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
-    AS=${AS} AR=${AR} NM=${NM} \
-    OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
-    O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
-    CROSS_COMPILE=${CROSS_COMPILE} \
-    LD=${LD} \
-    oldconfig
+# make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
+#     AS=${AS} AR=${AR} NM=${NM} \
+#     OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
+#     O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
+#     CROSS_COMPILE=${CROSS_COMPILE} \
+#     LD=${LD} \
+#     oldconfig
 
 echo "  "
 
