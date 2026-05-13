@@ -61,8 +61,8 @@ echo "  "
 # echo "CONFIG_WLAN_DRV_BUILD_IN=m" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
 # echo "CONFIG_DEFAULT_CUBIC=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
 # # 再写入正确配置（内置模式）y/m/n
-# echo "CONFIG_MTK_COMBO_WLAN=m" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-# echo "CONFIG_MTK_COMBO_BT=m" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+echo "CONFIG_MTK_COMBO_WLAN=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+echo "CONFIG_MTK_COMBO_BT=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
 # echo "CONFIG_MTK_COMBO_FM=m" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
 # echo "CONFIG_MTK_COMBO_GPS=m" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
 # echo "CONFIG_MTK_FPSGO=m" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
