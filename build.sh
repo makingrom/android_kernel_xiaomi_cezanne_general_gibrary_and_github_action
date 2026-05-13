@@ -148,6 +148,7 @@ echo "CONFIG_BLK_INLINE_ENCRYPTION=n" >> out/.config
 
 sed -i '/struct task_struct {/a \ \ int cpu_prefer;' include/linux/sched.h
 echo "#define SCHED_PREFER_NONE 0" >> include/linux/sched.h
+sed -i 's/^int cpu_prefer;$//g' include/linux/sched.h
 sed -i 's/-mgeneral-regs-only//' drivers/power/supply/ti_cezanne/Makefile
 sed -i 's/extern inline int typec_pd_start_entry/int typec_pd_start_entry/' drivers/misc/mediatek/typec/tcpc_cezanne/inc/tcpci_typec.h
 
