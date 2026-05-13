@@ -48,20 +48,22 @@ ccflags-y += -D MTK_WCN_WMT_STP_EXP_SYMBOL_ABSTRACT
 
 ccflags-y += -D CREATE_NODE_DYNAMIC=1
 
-MODULE_NAME := wmt_chrdev_wifi
-ifeq ($(CONFIG_WLAN_DRV_BUILD_IN),y)
-$(warning $(MODULE_NAME) build-in boot.img)
-obj-y += $(MODULE_NAME).o
-else
-$(warning $(MODULE_NAME) is kernel module)
-obj-m += $(MODULE_NAME).o
+# ============================================================================
+# 🔥 自动切换：内置 / 模块（适配你 CONFIG_MTK_COMBO_WLAN）
+# ============================================================================
+wmt_chrdev_wifi-objs += wmt_cdev_wifi.o
+
+ifneq ($(CONFIG_MTK_CONNSYS_DEDICATED_LOG_PATH),)
+wmt_chrdev_wifi-objs += fw_log_wifi.o
 endif
 
-# Wi-Fi character device driver
-$(MODULE_NAME)-objs += wmt_cdev_wifi.o
-ifneq ($(CONFIG_MTK_CONNSYS_DEDICATED_LOG_PATH),)
-$(MODULE_NAME)-objs += fw_log_wifi.o
-endif
 ifeq ($(ADAPTOR_OPTS),CONNAC2X2_SOC3_0)
-$(MODULE_NAME)-objs += wifi_pwr_on.o
+wmt_chrdev_wifi-objs += wifi_pwr_on.o
+endif
+
+# 自动根据 WLAN 配置切换
+ifeq ($(CONFIG_MTK_COMBO_WLAN),y)
+obj-y += wmt_chrdev_wifi.o
+else ifeq ($(CONFIG_MTK_COMBO_WLAN),m)
+obj-m += wmt_chrdev_wifi.o
 endif
