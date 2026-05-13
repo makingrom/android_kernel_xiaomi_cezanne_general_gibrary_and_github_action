@@ -34,7 +34,7 @@ export LXC_PATCH=false
 # 是否 关闭CONFIG_ANDROID_PARANOID_NETWORK配置防止docker and lxc出现网络问题
 export ANDROID_PARANOID_NETWORK_OFF=false
 # 是否 启用专属内核配置 骁龙QUALCOMM(true)/联发科MEDIATEK(false)平台/默认(空)
-export Device_Processor_Selection=false
+export Device_Processor_Selection=
 
 # # 关闭报错的联发科视频编解码（VCU/VCODEC）
 # sed -i '/CONFIG_MTK_VCODEC/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
