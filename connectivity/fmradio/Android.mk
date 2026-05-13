@@ -4,7 +4,7 @@ ifeq ($(MTK_FM_SUPPORT),yes)
 
 # ======================== 关键修改 ========================
 # FM 内置时，不编译 fmradio_drv.ko
-ifeq ($(CONFIG_MTK_FMRADIO),y)
+ifeq ($(CONFIG_MTK_COMBO_FM),y)
 $(warning FMRADIO is built-in, skip module build)
 else
 # ==========================================================
