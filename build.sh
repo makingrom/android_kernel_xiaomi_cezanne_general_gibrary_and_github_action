@@ -171,6 +171,9 @@ echo "CONFIG_MTK_UDC=y" >> out/.config
 echo "MTK_GPS_REGISTER_SETTING=y" >> out/.config
 echo "MTK_GPS_EMI=y" >> out/.config
 
+sed -i '/struct task_struct {/a \ \ int cpu_prefer;' include/linux/sched.h
+echo "#define SCHED_PREFER_NONE 0" >> include/linux/sched.h
+
 
 # 芯片型号
 echo "CONFIG_MTK_COMBO_CHIP_CONSYS_6885=y" >> out/.config
