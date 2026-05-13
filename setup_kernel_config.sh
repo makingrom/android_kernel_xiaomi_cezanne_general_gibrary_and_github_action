@@ -10,11 +10,11 @@ ANDROID_VERSION="${ANDROID_VERSION}"
 KERNEL_VERSION="${KERNEL_VERSION}"
 
 # 是否 应用 KernelSU 补丁 开启(true)/关闭(false)/默认(空)
-export APPLY_KSU_PATCH=
+export APPLY_KSU_PATCH=true
 # 是否 添加 Kprobes 调试配置（KernelSU 部分功能依赖 Kprobes）开启(true)/关闭(false)/默认(空)
-export ADD_KPROBES_CONFIG=false
+export ADD_KPROBES_CONFIG=true
 # 是否 添加 OverlayFS 配置（文件系统叠加，KernelSU 挂载模块需要）开启(true)/关闭(false)/默认(空)
-export ADD_OVERLAYFS_CONFIG=false
+export ADD_OVERLAYFS_CONFIG=true
 # 是否 开启 LTO（链接时优化）开启(true)/关闭(false)/默认(空)
 export USE_DISABLE_LTO=false
 # 是否 开启「警告转错误」（-Werror）开启(true)/关闭(false)/默认(空)
@@ -26,13 +26,13 @@ export VERSION_PARAMS=
 # 是否 开启kvm(高端机可用)，百分之90的用户用不到kvm 开启(true)/关闭(false)/默认(空)
 export USE_ENABLE_KVM=false
 # 是否 启用栈保护兼容修复 开启(true)/关闭(false)/默认(空)
-export DISABLE_STACK_PROTECTOR=false
+export DISABLE_STACK_PROTECTOR=true
 # 是否 开启 LXC and DOCKER
-export LXC_DOCKER=false
+export LXC_DOCKER=true
 # 是否 打入 LXC 补丁
-export LXC_PATCH=false
+export LXC_PATCH=true
 # 是否 关闭CONFIG_ANDROID_PARANOID_NETWORK配置防止docker and lxc出现网络问题
-export ANDROID_PARANOID_NETWORK_OFF=false
+export ANDROID_PARANOID_NETWORK_OFF=true
 # 是否 启用专属内核配置 骁龙QUALCOMM(true)/联发科MEDIATEK(false)平台/默认(空)
 export Device_Processor_Selection=
 
