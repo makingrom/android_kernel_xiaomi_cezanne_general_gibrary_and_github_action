@@ -14,7 +14,6 @@
 
 ###############################################################################
 # Generally Android.mk can not get KConfig setting
-# we can use this way to get
 # include the final KConfig
 # but there is no $(AUTO_CONF) at the first time (no out folder) when make
 #
@@ -51,6 +50,13 @@ LOCAL_PATH := $(call my-dir)
 ifeq ($(MTK_BT_SUPPORT),yes)
 ifneq ($(filter MTK_MT76%, $(MTK_BT_CHIP)),)
 
+# ========================= 关键修改 =========================
+# BT 内置时，不编译 btmtksdio.ko
+ifeq ($(CONFIG_MTK_COMBO_BT),y)
+$(warning BTMTKSDIO is built-in, skip module build)
+else
+# ============================================================
+
 include $(CLEAR_VARS)
 LOCAL_MODULE := btmtksdio.ko
 LOCAL_PROPRIETARY_MODULE := true
@@ -58,6 +64,10 @@ LOCAL_MODULE_OWNER := mtk
 LOCAL_INIT_RC := init.btmtksdio.rc
 
 include $(MTK_KERNEL_MODULE)
+
+# ===================== 闭合判断 =====================
+endif
+# ======================================================
 
 endif
 endif
