@@ -52,6 +52,9 @@ sed -i "/CONFIG_MTK_MET_BUILT_IN/d" >> arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/
 sed -i '/CONFIG_MTK_UDC/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
 sed -i '/CONFIG_DEFAULT_CUBIC/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
 
+# 禁用弹窗选项
+sed -i '/Default TCP congestion control/,/^$/d' net/Kconfig
+
 # 再写入正确配置（内置模式）y/m/n
 echo "CONFIG_WLAN_DRV_BUILD_IN=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
 echo "CONFIG_MTK_COMBO_WLAN=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
