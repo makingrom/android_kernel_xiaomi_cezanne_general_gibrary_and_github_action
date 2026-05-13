@@ -420,7 +420,7 @@ jobs:
         mkdir -p out
         tools/unpack_bootimg.py --boot_img boot-source.img --out out/
         cp -f android-kernel/out/arch/${{ env.ARCH }}/boot/${{ env.KERNEL_IMAGE_NAME }} out/kernel
-        tools/mkbootimg.py \
+        ./tools/mkbootimg.py \
           $(test -f out/header_version && echo "--header_version $(cat out/header_version)") \
           $(test -f out/kernel && echo "--kernel out/kernel") \
           $(test -f out/ramdisk && echo "--ramdisk out/ramdisk") \
