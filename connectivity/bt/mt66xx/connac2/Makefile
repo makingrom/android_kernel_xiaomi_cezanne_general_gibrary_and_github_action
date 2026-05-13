@@ -1,9 +1,7 @@
 MTK_PLATFORM := $(subst ",,$(CONFIG_MTK_PLATFORM))
 ###############################################################################
 # Bluetooth character device driver
-
 ###############################################################################
-# Necessary Check
 
 ifneq ($(KERNEL_OUT),)
     ccflags-y += -imacros $(KERNEL_OUT)/include/generated/autoconf.h
@@ -83,11 +81,6 @@ endif
 # ---------------------------------------------------
 # Objects List
 # ---------------------------------------------------
-MODULE_NAME := bt_drv
-obj-m += $(MODULE_NAME).o
-
-#PLAT_DIR  := plat/$(MTK_PLATFORM)
-
 CORE_OBJS := btmtk_main.o btmtk_dbg.o btmtk_irq.o
 
 ifeq ($(USE_DEVICE_NODE), y)
@@ -97,11 +90,11 @@ endif
 CHIP_OBJS := btmtk_mt66xx.o
 HIF_OBJS := btmtk_btif_main.o btmtk_fw_log.o
 
-#$(MODULE_NAME)-objs += bt_char_dev.o
-#ifneq ($(CONFIG_MTK_CONNSYS_DEDICATED_LOG_PATH),)
-#$(MODULE_NAME)-objs += fw_log_bt.o
-#endif
+# 自动适配 内置y / 模块m
+bt_drv-objs := $(CORE_OBJS) $(HIF_OBJS) $(CHIP_OBJS)
 
-$(MODULE_NAME)-objs  += $(CORE_OBJS)
-$(MODULE_NAME)-objs  += $(HIF_OBJS)
-$(MODULE_NAME)-objs  += $(CHIP_OBJS)
+ifeq ($(CONFIG_MTK_COMBO_BT),y)
+obj-y += bt_drv.o
+else ifeq ($(CONFIG_MTK_COMBO_BT),m)
+obj-m += bt_drv.o
+endif
