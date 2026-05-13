@@ -221,7 +221,7 @@ ld.lld --version
 echo "==============================================================================="
 
 echo "  "
-
+make oldconfig
 # make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
 # AS=${AS} AR=${AR} NM=${NM} \
 # OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
