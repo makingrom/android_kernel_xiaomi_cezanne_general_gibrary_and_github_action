@@ -1,5 +1,9 @@
 LOCAL_PATH := $(call my-dir)
 
+ifeq ($(CONFIG_MTK_UDC),y)
+$(warning UDC built-in, skip udc_lib.ko)
+else
+
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := udc_lib.ko
@@ -25,3 +29,5 @@ LOCAL_MODULE_PATH := $(TARGET_OUT_VENDOR)/lib/modules
 endif
 
 include $(MTK_KERNEL_MODULE)
+
+endif
