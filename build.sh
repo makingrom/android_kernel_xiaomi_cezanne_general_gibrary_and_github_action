@@ -39,32 +39,32 @@ echo "=======================           completed!             =================
 echo "================================================================================"
 
 echo "  "
-# # 先清空可能重复的模块配置
-# sed -i '/CONFIG_WLAN_DRV_BUILD_IN/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
-# sed -i '/CONFIG_MTK_COMBO_WLAN/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
-# sed -i '/CONFIG_MTK_COMBO_BT/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
-# sed -i '/CONFIG_MTK_COMBO_FM/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
-# sed -i '/CONFIG_MTK_COMBO_GPS/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
-# sed -i '/CONFIG_MTK_FPSGO/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
-# sed -i '/CONFIG_MTK_MET_DRV/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
-# sed -i "/CONFIG_MTK_MET_PLF/d" >> arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
-# sed -i "/CONFIG_MTK_MET_BUILT_IN/d" >> arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
-# sed -i '/CONFIG_MTK_UDC/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
-# sed -i '/CONFIG_DEFAULT_CUBIC/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
+# 先清空可能重复的模块配置
+sed -i '/CONFIG_WLAN_DRV_BUILD_IN/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
+sed -i '/CONFIG_MTK_COMBO_WLAN/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
+sed -i '/CONFIG_MTK_COMBO_BT/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
+sed -i '/CONFIG_MTK_COMBO_FM/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
+sed -i '/CONFIG_MTK_COMBO_GPS/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
+sed -i '/CONFIG_MTK_FPSGO/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
+sed -i '/CONFIG_MTK_MET_DRV/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
+sed -i "/CONFIG_MTK_MET_PLF/d" >> arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
+sed -i "/CONFIG_MTK_MET_BUILT_IN/d" >> arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
+sed -i '/CONFIG_MTK_UDC/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
+sed -i '/CONFIG_DEFAULT_CUBIC/d' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
 
 
-# # 再写入正确配置（内置模式）y/m/n
-# echo "CONFIG_WLAN_DRV_BUILD_IN=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-# echo "CONFIG_MTK_COMBO_WLAN=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-# echo "CONFIG_MTK_COMBO_BT=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-# echo "CONFIG_MTK_COMBO_FM=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-# echo "CONFIG_MTK_COMBO_GPS=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-# echo "CONFIG_MTK_FPSGO=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-# echo "CONFIG_MTK_MET_DRV=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-# echo "CONFIG_MTK_MET_PLF=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-# echo "CONFIG_MTK_MET_BUILT_IN=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-# echo "CONFIG_MTK_UDC=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-# echo "CONFIG_DEFAULT_CUBIC=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+# 再写入正确配置（内置模式）y/m/n
+echo "CONFIG_WLAN_DRV_BUILD_IN=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+echo "CONFIG_MTK_COMBO_WLAN=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+echo "CONFIG_MTK_COMBO_BT=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+echo "CONFIG_MTK_COMBO_FM=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+echo "CONFIG_MTK_COMBO_GPS=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+echo "CONFIG_MTK_FPSGO=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+echo "CONFIG_MTK_MET_DRV=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+echo "CONFIG_MTK_MET_PLF=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+echo "CONFIG_MTK_MET_BUILT_IN=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+echo "CONFIG_MTK_UDC=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+echo "CONFIG_DEFAULT_CUBIC=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
 
 echo "  "
 
