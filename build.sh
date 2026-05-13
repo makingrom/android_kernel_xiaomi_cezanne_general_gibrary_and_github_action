@@ -119,7 +119,15 @@ echo "CONFIG_PROC_FS=y" >> out/.config
 echo "CONFIG_KALLSYMS=y" >> out/.config
 echo "CONFIG_KALLSYMS_ALL=y" >> out/.config
 echo "CONFIG_CPU_IDLE_MT6889=y" >> out/.config
-# 是否 将模块编译进内核
+
+# 是否 将内核自带的模块编译进内核
+echo "CONFIG_LCD_CLASS_DEVICE=y" >> out/.config
+echo "CONFIG_IKHEADERS=y" >> out/.config
+echo "CONFIG_BRIDGE_NETFILTER=y" >> out/.config
+echo "CONFIG_TCP_CONG_WESTWOOD=y" >> out/.config
+echo "CONFIG_TCP_CONG_HTCP=y" >> out/.config
+
+# 是否 将外置模块编译进内核
 echo "CONFIG_WLAN_DRV_BUILD_IN=y" >> out/.config
 echo "CONFIG_MTK_COMBO_WLAN=y" >> out/.config
 echo "CONFIG_MTK_COMBO_BT=y" >> out/.config
