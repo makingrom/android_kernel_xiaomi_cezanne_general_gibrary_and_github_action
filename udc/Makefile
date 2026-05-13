@@ -11,7 +11,11 @@
 # GNU General Public License for more details.
 #
 
+ifeq ($(CONFIG_MTK_UDC),y)
+obj-y += udc_lib.o
+else
 obj-m += udc_lib.o
+endif
 
 udc_lib-y += \
     adler32.o \
