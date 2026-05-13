@@ -56,9 +56,6 @@ endif
 
 ifneq ($(CONFIG_MTK_FMRADIO),)
 
-MODULE_NAME := fmradio_drv
-obj-m += $(MODULE_NAME).o
-
 ifeq ($(CFG_FM_CHIP),)
     FM_CHIP := mt6631_6635
 
@@ -159,8 +156,18 @@ else
     $(FM_CHIP)-objs += plat/legacy_wmt.o
 endif
 
-    $(MODULE_NAME)-objs += $($(FM_CHIP)-objs)
-    #obj-$(CONFIG_MTK_FMRADIO) += private/
+# ============================================================================
+# 🔥 智能切换：内置 / 模块
+# ============================================================================
+fmradio_drv-objs := $($(FM_CHIP)-objs)
+
+ifeq ($(CONFIG_MTK_FMRADIO),y)
+obj-y += fmradio_drv.o
+else ifeq ($(CONFIG_MTK_FMRADIO),m)
+obj-m += fmradio_drv.o
+endif
+
+#obj-$(CONFIG_MTK_FMRADIO) += private/
 endif
 
 obj-y += dummy.o
