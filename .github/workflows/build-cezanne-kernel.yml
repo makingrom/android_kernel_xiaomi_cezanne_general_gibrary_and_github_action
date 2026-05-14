@@ -19,10 +19,9 @@ jobs:
     - uses: actions/checkout@v4
     - name: Prepare Configuration
       run: |
-        curl -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -o configenv.sh "https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/build_kernel_bash/configenv.sh"
-        chmod +x configenv.sh
-        ./configenv.sh
-
+        # curl -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -o configenv.sh "https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/build_kernel_bash/configenv.sh"
+        # chmod +x configenv.sh
+        # ./configenv.sh
         while true; do
           echo "🔁 进入外层循环"
           echo -e "\n📥 下载最新循环配置..."
