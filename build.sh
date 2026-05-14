@@ -61,8 +61,8 @@ echo "  "
 # echo "CONFIG_WLAN_DRV_BUILD_IN=m" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
 # echo "CONFIG_DEFAULT_CUBIC=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
 # # 再写入正确配置（内置模式）y/m/n
-echo "CONFIG_MTK_COMBO_WLAN=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-echo "CONFIG_MTK_COMBO_BT=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+# echo "CONFIG_MTK_COMBO_WLAN=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+# echo "CONFIG_MTK_COMBO_BT=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
 # echo "CONFIG_MTK_COMBO_FM=m" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
 # echo "CONFIG_MTK_COMBO_GPS=m" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
 # echo "CONFIG_MTK_FPSGO=m" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
@@ -147,10 +147,10 @@ echo "# CONFIG_BLK_INLINE_ENCRYPTION is not set" >> out/.config
 echo "CONFIG_BLK_INLINE_ENCRYPTION=n" >> out/.config
 
 # sed -i '/struct task_struct {/a \ \ int cpu_prefer;' include/linux/sched.h
-echo "#define SCHED_PREFER_NONE 0" >> include/linux/sched.h
-sed -i 's/^int cpu_prefer;$//g' include/linux/sched.h
-sed -i 's/-mgeneral-regs-only//' drivers/power/supply/ti_cezanne/Makefile
-sed -i 's/extern inline int typec_pd_start_entry/int typec_pd_start_entry/' drivers/misc/mediatek/typec/tcpc_cezanne/inc/tcpci_typec.h
+# echo "#define SCHED_PREFER_NONE 0" >> include/linux/sched.h
+# sed -i 's/^int cpu_prefer;$//g' include/linux/sched.h
+# sed -i 's/-mgeneral-regs-only//' drivers/power/supply/ti_cezanne/Makefile
+# sed -i 's/extern inline int typec_pd_start_entry/int typec_pd_start_entry/' drivers/misc/mediatek/typec/tcpc_cezanne/inc/tcpci_typec.h
 
 # # 是否 将内核自带的模块编译进内核
 # echo "CONFIG_LCD_CLASS_DEVICE=y" >> out/.config
@@ -244,13 +244,13 @@ echo "==========================================================================
 
 echo "  "
 
-make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
-    AS=${AS} AR=${AR} NM=${NM} \
-    OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
-    O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
-    CROSS_COMPILE=${CROSS_COMPILE} \
-    LD=${LD} \
-    oldconfig
+# make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
+#     AS=${AS} AR=${AR} NM=${NM} \
+#     OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
+#     O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
+#     CROSS_COMPILE=${CROSS_COMPILE} \
+#     LD=${LD} \
+#     oldconfig
 
 echo "  "
 
