@@ -23,51 +23,51 @@ jobs:
         chmod +x configenv.sh
         ./configenv.sh
 
-        while true; do
-          echo -e "\n====================================="
-          echo "🔁 进入外层循环"
-          echo "====================================="
-          
-          # 进入外层循环 → 先执行 bash 命令
-          echo -e "\n🚀 首次执行外层命令..."
-          curl -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -o Loop_config.sh "https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/build_kernel_bash/Loop_config.sh"
-          chmod +x Loop_config.sh
-          ./Loop_config.sh
-          eval "${{ env.FIRST_RUN_CMD }}"
-          
-          # 【内层循环】开始
-          echo -e "\n🔢 开始内层循环，共 $INNER_COUNT 次"
-          for ((i=1; i<=${{ env.INNER_LOOP_COUNT }}; i++)); do
-            if [ $i == 1 ]; then
-              echo "  内层循环第 $i 次 → 执行任务"
-              eval "${{ env.INNER_LOOP_CMD }}"
-            fi
-          done
-          
-          # 内层循环结束 → 开始倒计时（从环境变量读取）
-          echo -e "\n⏳ 内层循环结束，开始倒计时 $COUNTDOWN 秒..."
-          for ((sec=${{ env.COUNTDOWN_SECONDS }}; sec>0; sec--)); do
-            echo "倒计时：$sec*10 秒"
-            sleep 10
-          done
-          
-          # 倒计时结束 → 执行 bash
-          echo -e "\n✅ 倒计时结束，执行后续命令..."
-          curl -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -o Loop_config.sh "https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/build_kernel_bash/Loop_config.sh"
-          chmod +x Loop_config.sh
-          ./Loop_config.sh
-          eval "${{ env.AFTER_COUNTDOWN_CMD }}"
-          
-          # 判断是否继续外层循环
-          if [ "${{ env.OUTER_LOOP_ENABLED }}" = "false" ]; then
-            echo -e "\n❌ 外层循环开关为 false，退出最外层循环"
-            break
-          else
-            echo -e "\n✅ 外层循环开关为 true，继续循环"
-          fi
-        done
+        curl -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -o Loop_config.sh "https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/build_kernel_bash/Loop_config.sh"
+        chmod +x Loop_config.sh
+        ./Loop_config.sh
+      # while true; do
+      #   echo -e "\n====================================="
+      #   echo "🔁 进入外层循环"
+      #   echo "====================================="
         
-        echo -e "\n🎉 所有循环全部结束"
+      #   # 进入外层循环 → 先执行 bash 命令
+      #   echo -e "\n🚀 首次执行外层命令..."
+      #   eval "${{ env.FIRST_RUN_CMD }}"
+        
+      #   # 【内层循环】开始
+      #   echo -e "\n🔢 开始内层循环，共 $INNER_COUNT 次"
+      #   for ((i=1; i<=${{ env.INNER_LOOP_COUNT }}; i++)); do
+      #     if [ $i == 1 ]; then
+      #       echo "  内层循环第 $i 次 → 执行任务"
+      #       eval "${{ env.INNER_LOOP_CMD }}"
+      #     fi
+      #   done
+        
+      #   # 内层循环结束 → 开始倒计时（从环境变量读取）
+      #   echo -e "\n⏳ 内层循环结束，开始倒计时 $COUNTDOWN 秒..."
+      #   for ((sec=${{ env.COUNTDOWN_SECONDS }}; sec>0; sec--)); do
+      #     echo "倒计时：$sec*10 秒"
+      #     sleep 10
+      #   done
+        
+      #   # 倒计时结束 → 执行 bash
+      #   echo -e "\n✅ 倒计时结束，执行后续命令..."
+      #   curl -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -o Loop_config.sh "https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/build_kernel_bash/Loop_config.sh"
+      #   chmod +x Loop_config.sh
+      #   ./Loop_config.sh
+      #   eval "${{ env.AFTER_COUNTDOWN_CMD }}"
+        
+      #   # 判断是否继续外层循环
+      #   if [ "${{ env.OUTER_LOOP_ENABLED }}" = "false" ]; then
+      #     echo -e "\n❌ 外层循环开关为 false，退出最外层循环"
+      #     break
+      #   else
+      #     echo -e "\n✅ 外层循环开关为 true，继续循环"
+      #   fi
+      # done
+      
+      # echo -e "\n🎉 所有循环全部结束"
 
     - name: Remove unused packages(移除无用的包)
       if: env.REMOVE_UNUSED_PACKAGES == 'true'
