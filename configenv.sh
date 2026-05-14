@@ -1,3 +1,5 @@
+#!/bin/bash
+
 CONFIG_ENV=config.env
 
 # 编译内核基本配置
