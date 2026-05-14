@@ -28,7 +28,7 @@ jobs:
           random=$RANDOM.sh
           echo -e "\n📥 下载循环配置 → $random"
           unset OUTER_LOOP_ENABLED INNER_LOOP_COUNT COUNTDOWN_SECONDS COUNTDOWN_SECONDS_MULTIPLE FIRST_RUN_CMD INNER_LOOP_CMD AFTER_COUNTDOWN_CMD
-          curl --no-cache -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -o Loop_config/$random "https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/build_kernel_bash/Loop_config.sh"
+          curl -s -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -o Loop_config/$random "https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/build_kernel_bash/Loop_config.sh"
           # 直接读取文件里的变量（不执行，不导出环境变量）
           cat Loop_config/$random
           source Loop_config/$random
