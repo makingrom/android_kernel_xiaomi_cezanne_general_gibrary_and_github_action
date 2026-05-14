@@ -38,7 +38,7 @@ jobs:
           curl -s -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
           -o "Loop_config/$RAND_FILE" \
           "https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/build_kernel_bash/Loop_config.sh"
-        
+          cat "Loop_config/$RAND_FILE"
           # 加载最新变量
           source "Loop_config/$RAND_FILE"
         
