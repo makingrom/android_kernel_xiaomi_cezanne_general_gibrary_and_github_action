@@ -16,7 +16,7 @@ export ADD_KPROBES_CONFIG=false
 # 是否 添加 OverlayFS 配置（文件系统叠加，KernelSU 挂载模块需要）开启(true)/关闭(false)/默认(空)
 export ADD_OVERLAYFS_CONFIG=false
 # 是否 开启 LTO（链接时优化）开启(true)/关闭(false)/默认(空)
-export USE_DISABLE_LTO=false
+export USE_DISABLE_LTO=true
 # 是否 开启「警告转错误」（-Werror）开启(true)/关闭(false)/默认(空)
 export DISABLE_CC_WERROR=false
 # 是否 使用自定义编译版本配置 开启(true)/关闭(默认false)
@@ -28,9 +28,9 @@ export USE_ENABLE_KVM=false
 # 是否 启用栈保护兼容修复 开启(true)/关闭(false)/默认(空)
 export DISABLE_STACK_PROTECTOR=false
 # 是否 开启 LXC and DOCKER
-export LXC_DOCKER=true
+export LXC_DOCKER=false
 # 是否 打入 LXC 补丁
-export LXC_PATCH=true
+export LXC_PATCH=false
 # 是否 关闭CONFIG_ANDROID_PARANOID_NETWORK配置防止docker and lxc出现网络问题
 export ANDROID_PARANOID_NETWORK_OFF=true
 # 是否 启用专属内核配置 骁龙QUALCOMM(true)/联发科MEDIATEK(false)平台/默认(空)
@@ -208,12 +208,7 @@ if [ "${USE_ENABLE_KVM}" = "true" ]; then
     echo "CONFIG_VIRTUALIZATION=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
     echo "CONFIG_VHOST_NET=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
     echo "CONFIG_VHOST_CROSS_ENDIAN_LEGACY=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    # echo "CONFIG_KVM_ARM_HOST=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    # echo "CONFIG_CPU_IDLE_MT6889=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    # echo "CONFIG_HAVE_HW_BREAKPOINT=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    # echo "CONFIG_MTK_HYPERVISOR=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    # echo "CONFIG_MTK_SEC_VM=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    # echo "CONFIG_TRUSTY_VIRTUALIZATION=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+
     echo "✅ KVM 已开启"
 fi
 
@@ -225,12 +220,7 @@ if [ "${USE_ENABLE_KVM}" = "false" ]; then
     echo "CONFIG_VIRTUALIZATION=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
     echo "CONFIG_VHOST_NET=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
     echo "CONFIG_VHOST_CROSS_ENDIAN_LEGACY=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    # echo "CONFIG_KVM_ARM_HOST=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    # echo "CONFIG_CPU_IDLE_MT6889=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    # echo "CONFIG_HAVE_HW_BREAKPOINT=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    # echo "CONFIG_MTK_HYPERVISOR=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    # echo "CONFIG_MTK_SEC_VM=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
-    # echo "CONFIG_TRUSTY_VIRTUALIZATION=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+
     echo "✅ KVM 已关闭"
 fi
 
