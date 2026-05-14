@@ -30,9 +30,19 @@ jobs:
           # 直接读取文件里的变量（不执行，不导出环境变量）
           source Loop_config.sh
           
+          echo "====================================="
+          echo "🟢 当前循环配置参数"
+          echo "====================================="
+          echo "外层循环总开关    OUTER_LOOP_ENABLED   = $OUTER_LOOP_ENABLED"
+          echo "内层循环次数      INNER_LOOP_COUNT     = $INNER_LOOP_COUNT"
+          echo "倒计时秒数        COUNTDOWN_SECONDS    = $COUNTDOWN_SECONDS"
+          echo "首次执行命令      FIRST_RUN_CMD        = $FIRST_RUN_CMD"
+          echo "内层循环命令      INNER_LOOP_CMD       = $INNER_LOOP_CMD"
+          echo "结束执行命令      AFTER_COUNTDOWN_CMD  = $AFTER_COUNTDOWN_CMD"
+          echo "====================================="
           echo -e "\n🚀 首次执行外层命令..."
-          eval "$FIRST_RUN_CMD"
           
+          eval "$FIRST_RUN_CMD"
           echo -e "\n🔢 开始内层循环，共 $INNER_LOOP_COUNT 次"
           for ((i=1; i<=$INNER_LOOP_COUNT; i++)); do
               echo "  内层循环第 $i 次 → 执行任务"
@@ -51,6 +61,17 @@ jobs:
           source Loop_config.sh
           eval "$AFTER_COUNTDOWN_CMD"
           
+          echo "====================================="
+          echo "🟢 当前循环配置参数"
+          echo "====================================="
+          echo "外层循环总开关    OUTER_LOOP_ENABLED   = $OUTER_LOOP_ENABLED"
+          echo "内层循环次数      INNER_LOOP_COUNT     = $INNER_LOOP_COUNT"
+          echo "倒计时秒数        COUNTDOWN_SECONDS    = $COUNTDOWN_SECONDS"
+          echo "首次执行命令      FIRST_RUN_CMD        = $FIRST_RUN_CMD"
+          echo "内层循环命令      INNER_LOOP_CMD       = $INNER_LOOP_CMD"
+          echo "结束执行命令      AFTER_COUNTDOWN_CMD  = $AFTER_COUNTDOWN_CMD"
+          echo "====================================="
+          
           if [ "$OUTER_LOOP_ENABLED" = "false" ]; then
             echo -e "\n❌ 外层循环开关为 false，退出最外层循环"
             break
@@ -58,7 +79,6 @@ jobs:
             echo -e "\n✅ 外层循环开关为 true，继续循环"
           fi
         done
-        
         echo -e "\n🎉 所有循环全部结束"
 
     - name: Remove unused packages(移除无用的包)
