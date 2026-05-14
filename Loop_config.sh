@@ -38,8 +38,8 @@ done
 # 倒计时
 echo -e "\n⏳ 倒计时 $COUNTDOWN_SECONDS 秒..."
 for ((sec=COUNTDOWN_SECONDS; sec>0; sec--)); do
-    echo "倒计时：$sec 秒"
-    sleep 1
+    echo "倒计时：$sec*10 秒"
+    sleep 10
 done
 
 # 倒计时结束执行
