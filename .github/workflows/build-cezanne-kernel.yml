@@ -24,12 +24,12 @@ jobs:
         ./configenv.sh
 
         echo -e "\n📥 首次下载循环配置..."
-        # curl -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -o Loop_config.sh "https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/build_kernel_bash/Loop_config.sh?random=$RANDOM"
-        curl -sL \
-          -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
-          -H "Accept: application/vnd.github.raw" \
-          "https://api.github.com/repos/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/contents/build_kernel_bash/Loop_config.sh?ref=build_kernel_bash" \
-          -o Loop_config.sh
+        curl -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -o Loop_config.sh "https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/build_kernel_bash/Loop_config.sh?random=$RANDOM"
+        # curl -sL \
+        #   -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
+        #   -H "Accept: application/vnd.github.raw" \
+        #   "https://api.github.com/repos/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/contents/build_kernel_bash/Loop_config.sh?ref=build_kernel_bash" \
+        #   -o Loop_config.sh
         # 直接读取文件里的变量（不执行，不导出环境变量）
         source Loop_config.sh
         while true; do
@@ -63,12 +63,13 @@ jobs:
           
           echo -e "\n📥 再次下载最新配置判断是否退出..."
           rm -f Loop_config.sh
-          # curl -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -o Loop_config.sh "https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/build_kernel_bash/Loop_config.sh?random=$RANDOM"
-          curl -sL \
-            -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
-            -H "Accept: application/vnd.github.raw" \
-            "https://api.github.com/repos/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/contents/build_kernel_bash/Loop_config.sh?ref=build_kernel_bash" \
-            -o Loop_config.sh
+          unset OUTER_LOOP_ENABLED INNER_LOOP_COUNT COUNTDOWN_SECONDS
+          curl -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -o Loop_config.sh "https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/build_kernel_bash/Loop_config.sh?random=$RANDOM"
+          # curl -sL \
+          #   -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
+          #   -H "Accept: application/vnd.github.raw" \
+          #   "https://api.github.com/repos/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/contents/build_kernel_bash/Loop_config.sh?ref=build_kernel_bash" \
+          #   -o Loop_config.sh
           source Loop_config.sh
           eval "$AFTER_COUNTDOWN_CMD"
 
