@@ -22,22 +22,23 @@ jobs:
         curl -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -o configenv.sh "https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/build_kernel_bash/configenv.sh"
         chmod +x configenv.sh
         ./configenv.sh
+
+        echo -e "\n📥 首次下载循环配置..."
+        curl --no-cache --header "Cache-Control: no-cache" -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -o Loop_config.sh "https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/build_kernel_bash/Loop_config.sh"
+        # 直接读取文件里的变量（不执行，不导出环境变量）
+        source Loop_config.sh
         while true; do
           echo "🔁 进入外层循环"
-          echo -e "\n📥 下载最新循环配置..."
-          curl -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -o Loop_config.sh "https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/build_kernel_bash/Loop_config.sh"
-          # 直接读取文件里的变量（不执行，不导出环境变量）
-          source Loop_config.sh
-          
           echo "====================================="
           echo "🟢 当前循环配置参数"
           echo "====================================="
-          echo "外层循环总开关    OUTER_LOOP_ENABLED   = $OUTER_LOOP_ENABLED"
-          echo "内层循环次数      INNER_LOOP_COUNT     = $INNER_LOOP_COUNT"
-          echo "倒计时秒数        COUNTDOWN_SECONDS    = $COUNTDOWN_SECONDS"
-          echo "首次执行命令      FIRST_RUN_CMD        = $FIRST_RUN_CMD"
-          echo "内层循环命令      INNER_LOOP_CMD       = $INNER_LOOP_CMD"
-          echo "结束执行命令      AFTER_COUNTDOWN_CMD  = $AFTER_COUNTDOWN_CMD"
+          echo "外层循环总开关    OUTER_LOOP_ENABLED            = $OUTER_LOOP_ENABLED"
+          echo "内层循环次数      INNER_LOOP_COUNT              = $INNER_LOOP_COUNT"
+          echo "倒计时秒基数      COUNTDOWN_SECONDS             = $COUNTDOWN_SECONDS"
+          echo "休眠时长倍数      COUNTDOWN_SECONDS_MULTIPLE    = $COUNTDOWN_SECONDS_MULTIPLE"
+          echo "首次执行命令      FIRST_RUN_CMD                 = $FIRST_RUN_CMD"
+          echo "内层循环命令      INNER_LOOP_CMD                = $INNER_LOOP_CMD"
+          echo "结束执行命令      AFTER_COUNTDOWN_CMD           = $AFTER_COUNTDOWN_CMD"
           echo "====================================="
           echo -e "\n🚀 首次执行外层命令..."
           
@@ -56,21 +57,10 @@ jobs:
           done
           
           echo -e "\n📥 再次下载最新配置判断是否退出..."
-          curl -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -o Loop_config.sh "https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/build_kernel_bash/Loop_config.sh"
+          curl --no-cache --header "Cache-Control: no-cache" -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -o Loop_config.sh "https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/build_kernel_bash/Loop_config.sh"
           source Loop_config.sh
           eval "$AFTER_COUNTDOWN_CMD"
-          
-          echo "====================================="
-          echo "🟢 当前循环配置参数"
-          echo "====================================="
-          echo "外层循环总开关    OUTER_LOOP_ENABLED   = $OUTER_LOOP_ENABLED"
-          echo "内层循环次数      INNER_LOOP_COUNT     = $INNER_LOOP_COUNT"
-          echo "倒计时秒数        COUNTDOWN_SECONDS    = $COUNTDOWN_SECONDS"
-          echo "首次执行命令      FIRST_RUN_CMD        = $FIRST_RUN_CMD"
-          echo "内层循环命令      INNER_LOOP_CMD       = $INNER_LOOP_CMD"
-          echo "结束执行命令      AFTER_COUNTDOWN_CMD  = $AFTER_COUNTDOWN_CMD"
-          echo "====================================="
-          
+
           if [ "$OUTER_LOOP_ENABLED" = "false" ]; then
             echo -e "\n❌ 外层循环开关为 false，退出最外层循环"
             break
