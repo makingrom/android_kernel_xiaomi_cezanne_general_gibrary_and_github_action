@@ -11,7 +11,7 @@ set -euo pipefail
 # ============================
 OUTER_LOOP_ENABLED="true"
 INNER_LOOP_COUNT="3"
-COUNTDOWN_SECONDS="10"
+COUNTDOWN_SECONDS="20"
 
 FIRST_RUN_CMD="echo '进入外层循环 → 首次执行命令'"
 INNER_LOOP_CMD="echo '执行内层循环任务'"
