@@ -11,7 +11,13 @@ AFTER_COUNTDOWN_CMD=echo "倒计时结束 → 执行最终命令"
 
 
 # 定义所有需要导出的变量列表
-
+CONFIG_LIST=(
+    OUTER_LOOP_ENABLED
+    INNER_LOOP_COUNT
+    COUNTDOWN_SECONDS
+    FIRST_RUN_CMD
+    INNER_LOOP_CMD
+    AFTER_COUNTDOWN_CMD
 )
 
 # 自动写入 GITHUB_ENV（所有变量全局生效）
