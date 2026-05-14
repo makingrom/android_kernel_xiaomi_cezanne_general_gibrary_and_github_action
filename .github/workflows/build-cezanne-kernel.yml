@@ -23,123 +23,52 @@ jobs:
         chmod +x configenv.sh
         ./configenv.sh
 
-        echo -e "\n📥 首次下载循环配置..."
-        mkdir -p Loop_config
-        
         while true; do
-          # 清空所有变量，强制刷新
-          unset OUTER_LOOP_ENABLED INNER_LOOP_COUNT COUNTDOWN_SECONDS COUNTDOWN_SECONDS_MULTIPLE FIRST_RUN_CMD INNER_LOOP_CMD AFTER_COUNTDOWN_CMD
-        
-          # 每次循环都用全新随机文件名
+          echo "🔁 进入外层循环"
+          mkdir -p Loop_config
           RAND_FILE=$RANDOM.sh
-          echo -e "\n📥 下载最新配置 → $RAND_FILE"
-        
-          # 下载
-          curl -s -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
-          -o "Loop_config/$RAND_FILE" \
-          "https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/build_kernel_bash/Loop_config.sh"
-          cat "Loop_config/$RAND_FILE"
-          # 加载最新变量
-          source "Loop_config/$RAND_FILE"
-        
-          # 马上打印 → 一定是最新的
+          echo -e "\n📥 下载循环配置 → $RAND_FILE"
+          unset OUTER_LOOP_ENABLED INNER_LOOP_COUNT COUNTDOWN_SECONDS COUNTDOWN_SECONDS_MULTIPLE FIRST_RUN_CMD INNER_LOOP_CMD AFTER_COUNTDOWN_CMD
+          curl --no-cache -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -o Loop_config/$random "https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/build_kernel_bash/Loop_config.sh"
+          # 直接读取文件里的变量（不执行，不导出环境变量）
+          cat Loop_config/$random
+          source Loop_config/$random
           echo "====================================="
-          echo "🟢 【实时】当前循环配置参数"
+          echo "🟢 当前循环配置参数"
           echo "====================================="
-          echo "外层循环开关 = $OUTER_LOOP_ENABLED"
-          echo "内层循环次数 = $INNER_LOOP_COUNT"
-          echo "倒计时基数   = $COUNTDOWN_SECONDS"
-          echo "休眠倍数     = $COUNTDOWN_SECONDS_MULTIPLE"
+          echo "外层循环总开关    OUTER_LOOP_ENABLED            = $OUTER_LOOP_ENABLED"
+          echo "内层循环次数      INNER_LOOP_COUNT              = $INNER_LOOP_COUNT"
+          echo "倒计时秒基数      COUNTDOWN_SECONDS             = $COUNTDOWN_SECONDS"
+          echo "休眠时长倍数      COUNTDOWN_SECONDS_MULTIPLE    = $COUNTDOWN_SECONDS_MULTIPLE"
+          echo "首次执行命令      FIRST_RUN_CMD                 = $FIRST_RUN_CMD"
+          echo "内层循环命令      INNER_LOOP_CMD                = $INNER_LOOP_CMD"
+          echo "结束执行命令      AFTER_COUNTDOWN_CMD           = $AFTER_COUNTDOWN_CMD"
           echo "====================================="
-        
-          # 执行命令
+          echo -e "\n🚀 首次执行外层命令..."
+          
           eval "$FIRST_RUN_CMD"
-        
-          # 内层循环
+          echo -e "\n🔢 开始内层循环，共 $INNER_LOOP_COUNT 次"
           for ((i=1; i<=$INNER_LOOP_COUNT; i++)); do
-            echo "  内层循环 $i"
-            eval "$INNER_LOOP_CMD"
+              echo "  内层循环第 $i 次 → 执行任务"
+              eval "$INNER_LOOP_CMD"
           done
-        
-          # 倒计时
-          echo -e "\n⏳ 倒计时..."
+          
+          echo -e "\n⏳ 内层循环结束，开始倒计时 $COUNTDOWN_SECONDS 秒..."
           for ((sec=$COUNTDOWN_SECONDS; sec>0; sec--)); do
-            remain=$((sec * COUNTDOWN_SECONDS_MULTIPLE))
-            echo "倒计时：$remain 秒"
+            remaining=$((sec * COUNTDOWN_SECONDS_MULTIPLE))
+            echo "倒计时：$remaining 秒"
             sleep $COUNTDOWN_SECONDS_MULTIPLE
           done
-        
           eval "$AFTER_COUNTDOWN_CMD"
-        
-          # 判断退出
+
           if [ "$OUTER_LOOP_ENABLED" = "false" ]; then
-            echo -e "\n❌ 退出循环"
+            echo -e "\n❌ 外层循环开关为 false，退出最外层循环"
             break
           else
-            echo -e "\n✅ 继续循环"
+            echo -e "\n✅ 外层循环开关为 true，继续循环"
           fi
         done
-        
-        echo -e "\n🎉 结束"
-      
-      # curl -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -o Loop_config/$random.sh "https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/build_kernel_bash/Loop_config.sh"
-      # # curl -sL \
-      # #   -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
-      # #   -H "Accept: application/vnd.github.raw" \
-      # #   "https://api.github.com/repos/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/contents/build_kernel_bash/Loop_config.sh?ref=build_kernel_bash" \
-      # #   -o Loop_config.sh
-      # # 直接读取文件里的变量（不执行，不导出环境变量）
-      # source Loop_config/$random.sh
-      # while true; do
-      #   echo "🔁 进入外层循环"
-      #   echo "====================================="
-      #   echo "🟢 当前循环配置参数"
-      #   echo "====================================="
-      #   echo "外层循环总开关    OUTER_LOOP_ENABLED            = $OUTER_LOOP_ENABLED"
-      #   echo "内层循环次数      INNER_LOOP_COUNT              = $INNER_LOOP_COUNT"
-      #   echo "倒计时秒基数      COUNTDOWN_SECONDS             = $COUNTDOWN_SECONDS"
-      #   echo "休眠时长倍数      COUNTDOWN_SECONDS_MULTIPLE    = $COUNTDOWN_SECONDS_MULTIPLE"
-      #   echo "首次执行命令      FIRST_RUN_CMD                 = $FIRST_RUN_CMD"
-      #   echo "内层循环命令      INNER_LOOP_CMD                = $INNER_LOOP_CMD"
-      #   echo "结束执行命令      AFTER_COUNTDOWN_CMD           = $AFTER_COUNTDOWN_CMD"
-      #   echo "====================================="
-      #   echo -e "\n🚀 首次执行外层命令..."
-        
-      #   eval "$FIRST_RUN_CMD"
-      #   echo -e "\n🔢 开始内层循环，共 $INNER_LOOP_COUNT 次"
-      #   for ((i=1; i<=$INNER_LOOP_COUNT; i++)); do
-      #       echo "  内层循环第 $i 次 → 执行任务"
-      #       eval "$INNER_LOOP_CMD"
-      #   done
-        
-      #   echo -e "\n⏳ 内层循环结束，开始倒计时 $COUNTDOWN_SECONDS 秒..."
-      #   for ((sec=$COUNTDOWN_SECONDS; sec>0; sec--)); do
-      #     remaining=$((sec * COUNTDOWN_SECONDS_MULTIPLE))
-      #     echo "倒计时：$remaining 秒"
-      #     sleep $COUNTDOWN_SECONDS_MULTIPLE
-      #   done
-        
-      #   echo -e "\n📥 再次下载最新配置判断是否退出..."
-      #   rm -f Loop_config/$random.sh
-      #   random=$RANDOM
-      #   unset OUTER_LOOP_ENABLED INNER_LOOP_COUNT COUNTDOWN_SECONDS COUNTDOWN_SECONDS_MULTIPLE FIRST_RUN_CMD INNER_LOOP_CMD AFTER_COUNTDOWN_CMD
-      #   curl -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -o Loop_config/$random.sh "https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/build_kernel_bash/Loop_config.sh"
-      #   # curl -sL \
-      #   #   -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" \
-      #   #   -H "Accept: application/vnd.github.raw" \
-      #   #   "https://api.github.com/repos/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/contents/build_kernel_bash/Loop_config.sh?ref=build_kernel_bash" \
-      #   #   -o Loop_config.sh
-      #   source Loop_config/$random.sh
-      #   eval "$AFTER_COUNTDOWN_CMD"
-
-      #   if [ "$OUTER_LOOP_ENABLED" = "false" ]; then
-      #     echo -e "\n❌ 外层循环开关为 false，退出最外层循环"
-      #     break
-      #   else
-      #     echo -e "\n✅ 外层循环开关为 true，继续循环"
-      #   fi
-      # done
-      # echo -e "\n🎉 所有循环全部结束"
+        echo -e "\n🎉 所有循环全部结束"
 
     - name: Remove unused packages(移除无用的包)
       if: env.REMOVE_UNUSED_PACKAGES == 'true'
