@@ -5,9 +5,9 @@
 # 外层循环总开关（true=继续，false=结束）
 OUTER_LOOP_ENABLED=true
 # 内层循环要跑几次
-INNER_LOOP_COUNT=10
+INNER_LOOP_COUNT=3
 # 倒计时秒数（从环境变量读取）
-COUNTDOWN_SECONDS=10
+COUNTDOWN_SECONDS=20
 
 # 你要执行的命令（可自定义）
 FIRST_RUN_CMD="echo '进入外层循环 → 首次执行命令'"
