@@ -66,6 +66,7 @@ jobs:
           else
             echo -e "\n✅ 外层循环开关为 true，继续循环"
           fi
+          rm -f Loop_config/$random
         done
         echo -e "\n🎉 所有循环全部结束"
 
