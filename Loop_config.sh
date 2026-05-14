@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # 循环控制配置
 # 核心控制变量
 OUTER_LOOP_ENABLED=true# 外层循环总开关（true=继续，false=结束）
