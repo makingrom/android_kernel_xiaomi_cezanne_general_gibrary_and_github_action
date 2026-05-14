@@ -35,7 +35,6 @@ jobs:
           
           echo -e "\n🔢 开始内层循环，共 $INNER_COUNT 次"
           for ((i=1; i<=$INNER_LOOP_COUNT; i++)); do
-            if [ $i == 1 ]; then
               echo "  内层循环第 $i 次 → 执行任务"
               eval "$INNER_LOOP_CMD"
             fi
