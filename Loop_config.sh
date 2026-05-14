@@ -3,7 +3,7 @@
 # 循环核心控制配置
 
 # 外层循环总开关（true=继续，false=结束）
-OUTER_LOOP_ENABLED=true
+OUTER_LOOP_ENABLED=false
 # 内层循环要跑几次
 INNER_LOOP_COUNT=3
 # 倒计时秒数（从环境变量读取）
