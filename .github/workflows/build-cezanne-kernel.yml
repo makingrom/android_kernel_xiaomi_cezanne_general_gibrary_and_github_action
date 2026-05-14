@@ -57,6 +57,7 @@ jobs:
           done
           
           echo -e "\n📥 再次下载最新配置判断是否退出..."
+          rm -f Loop_config.sh
           curl -H "Authorization: token ${{ secrets.PERSONAL_TOKEN }}" -o Loop_config.sh "https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/build_kernel_bash/Loop_config.sh?random=$RANDOM"
           source Loop_config.sh
           eval "$AFTER_COUNTDOWN_CMD"
