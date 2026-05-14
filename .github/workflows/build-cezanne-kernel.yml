@@ -33,14 +33,14 @@ jobs:
           echo -e "\n🚀 首次执行外层命令..."
           eval "$FIRST_RUN_CMD"
           
-          echo -e "\n🔢 开始内层循环，共 $INNER_COUNT 次"
+          echo -e "\n🔢 开始内层循环，共 $INNER_LOOP_COUNT 次"
           for ((i=1; i<=$INNER_LOOP_COUNT; i++)); do
               echo "  内层循环第 $i 次 → 执行任务"
               eval "$INNER_LOOP_CMD"
             fi
           done
           
-          echo -e "\n⏳ 内层循环结束，开始倒计时 $COUNTDOWN 秒..."
+          echo -e "\n⏳ 内层循环结束，开始倒计时 $COUNTDOWN_SECONDS 秒..."
           for ((sec=$COUNTDOWN_SECONDS; sec>0; sec--)); do
             echo "倒计时：$sec*10 秒"
             sleep 10
