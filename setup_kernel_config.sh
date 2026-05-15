@@ -251,6 +251,7 @@ if [ "${LXC_DOCKER}" = "true" ]; then
         wget https://raw.githubusercontent.com/makingrom/LXC-DOCKER-KernelSU_Action/refs/heads/main/Lxc_Docker/add-lxc-docker-custom3.sh
         chmod 777 add-lxc-docker-custom3.sh
     fi
+    echo "当前目录：$(pwd)"
     ./add-lxc-docker-custom3.sh arch/${ARCH}/configs/${KERNEL_CONFIG} -w
     # ./LXC-DOCKER-OPEN-CONFIG.sh arch/${ARCH}/configs/${KERNEL_CONFIG} -w
     echo "✅ LXC 已启用"
