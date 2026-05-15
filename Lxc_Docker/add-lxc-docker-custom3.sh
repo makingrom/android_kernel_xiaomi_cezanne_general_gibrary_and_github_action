@@ -5,5 +5,6 @@ wget https://github.com/ego-taboo/LXC-DOCKER-KernelSU_Action/releases/download/2
 aa=$(cat lxc-docker-config3.txt)
 for i in $aa
 do
+echo "当前目录：$(pwd)"
 echo $i >> $CONFIGF
 done
