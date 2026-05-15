@@ -256,7 +256,7 @@ make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
     O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
     CROSS_COMPILE=${CROSS_COMPILE} \
     LD=${LD} \
-    oldconfig
+    olddefconfig
 
 echo "  "
 
