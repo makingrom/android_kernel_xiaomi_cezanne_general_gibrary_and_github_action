@@ -1,5 +1,9 @@
 #!/bin/bash
 
+export CLANG_PATH="$(pwd)/../${CUSTOM_CLANG_DIR}"
+export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
+export PATH="${CLANG_PATH}/bin:${GCC_PATH}/bin:$PATH"
+export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
 
 echo "================================================================================"
 echo "=======================  Cleaning old build files...   ========================="
@@ -119,11 +123,6 @@ export KBUILD_VERBOSE=0
 #export PATH="${GCC_BIN_PATH}:$PATH"
 
 
-export CLANG_PATH="$(pwd)/../${CUSTOM_CLANG_DIR}"
-export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
-export PATH="${CLANG_PATH}/bin:${GCC_PATH}/bin:$PATH"
-export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
-
 echo "======================           completed!               ======================"
 
 echo "================================================================================"
@@ -152,7 +151,6 @@ echo "CONFIG_WERROR=n" >> out/.config
 echo "# CONFIG_BLK_INLINE_ENCRYPTION is not set" >> out/.config
 echo "CONFIG_BLK_INLINE_ENCRYPTION=n" >> out/.config
 
-sed -i 's/static inline bool mt_get_uartlog_status/static inline bool __mt_get_uartlog_status/' drivers/misc/mediatek/include/mt-plat/mtk_printk_ctrl.h
 
 # sed -i '/struct task_struct {/a \ \ int cpu_prefer;' include/linux/sched.h
 # echo "#define SCHED_PREFER_NONE 0" >> include/linux/sched.h
@@ -187,21 +185,21 @@ sed -i 's/static inline bool mt_get_uartlog_status/static inline bool __mt_get_u
 # # 芯片型号
 # echo "CONFIG_MTK_COMBO_CHIP_CONSYS_6885=y" >> out/.config
 
-if [ ${NEED_DTBO} = "true" ]; then
-    # echo "CONFIG_OF_OVERLAY=y" >> out/.config
-    # echo "CONFIG_OF_DTB_OVERLAY_SUPPORT=y" >> out/.config
-    echo "CONFIG_BUILD_ARM64_DTBO_IMAGES=y" >> out/.config
-    echo "CONFIG_DTBO_ENABLE=y" >> out/.config
-    echo "CONFIG_BUILD_ARM64_DTBO_IMAGES = ${CONFIG_BUILD_ARM64_DTBO_IMAGES}"
-    echo "CONFIG_DTBO_ENABLE = ${CONFIG_DTBO_ENABLE}"
-else
-    # echo "CONFIG_OF_OVERLAY=n" >> out/.config
-    # echo "CONFIG_OF_DTB_OVERLAY_SUPPORT=n" >> out/.config
-    echo "CONFIG_BUILD_ARM64_DTBO_IMAGES=n" >> out/.config
-    echo "CONFIG_DTBO_ENABLE=n" >> out/.config
-    echo "CONFIG_BUILD_ARM64_DTBO_IMAGES = ${CONFIG_BUILD_ARM64_DTBO_IMAGES}"
-    echo "CONFIG_DTBO_ENABLE = ${CONFIG_DTBO_ENABLE}"
-fi
+# if [ ${NEED_DTBO} = "true" ]; then
+#     # echo "CONFIG_OF_OVERLAY=y" >> out/.config
+#     # echo "CONFIG_OF_DTB_OVERLAY_SUPPORT=y" >> out/.config
+#     echo "CONFIG_BUILD_ARM64_DTBO_IMAGES=y" >> out/.config
+#     echo "CONFIG_DTBO_ENABLE=y" >> out/.config
+#     echo "CONFIG_BUILD_ARM64_DTBO_IMAGES = ${CONFIG_BUILD_ARM64_DTBO_IMAGES}"
+#     echo "CONFIG_DTBO_ENABLE = ${CONFIG_DTBO_ENABLE}"
+# else
+#     # echo "CONFIG_OF_OVERLAY=n" >> out/.config
+#     # echo "CONFIG_OF_DTB_OVERLAY_SUPPORT=n" >> out/.config
+#     echo "CONFIG_BUILD_ARM64_DTBO_IMAGES=n" >> out/.config
+#     echo "CONFIG_DTBO_ENABLE=n" >> out/.config
+#     echo "CONFIG_BUILD_ARM64_DTBO_IMAGES = ${CONFIG_BUILD_ARM64_DTBO_IMAGES}"
+#     echo "CONFIG_DTBO_ENABLE = ${CONFIG_DTBO_ENABLE}"
+# fi
 
 echo "==============================      completed!    =============================="
 echo "================================================================================"
@@ -252,13 +250,13 @@ echo "==========================================================================
 echo "  "
 
 # 编译提示新的选项使用oldconfig默认选项
-make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
-    AS=${AS} AR=${AR} NM=${NM} \
-    OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
-    O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
-    CROSS_COMPILE=${CROSS_COMPILE} \
-    LD=${LD} \
-    olddefconfig
+# make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
+#     AS=${AS} AR=${AR} NM=${NM} \
+#     OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
+#     O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
+#     CROSS_COMPILE=${CROSS_COMPILE} \
+#     LD=${LD} \
+#     olddefconfig
 
 echo "  "
 
