@@ -453,42 +453,42 @@ jobs:
       if: env.CHECK_FILE_IS_OK == 'true'
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.KERNEL_IMAGE_NAME }}${{ env.LOCALVERSION }}${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
+        name: ${{ env.KERNEL_IMAGE_NAME }}${{ env.LOCALVERSION }}${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.CUSTOM_CLANG_DIR }}-${{ env.GCC_AND_CLANG_DIR }}-${{ env.BUILD_TIME }}
         path: kernel_workspace/android-kernel/out/arch/${{ env.ARCH }}/boot/${{ env.KERNEL_IMAGE_NAME }}
         
     - name: Upload ${{ env.KERNEL_IMAGE_NAME }} (上传)
       if: env.CHECK_FILE_IS_OK == 'true' && env.KERNEL_ALL_IMAGE_UPLOAD == 'true'
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.KERNEL_IMAGE_NAME }}${{ env.LOCALVERSION }}${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
+        name: ${{ env.KERNEL_IMAGE_NAME }}${{ env.LOCALVERSION }}${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.CUSTOM_CLANG_DIR }}-${{ env.GCC_AND_CLANG_DIR }}-${{ env.BUILD_TIME }}
         path: kernel_workspace/android-kernel/out/out_Image/*
         
     - name: Upload ${{ env.MTK_KERNEL_MODULES_SOURCE_DIR }} (上传)
       if: env.MTK_KERNEL_MODULES_UPLOAD == 'true' && env.USE_MTK_KERNEL_MODULES == 'true'
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.MTK_KERNEL_MODULES_SOURCE_BRANCH }}-${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
+        name: ${{ env.MTK_KERNEL_MODULES_SOURCE_BRANCH }}-${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.CUSTOM_CLANG_DIR }}-${{ env.GCC_AND_CLANG_DIR }}-${{ env.BUILD_TIME }}
         path: kernel_workspace/android-kernel/out/modules.zip
         
     - name: Upload AnyKernel3(上传Upload AnyKernel3)
       if: env.CHECK_FILE_IS_OK == 'true'
       uses: actions/upload-artifact@v4
       with:
-        name: AnyKernel3${{ env.LOCALVERSION }}${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
+        name: AnyKernel3${{ env.LOCALVERSION }}${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.CUSTOM_CLANG_DIR }}-${{ env.GCC_AND_CLANG_DIR }}-${{ env.BUILD_TIME }}
         path: kernel_workspace/AnyKernel3/*
         
     - name: Upload DTBO image(上传 DTBO image)
       if: env.CHECK_DTBO_IS_OK == 'true'
       uses: actions/upload-artifact@v4
       with:
-        name: dtbo-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
+        name: dtbo-${{ env.DEVICE }}-${{ env.CUSTOM_CLANG_DIR }}-${{ env.GCC_AND_CLANG_DIR }}-${{ env.BUILD_TIME }}
         path: kernel_workspace/android-kernel/out/arch/${{ env.ARCH }}/boot/dtbo.img
         
     - name: Upload boot image(上传 boot image)
       if: env.MAKE_BOOT_IMAGE_IS_OK == 'true'
       uses: actions/upload-artifact@v4
       with:
-        name: boot${{ env.LOCALVERSION }}${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
+        name: boot${{ env.LOCALVERSION }}${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.CUSTOM_CLANG_DIR }}-${{ env.GCC_AND_CLANG_DIR }}-${{ env.BUILD_TIME }}
         path: kernel_workspace/boot.img
         
     - name: 强制删除旧缓存
