@@ -83,7 +83,7 @@ export CLANG_TRIPLE=aarch64-linux-gnu-
 export CROSS_COMPILE=aarch64-linux-android-
 export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
 export CC=clang
-export AS=${cc}
+export AS=$cc
 export HOSTCC=gcc
 export LLVM_IAS=1
 export LD=ld.lld
@@ -93,7 +93,13 @@ export OBJCOPY=llvm-objcopy
 export OBJDUMP=llvm-objdump
 export STRIP=llvm-strip
 export HOSTAR=llvm-ar
-
+# make LLVM_IAS=1 ARCH=arm64 CC=clang HOSTCC=gcc \
+#     AS=clang AR=llvm-ar NM=llvm-nm \
+#     OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip \
+#     O=out CLANG_TRIPLE=aarch64-linux-gnu- \
+#     CROSS_COMPILE=aarch64-linux-android- \
+#     LD=ld.lld \
+#     ${DEFCONFIG}
 
 # 让 make 不输出颜色 + 不输出冗余日志 → 彻底关闭 stdout 风暴
 export TERM=dumb
@@ -215,7 +221,6 @@ which as
 echo $PATH | tr ':' '\n'
 as --version
 echo "LD = $LD"
-echo "HOSTCC = $HOSTCC"
 echo "AR = $AR"
 echo "NM = $NM"
 echo "LLVM_IAS = $LLVM_IAS"
