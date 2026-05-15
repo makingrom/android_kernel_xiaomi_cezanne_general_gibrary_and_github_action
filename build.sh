@@ -249,13 +249,14 @@ echo "==========================================================================
 
 echo "  "
 
-# make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
-#     AS=${AS} AR=${AR} NM=${NM} \
-#     OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
-#     O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
-#     CROSS_COMPILE=${CROSS_COMPILE} \
-#     LD=${LD} \
-#     oldconfig
+# 编译提示新的选项使用oldconfig默认选项
+make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
+    AS=${AS} AR=${AR} NM=${NM} \
+    OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
+    O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
+    CROSS_COMPILE=${CROSS_COMPILE} \
+    LD=${LD} \
+    oldconfig
 
 echo "  "
 
