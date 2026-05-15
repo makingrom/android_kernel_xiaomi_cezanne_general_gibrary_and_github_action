@@ -152,6 +152,7 @@ echo "CONFIG_WERROR=n" >> out/.config
 echo "# CONFIG_BLK_INLINE_ENCRYPTION is not set" >> out/.config
 echo "CONFIG_BLK_INLINE_ENCRYPTION=n" >> out/.config
 
+sed -i 's/static inline bool mt_get_uartlog_status/static inline bool __mt_get_uartlog_status/' drivers/misc/mediatek/include/mt-plat/mtk_printk_ctrl.h
 
 # sed -i '/struct task_struct {/a \ \ int cpu_prefer;' include/linux/sched.h
 # echo "#define SCHED_PREFER_NONE 0" >> include/linux/sched.h
