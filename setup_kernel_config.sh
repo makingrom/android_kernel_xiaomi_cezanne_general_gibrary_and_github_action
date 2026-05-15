@@ -247,11 +247,12 @@ fi
 
 echo "============================= LXC DOCKER ============================"
 if [ "${LXC_DOCKER}" = "true" ]; then
-    if [ ! -f LXC-DOCKER-OPEN-CONFIG.sh ]; then
-        wget https://raw.githubusercontent.com/makingrom/LXC-DOCKER-KernelSU_Action/refs/heads/main/Lxc_Docker/LXC-DOCKER-OPEN-CONFIG.sh
-        chmod 777 LXC-DOCKER-OPEN-CONFIG.sh
+    if [ ! -f add-lxc-docker-custom3.sh ]; then
+        wget https://raw.githubusercontent.com/makingrom/LXC-DOCKER-KernelSU_Action/refs/heads/main/Lxc_Docker/add-lxc-docker-custom3.sh
+        chmod 777 add-lxc-docker-custom3.sh
     fi
-    ./LXC-DOCKER-OPEN-CONFIG.sh arch/${ARCH}/configs/${KERNEL_CONFIG} -w
+    ./add-lxc-docker-custom3.sh arch/${ARCH}/configs/${KERNEL_CONFIG} -w
+    # ./LXC-DOCKER-OPEN-CONFIG.sh arch/${ARCH}/configs/${KERNEL_CONFIG} -w
     echo "✅ LXC 已启用"
 else
     echo "✅ LXC 保持默认"
@@ -267,10 +268,11 @@ if [ "${LXC_PATCH}" = "true" ]; then
     if [ -f kernel/cgroup/cgroup.c ]; then
         ./runcpatch.sh kernel/cgroup/cgroup.c
     fi
-    if [ -f net/netfilter/xt_qtaguid.c ]; then
-        wget https://raw.githubusercontent.com/makingrom/LXC-DOCKER-KernelSU_Action/refs/heads/main/Lxc_Docker/lxc.patch
-        patch -p0 < lxc.patch
-    fi
+    # if [ -f net/netfilter/xt_qtaguid.c ]; then
+    #     wget https://raw.githubusercontent.com/makingrom/LXC-DOCKER-KernelSU_Action/refs/heads/main/Lxc_Docker/lxc.patch
+    #     patch -p0 < lxc.patch
+    # fi
+
     echo "✅ LXC补丁执行完毕"
 fi
 
