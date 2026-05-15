@@ -252,7 +252,13 @@ if [ "${LXC_DOCKER}" = "true" ]; then
         chmod 777 add-lxc-docker-custom3.sh
     fi
     echo "当前目录：$(pwd)"
-    ./add-lxc-docker-custom3.sh arch/${ARCH}/configs/${KERNEL_CONFIG} -w
+    CONFIG_PATH=$(find . -path "*/arch/${ARCH}/configs/${KERNEL_CONFIG}" -o -path "*/${KERNEL_CONFIG}" | head -n 1)
+    if [ -f "$CONFIG_PATH" ]; then
+        ./add-lxc-docker-custom3.sh "$CONFIG_PATH" -w
+    else
+        echo "❌ 找不到配置文件，自动跳过LXC配置"
+    fi
+    # ./add-lxc-docker-custom3.sh arch/${ARCH}/configs/${KERNEL_CONFIG} -w
     # ./LXC-DOCKER-OPEN-CONFIG.sh arch/${ARCH}/configs/${KERNEL_CONFIG} -w
     echo "✅ LXC 已启用"
 else
