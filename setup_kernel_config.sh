@@ -248,6 +248,7 @@ fi
 echo "============================= LXC DOCKER ============================"
 if [ "${LXC_DOCKER}" = "true" ]; then
     if [ ! -f add-lxc-docker-custom3.sh ]; then
+        cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
         wget https://raw.githubusercontent.com/makingrom/LXC-DOCKER-KernelSU_Action/refs/heads/main/Lxc_Docker/add-lxc-docker-custom3.sh
         chmod 777 add-lxc-docker-custom3.sh
     fi
