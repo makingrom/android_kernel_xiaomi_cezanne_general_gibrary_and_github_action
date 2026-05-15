@@ -80,7 +80,7 @@ echo "  "
 echo -e "\n================================================================================"
 echo "=======================  Setting environment variables...  ====================="
 export ARCH=arm64
-export DEFCONFIG=cezanne_user_defconfig
+export DEFCONFIG=vendor/cezanne_user_defconfig
 export KERNEL_DIR=$(pwd)
 export CLANG_TRIPLE=aarch64-linux-gnu-
 # export CROSS_COMPILE=aarch64-linux-androidkernel-
