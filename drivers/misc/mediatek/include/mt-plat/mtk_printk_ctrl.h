@@ -10,11 +10,11 @@
 #include <linux/sched.h>
 
 #ifdef CONFIG_MTK_PRINTK_UART_CONSOLE
-bool mt_get_uartlog_status(void);
+bool _mt_get_uartlog_status(void);
 void mt_disable_uart(void);
 void mt_enable_uart(void);
 #else
-static inline bool mt_get_uartlog_status(void)
+static inline bool _mt_get_uartlog_status(void)
 {
 	return false;
 }
