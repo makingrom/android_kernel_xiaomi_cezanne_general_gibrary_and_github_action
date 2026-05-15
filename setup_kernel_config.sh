@@ -247,20 +247,19 @@ fi
 
 echo "============================= LXC DOCKER ============================"
 if [ "${LXC_DOCKER}" = "true" ]; then
-    if [ ! -f add-lxc-docker-custom3.sh ]; then
-        cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
-        wget https://raw.githubusercontent.com/makingrom/LXC-DOCKER-KernelSU_Action/refs/heads/main/Lxc_Docker/add-lxc-docker-custom3.sh
-        chmod 777 add-lxc-docker-custom3.sh
+    if [ ! -f LXC-DOCKER-OPEN-CONFIG.sh ]; then
+        wget https://raw.githubusercontent.com/makingrom/LXC-DOCKER-KernelSU_Action/refs/heads/main/Lxc_Docker/LXC-DOCKER-OPEN-CONFIG.sh
+        chmod 777 LXC-DOCKER-OPEN-CONFIG.sh
     fi
     echo "当前目录：$(pwd)"
-    CONFIG_PATH=$(find . -path "*/arch/${ARCH}/configs/${KERNEL_CONFIG}" -o -path "*/${KERNEL_CONFIG}" | head -n 1)
-    if [ -f "$CONFIG_PATH" ]; then
-        ./add-lxc-docker-custom3.sh "$CONFIG_PATH" -w
-    else
-        echo "❌ 找不到配置文件，自动跳过LXC配置"
-    fi
-    # ./add-lxc-docker-custom3.sh arch/${ARCH}/configs/${KERNEL_CONFIG} -w
-    # ./LXC-DOCKER-OPEN-CONFIG.sh arch/${ARCH}/configs/${KERNEL_CONFIG} -w
+    # CONFIG_PATH=$(find . -path "*/arch/${ARCH}/configs/${KERNEL_CONFIG}" -o -path "*/${KERNEL_CONFIG}" | head -n 1)
+    # if [ -f "$CONFIG_PATH" ]; then
+    #     ./add-lxc-docker-custom3.sh "$CONFIG_PATH" -w
+    # else
+    #     echo "❌ 找不到配置文件，自动跳过LXC配置"
+    # fi
+    # # ./add-lxc-docker-custom3.sh arch/${ARCH}/configs/${KERNEL_CONFIG} -w
+    ./LXC-DOCKER-OPEN-CONFIG.sh arch/${ARCH}/configs/${KERNEL_CONFIG} -w
     echo "✅ LXC 已启用"
 else
     echo "✅ LXC 保持默认"
