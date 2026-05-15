@@ -16,7 +16,7 @@ export ADD_KPROBES_CONFIG=false
 # 是否 添加 OverlayFS 配置（文件系统叠加，KernelSU 挂载模块需要）开启(true)/关闭(false)/默认(空)
 export ADD_OVERLAYFS_CONFIG=false
 # 是否 开启 LTO（链接时优化）开启(true)/关闭(false)/默认(空)
-export USE_DISABLE_LTO=true
+export USE_DISABLE_LTO=false
 # 是否 开启「警告转错误」（-Werror）开启(true)/关闭(false)/默认(空)
 export DISABLE_CC_WERROR=false
 # 是否 使用自定义编译版本配置 开启(true)/关闭(默认false)
@@ -32,7 +32,7 @@ export LXC_DOCKER=false
 # 是否 打入 LXC 补丁
 export LXC_PATCH=false
 # 是否 关闭CONFIG_ANDROID_PARANOID_NETWORK配置防止docker and lxc出现网络问题
-export ANDROID_PARANOID_NETWORK_OFF=true
+export ANDROID_PARANOID_NETWORK_OFF=false
 # 是否 启用专属内核配置 骁龙QUALCOMM(true)/联发科MEDIATEK(false)平台/默认(空)
 export Device_Processor_Selection=
 
