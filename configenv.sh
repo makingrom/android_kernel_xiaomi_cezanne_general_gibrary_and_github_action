@@ -2,17 +2,17 @@ CONFIG_ENV=config.env
 
 # 编译内核基本配置
 # 内核源码地址
-KERNEL_SOURCE=https://github.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action.git
+KERNEL_SOURCE=https://github.com/makingrom/android_kernel_xiaomi_mt6885.git
 # 内核源码分支
-KERNEL_SOURCE_BRANCH=r
+KERNEL_SOURCE_BRANCH=lineage-20.0
 # 内核编译配置地址
-KERNEL_CONFIG=cezanne_user_defconfig
+KERNEL_CONFIG=vendor/cezanne_user_defconfig
 # 安卓版本号（10/11/12/13/14）
 ANDROID_VERSION=11
 # 内核版本(4.4/4.14/4.19/5.4)
 KERNEL_VERSION=4.14
 # 缓存版本（修改后不用原缓存）
-CACHE_VERSION=0
+CACHE_VERSION=1
 # 编译设备的硬件架构 ARM64(x86、x86_64、arm、arm64)
 ARCH=arm64
 # 是否使用build-kernel.bash
