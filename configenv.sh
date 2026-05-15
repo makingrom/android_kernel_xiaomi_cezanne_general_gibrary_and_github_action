@@ -2,9 +2,9 @@ CONFIG_ENV=config.env
 
 # 编译内核基本配置
 # 内核源码地址
-KERNEL_SOURCE=https://github.com/makingrom/android_kernel_xiaomi_mt6885.git
+KERNEL_SOURCE=https://github.com/hank9999/android_kernel_xiaomi_mt6885.git
 # 内核源码分支
-KERNEL_SOURCE_BRANCH=lineage-20.0
+KERNEL_SOURCE_BRANCH=susfs
 # 内核编译配置地址
 KERNEL_CONFIG=vendor/cezanne_user_defconfig
 # 安卓版本号（10/11/12/13/14）
