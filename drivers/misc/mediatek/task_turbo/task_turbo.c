@@ -55,8 +55,8 @@ void init_turbo_attr(struct task_struct *p,
 	p->render = 0;
 	atomic_set(&(p->inherit_types), 0);
 	p->inherit_cnt = 0;
-	/* if (is_turbo_task(parent))
-		p->cpu_prefer = SCHED_PREFER_NONE;*/
+	if (is_turbo_task(parent))
+		p->cpu_prefer = SCHED_PREFER_NONE;
 }
 
 bool is_turbo_task(struct task_struct *p)
