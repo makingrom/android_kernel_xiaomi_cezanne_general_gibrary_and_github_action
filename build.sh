@@ -128,9 +128,18 @@ echo "  "
 echo "  "
 
 echo -e "\n================================================================================"
+
+# make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
+#     AS=${AS} AR=${AR} NM=${NM} \
+#     OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
+#     O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
+#     CROSS_COMPILE=${CROSS_COMPILE} \
+#     LD=${LD} \
+#     ${DEFCONFIG}
+
 echo "======================   Generating default config...    ======================"
-make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
-    AS=${AS} AR=${AR} NM=${NM} \
+make ARCH=${ARCH} CC=${CC} \
+    AR=${AR} NM=${NM} \
     OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
     O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
     CROSS_COMPILE=${CROSS_COMPILE} \
@@ -255,10 +264,18 @@ echo "  "
 
 echo "  "
 
+# make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
+#     AS=${AS} AR=${AR} NM=${NM} \
+#     OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
+#     O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
+#     CROSS_COMPILE=${CROSS_COMPILE} \
+#     LD=${LD} \
+#     -j4 KCFLAGS="-w"
+
 echo -e "\n================================================================================"
 echo "======================  Starting kernel compilation...  ======================="
-make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
-    AS=${AS} AR=${AR} NM=${NM} \
+make ARCH=${ARCH} CC=${CC} \
+     AR=${AR} NM=${NM} \
     OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
     O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
     CROSS_COMPILE=${CROSS_COMPILE} \
