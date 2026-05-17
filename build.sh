@@ -82,9 +82,9 @@ export CLANG_TRIPLE=aarch64-linux-gnu-
 export CROSS_COMPILE=aarch64-linux-android-
 export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
 export CC=clang
-export AS=$cc
-export HOSTCC=gcc
-export LLVM_IAS=1
+export AS=clang
+export HOSTCC=clang
+#export LLVM_IAS=1
 export LD=ld.lld
 export AR=llvm-ar
 export NM=llvm-nm
@@ -181,8 +181,6 @@ echo "CONFIG_BLK_INLINE_ENCRYPTION=n" >> out/.config
 # echo "MTK_GPS_REGISTER_SETTING=y" >> out/.config
 # echo "MTK_GPS_EMI=y" >> out/.config
 
-# # 芯片型号
-# echo "CONFIG_MTK_COMBO_CHIP_CONSYS_6885=y" >> out/.config
 
 # if [ ${NEED_DTBO} = "true" ]; then
 #     # echo "CONFIG_OF_OVERLAY=y" >> out/.config
