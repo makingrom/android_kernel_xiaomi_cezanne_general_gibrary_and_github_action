@@ -82,8 +82,7 @@ export CLANG_TRIPLE=aarch64-linux-gnu-
 export CROSS_COMPILE=aarch64-linux-android-
 export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
 export CC=clang
-export AS=clang
-export HOSTCC=clang
+# export AS=clang
 #export LLVM_IAS=1
 export LD=ld.lld
 export AR=llvm-ar
@@ -91,7 +90,6 @@ export NM=llvm-nm
 export OBJCOPY=llvm-objcopy
 export OBJDUMP=llvm-objdump
 export STRIP=llvm-strip
-export HOSTAR=llvm-ar
 # make LLVM_IAS=1 ARCH=arm64 CC=clang HOSTCC=gcc \
 #     AS=clang AR=llvm-ar NM=llvm-nm \
 #     OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip \
@@ -119,7 +117,7 @@ export KBUILD_VERBOSE=0
 
 export CLANG_PATH="$(pwd)/../${CUSTOM_CLANG_DIR}"
 export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
-export PATH="${CLANG_PATH}/bin:${GCC_PATH}/bin:$PATH"
+export PATH="${GCC_PATH}/bin:${CLANG_PATH}/bin:$PATH"
 export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
 
 echo "======================           completed!               ======================"
