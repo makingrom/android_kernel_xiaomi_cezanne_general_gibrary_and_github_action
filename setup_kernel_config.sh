@@ -10,11 +10,11 @@ ANDROID_VERSION="${ANDROID_VERSION}"
 KERNEL_VERSION="${KERNEL_VERSION}"
 
 # 是否 应用 KernelSU 补丁 开启(true)/关闭(false)/默认(空)
-export APPLY_KSU_PATCH=false
+export APPLY_KSU_PATCH=true
 # 是否 添加 Kprobes 调试配置（KernelSU 部分功能依赖 Kprobes）开启(true)/关闭(false)/默认(空)
-export ADD_KPROBES_CONFIG=false
+export ADD_KPROBES_CONFIG=true
 # 是否 添加 OverlayFS 配置（文件系统叠加，KernelSU 挂载模块需要）开启(true)/关闭(false)/默认(空)
-export ADD_OVERLAYFS_CONFIG=false
+export ADD_OVERLAYFS_CONFIG=true
 # 是否 开启 LTO（链接时优化）开启(true)/关闭(false)/默认(空)
 export USE_DISABLE_LTO=false
 # 是否 开启「警告转错误」（-Werror）开启(true)/关闭(false)/默认(空)
@@ -52,8 +52,8 @@ echo "=================================================================="
 echo " =======================   开始配置 KSU     ======================="
 if [ "${APPLY_KSU_PATCH}" = "true" ]; then
     echo "当前目录：$(pwd)"
-    wget https://raw.githubusercontent.com/Frostleaft07/KernelSU-Patch/refs/heads/main/hooks-k4.19/official_hook_4.19.patch
-    patch -p1 < official_hook_4.19.patch
+    # wget https://raw.githubusercontent.com/Frostleaft07/KernelSU-Patch/refs/heads/main/hooks-k4.19/official_hook_4.19.patch
+    # patch -p1 < official_hook_4.19.patch
 
     if grep -q "CONFIG_KSU" arch/${ARCH}/configs/${KERNEL_CONFIG}; then
         sed -i 's/# CONFIG_KSU is not set/CONFIG_KSU=y/g' arch/${ARCH}/configs/${KERNEL_CONFIG} 2>/dev/null
