@@ -38,7 +38,7 @@ MTK_KERNEL_MODULES_SOURCE_BRANCH=mtk-kernel-modules-cezanne-r-oss
 METHOD_OK=A
 
 # 使用自定义的 GCC && CLANG 综合工具链USE_GCC_AND_CLANG
-USE_GCC_AND_CLANG=false
+USE_GCC_AND_CLANG=true
 # 工具链目录
 GCC_AND_CLANG_DIR=proton-clang
 # 工具链克隆源
@@ -47,7 +47,7 @@ GCC_AND_CLANG_SOURCE=https://github.com/makingrom/proton-clang.git
 GCC_AND_CLANG_BRANCH=master
 
 # 是否「使用自定义 Clang」，改用下方配置的 AOSP 官方 Clang，空则不使用
-USE_CUSTOM_CLANG=true
+USE_CUSTOM_CLANG=false
 # 自定义 Clang 的仓库地址 / 分支（因 USE_CUSTOM_CLANG=false，这两个参数无效）
 CUSTOM_CLANG_DIR=clang-r437112
 CUSTOM_CLANG_SOURCE=https://github.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action.git
@@ -70,7 +70,7 @@ CLANG_BRANCH=master-kernel-build-2022
 CLANG_VERSION=r450784e
 
 # 启用 ARM64/ARM32 版本的 GCC 编译器
-ENABLE_GCC_ARM64=true
+ENABLE_GCC_ARM64=false
 ENABLE_GCC_ARM32=false
 # 是否「自定义 ARM64 GCC」，用默认版本
 USE_CUSTOM_GCC_64=true
