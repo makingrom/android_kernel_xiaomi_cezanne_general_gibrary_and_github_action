@@ -2,7 +2,7 @@ CONFIG_ENV=config.env
 
 # 编译内核基本配置
 # 内核源码地址
-KERNEL_SOURCE=https://github.com/hank9999/android_kernel_xiaomi_mt6885.git
+KERNEL_SOURCE=https://github.com/makingrom/android_kernel_xiaomi_mt6885.git
 # 内核源码分支
 KERNEL_SOURCE_BRANCH=ksu-manual-hook
 # 内核编译配置地址
