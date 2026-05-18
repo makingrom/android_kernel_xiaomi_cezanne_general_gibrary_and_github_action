@@ -78,24 +78,24 @@ echo "  "
 
 echo -e "\n================================================================================"
 echo "=======================  Setting environment variables...  ====================="
-export ARCH=arm64
-export DEFCONFIG=vendor/cezanne_user_defconfig
-export KERNEL_DIR=$(pwd)
-export CLANG_TRIPLE=aarch64-linux-gnu-
-export CROSS_COMPILE=aarch64-linux-androidkernel-
-export CROSS_COMPILE=aarch64-linux-android-
-# export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
-export CROSS_COMPILE_ARM32=arm-linux-gnueabihf-
-export CC=clang
-export AS=clang
-export LLVM_IAS=1
-export LD=ld.lld
-export AR=llvm-ar
-export NM=llvm-nm
-export HOSTCC=gcc
-export OBJCOPY=llvm-objcopy
-export OBJDUMP=llvm-objdump
-export STRIP=llvm-strip
+# export ARCH=arm64
+# export DEFCONFIG=vendor/cezanne_user_defconfig
+# export KERNEL_DIR=$(pwd)
+# export CLANG_TRIPLE=aarch64-linux-gnu-
+# export CROSS_COMPILE=aarch64-linux-androidkernel-
+# export CROSS_COMPILE=aarch64-linux-android-
+# # export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
+# export CROSS_COMPILE_ARM32=arm-linux-gnueabihf-
+# export CC=clang
+# export AS=clang
+# export LLVM_IAS=1
+# export LD=ld.lld
+# export AR=llvm-ar
+# export NM=llvm-nm
+# export HOSTCC=gcc
+# export OBJCOPY=llvm-objcopy
+# export OBJDUMP=llvm-objdump
+# export STRIP=llvm-strip
 # make LLVM_IAS=1 ARCH=arm64 CC=clang HOSTCC=gcc \
 #     AS=clang AR=llvm-ar NM=llvm-nm \
 #     OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip \
@@ -103,6 +103,27 @@ export STRIP=llvm-strip
 #     CROSS_COMPILE=aarch64-linux-android- \
 #     LD=ld.lld \
 #     ${DEFCONFIG}
+
+export ARCH=arm64
+export DEFCONFIG=vendor/cezanne_user_defconfig
+export KERNEL_DIR=$(pwd)
+export CLANG_TRIPLE=aarch64-linux-gnu-
+export CROSS_COMPILE=aarch64-linux-gnu-
+# export CROSS_COMPILE=aarch64-linux-androidkernel-
+export CC=clang
+export AS=${cc}
+export AR=llvm-ar
+export NM=llvm-nm
+export LD=ld.lld
+#export LLVM_IAS=1
+export OBJCOPY=llvm-objcopy
+export OBJDUMP=llvm-objdump
+export STRIP=llvm-strip
+export CROSS_COMPILE=aarch64-linux-android-
+export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
+CROSS_COMPILE_ARM32=arm-linux-gnueabihf-
+
+
 
 # 让 make 不输出颜色 + 不输出冗余日志 → 彻底关闭 stdout 风暴
 export TERM=dumb
