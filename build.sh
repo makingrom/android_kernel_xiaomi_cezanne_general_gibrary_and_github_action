@@ -92,6 +92,7 @@ export LLVM_IAS=1
 export LD=ld.lld
 export AR=llvm-ar
 export NM=llvm-nm
+export HOSTCC=gcc
 export OBJCOPY=llvm-objcopy
 export OBJDUMP=llvm-objdump
 export STRIP=llvm-strip
