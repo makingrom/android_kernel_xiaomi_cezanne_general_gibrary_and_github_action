@@ -77,13 +77,13 @@ if [ "${APPLY_KSU_PATCH}" = "false" ]; then
     echo "✅ 已关闭 CONFIG_KSU"
 fi
 
-if [ "${APPLY_KSU_PATCH}" = "" ]; then
-    echo "CONFIG_KSU=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG} || echo "⚠️ 开启 CONFIG_KSU 失败"
-    echo "CONFIG_KPM=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG} || echo "⚠️ 开启 CONFIG_KPM 失败"
-    echo "CONFIG_SUPERCALL=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG} || echo "⚠️ 开启 CONFIG_SUPERCALL 失败"
-    echo "CONFIG_KSU_ALLOWLIST=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG} || echo "⚠️ 开启 CONFIG_KSU_ALLOWLIST 失败"
-    echo "✅ 保持默认 KSU 配置"
-fi
+# if [ "${APPLY_KSU_PATCH}" = "" ]; then
+#     echo "CONFIG_KSU=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG} || echo "⚠️ 开启 CONFIG_KSU 失败"
+#     echo "CONFIG_KPM=n" >> arch/${ARCH}/configs/${KERNEL_CONFIG} || echo "⚠️ 开启 CONFIG_KPM 失败"
+#     echo "CONFIG_SUPERCALL=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG} || echo "⚠️ 开启 CONFIG_SUPERCALL 失败"
+#     echo "CONFIG_KSU_ALLOWLIST=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG} || echo "⚠️ 开启 CONFIG_KSU_ALLOWLIST 失败"
+#     echo "✅ 保持默认 KSU 配置"
+# fi
 
 echo "========================== KPROBES =========================="
 if [ "${ADD_KPROBES_CONFIG}" = "true" ]; then
