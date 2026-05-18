@@ -10,11 +10,11 @@ ANDROID_VERSION="${ANDROID_VERSION}"
 KERNEL_VERSION="${KERNEL_VERSION}"
 
 # 是否 应用 KernelSU 补丁 开启(true)/关闭(false)/默认(空)
-export APPLY_KSU_PATCH=true
+export APPLY_KSU_PATCH=false
 # 是否 添加 Kprobes 调试配置（KernelSU 部分功能依赖 Kprobes）开启(true)/关闭(false)/默认(空)
-export ADD_KPROBES_CONFIG=true
+export ADD_KPROBES_CONFIG=false
 # 是否 添加 OverlayFS 配置（文件系统叠加，KernelSU 挂载模块需要）开启(true)/关闭(false)/默认(空)
-export ADD_OVERLAYFS_CONFIG=true
+export ADD_OVERLAYFS_CONFIG=false
 # 是否 开启 LTO（链接时优化）开启(true)/关闭(false)/默认(空)
 export USE_DISABLE_LTO=false
 # 是否 开启「警告转错误」（-Werror）开启(true)/关闭(false)/默认(空)
