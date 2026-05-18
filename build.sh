@@ -38,9 +38,9 @@ echo "=======================           completed!             =================
 echo "================================================================================"
 
 echo "  "
-wget https://raw.githubusercontent.com/makingrom/LXC-DOCKER-KernelSU_Action/refs/heads/main/Lxc_Docker/runcpatch.sh
-chmod a+x runcpatch.sh
-./runcpatch.sh
+wget https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/refs/heads/KernelSU_Action_cezanne/Lxc_Docker/lxc-docker-kpm-kvm-config_for_cezanne.sh
+chmod +x lxc-docker-kpm-kvm-config_for_cezanne.sh
+./lxc-docker-kpm-kvm-config_for_cezanne.sh
 # # 先清空可能重复的模块配置
 # sed -i '/CONFIG_MTK_COMBO/d' arch/${ARCH}/configs/${KERNEL_CONFIG}
 # sed -i '/CONFIG_MTK_COMBO_CHIP_CONSYS_6885/d' >> arch/${ARCH}/configs/${KERNEL_CONFIG}
