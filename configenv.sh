@@ -2,11 +2,11 @@ CONFIG_ENV=config.env
 
 # 编译内核基本配置
 # 内核源码地址
-KERNEL_SOURCE=https://github.com/makingrom/android_kernel_xiaomi_mt6885.git
+KERNEL_SOURCE=https://github.com/IamKavy47/gta4xlve_kernel_ksun/tree/lineage-23.2-KSUN.git
 # 内核源码分支
-KERNEL_SOURCE_BRANCH=ksu-manual-hook
+KERNEL_SOURCE_BRANCH=lineage-23.2-KSUN
 # 内核编译配置地址
-KERNEL_CONFIG=vendor/cezanne_user_defconfig
+KERNEL_CONFIG=misc_debug_defconfig
 # 安卓版本号（10/11/12/13/14）
 ANDROID_VERSION=11
 # 内核版本(4.4/4.14/4.19/5.4)
