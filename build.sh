@@ -78,13 +78,13 @@ export ARCH=arm64
 export DEFCONFIG=vendor/cezanne_user_defconfig
 export KERNEL_DIR=$(pwd)
 export CLANG_TRIPLE=aarch64-linux-gnu-
-# export CROSS_COMPILE=aarch64-linux-androidkernel-
+export CROSS_COMPILE=aarch64-linux-androidkernel-
 export CROSS_COMPILE=aarch64-linux-android-
-# export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
+export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
 export CROSS_COMPILE_ARM32=arm-linux-gnueabihf-
 export CC=clang
 export AS=clang
-export LLVM_IAS=1
+# export LLVM_IAS=1
 export LD=ld.lld
 export AR=llvm-ar
 export NM=llvm-nm
@@ -121,8 +121,6 @@ export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
 export PATH="${GCC_PATH}/bin:${CLANG_PATH}/bin:$PATH"
 export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
 
-export LINUX_GCC_CROSS_COMPILE_PREBUILTS_BIN=${GCC_PATH}/bin
-
 echo "======================           completed!               ======================"
 
 echo "================================================================================"
@@ -140,7 +138,7 @@ make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
     OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
     O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
     CROSS_COMPILE=${CROSS_COMPILE} \
-    LD=${LD} LINUX_GCC_CROSS_COMPILE_PREBUILTS_BIN=${LINUX_GCC_CROSS_COMPILE_PREBUILTS_BIN} \
+    LD=${LD} CROSS_COMPILE_ARM32=${CROSS_COMPILE_ARM32} \
     ${DEFCONFIG}
 echo "=========================         completed!           ========================="
 echo "================================================================================"
@@ -269,7 +267,7 @@ make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
     OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
     O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
     CROSS_COMPILE=${CROSS_COMPILE} \
-    LD=${LD} LINUX_GCC_CROSS_COMPILE_PREBUILTS_BIN=${LINUX_GCC_CROSS_COMPILE_PREBUILTS_BIN} \
+    LD=${LD} CROSS_COMPILE_ARM32=${CROSS_COMPILE_ARM32} \
     -j4 KCFLAGS="-w"
 
 echo "=========================      Build completed!        ========================="
