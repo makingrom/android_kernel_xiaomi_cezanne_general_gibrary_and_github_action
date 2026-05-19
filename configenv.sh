@@ -2,7 +2,7 @@ CONFIG_ENV=config.env
 
 # 编译内核基本配置
 # 内核源码地址
-KERNEL_SOURCE=https://github.com/IamKavy47/gta4xlve_kernel_ksun/tree/lineage-23.2-KSUN.git
+KERNEL_SOURCE=https://github.com/IamKavy47/gta4xlve_kernel_ksun.git
 # 内核源码分支
 KERNEL_SOURCE_BRANCH=lineage-23.2-KSUN
 # 内核编译配置地址
