@@ -6,7 +6,7 @@ KERNEL_SOURCE=https://github.com/IamKavy47/gta4xlve_kernel_ksun.git
 # 内核源码分支
 KERNEL_SOURCE_BRANCH=lineage-23.2-KSUN
 # 内核编译配置地址
-KERNEL_CONFIG=misc_debug_defconfig
+KERNEL_CONFIG=vendor/sm8150_defconfig
 # 安卓版本号（10/11/12/13/14）
 ANDROID_VERSION=11
 # 内核版本(4.4/4.14/4.19/5.4)
