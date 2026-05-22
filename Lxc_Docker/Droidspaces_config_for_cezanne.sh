@@ -80,7 +80,7 @@ missing_list=(
 "CONFIG_THERMAL_DEFAULT_GOV_USER_SPACE"
 )
 
-enable_list=(
+disable_list=(
 "CONFIG_ANDROID_PARANOID_NETWORK"
 )
 
@@ -100,7 +100,7 @@ done
 
 echo "========================   close configs   ==========================="
 
-for cfg in "${enable_list[@]}"; do
+for cfg in "${disable_list[@]}"; do
   echo "处理: $cfg = n"
 
   if grep -q "^$cfg=" "$CONFIG_FILE"; then
