@@ -128,10 +128,10 @@ export KBUILD_VERBOSE=0
 #export GCC_BIN_PATH="${GCC_PATH}/aarch64-linux-android/bin"
 #export PATH="${GCC_BIN_PATH}:$PATH"
 
-# export CLANG_PATH="$(pwd)/../${CUSTOM_CLANG_DIR}"
-# export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
-# export PATH="${GCC_PATH}/bin:${CLANG_PATH}/bin:$PATH"
-# export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
+export CLANG_PATH="$(pwd)/../${CUSTOM_CLANG_DIR}"
+export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
+export PATH="${GCC_PATH}/bin:${CLANG_PATH}/bin:$PATH"
+export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
 
 echo "======================           completed!               ======================"
 
