@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# 下载 ReSukiSU 到 KernelSU 文件夹
+git clone --depth 1 https://github.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action.git KernelSU/ -b HOOK-Cezanne_KernelSU-ReSukiSU_414336
+
+
 # Toolchain paths
 CLANG_PATH="$(pwd)/../clang-r437112"
 # CLANG_PATH="$(pwd)/../clang-neutron"
