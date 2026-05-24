@@ -2,11 +2,11 @@ CONFIG_ENV=config.env
 
 # 编译内核基本配置
 # 内核源码地址
-KERNEL_SOURCE=https://github.com/IamKavy47/gta4xlve_kernel_ksun.git
+KERNEL_SOURCE=https://github.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action.git
 # 内核源码分支
-KERNEL_SOURCE_BRANCH=lineage-23.2-KSUN
+KERNEL_SOURCE_BRANCH=android_kernel_mt6885_ReSukiSU_414336
 # 内核编译配置地址
-KERNEL_CONFIG=vendor/sm8150_defconfig
+KERNEL_CONFIG=vendor/cezanne_user_defconfig
 # 安卓版本号（10/11/12/13/14）
 ANDROID_VERSION=11
 # 内核版本(4.4/4.14/4.19/5.4)
@@ -38,7 +38,7 @@ MTK_KERNEL_MODULES_SOURCE_BRANCH=mtk-kernel-modules-cezanne-r-oss
 METHOD_OK=A
 
 # 使用自定义的 GCC && CLANG 综合工具链USE_GCC_AND_CLANG
-USE_GCC_AND_CLANG=true
+USE_GCC_AND_CLANG=false
 # 工具链目录
 GCC_AND_CLANG_DIR=proton-clang
 # 工具链克隆源
@@ -47,7 +47,7 @@ GCC_AND_CLANG_SOURCE=https://github.com/makingrom/proton-clang.git
 GCC_AND_CLANG_BRANCH=master
 
 # 是否「使用自定义 Clang」，改用下方配置的 AOSP 官方 Clang，空则不使用
-USE_CUSTOM_CLANG=false
+USE_CUSTOM_CLANG=true
 # 自定义 Clang 的仓库地址 / 分支（因 USE_CUSTOM_CLANG=false，这两个参数无效）
 CUSTOM_CLANG_DIR=clang-r437112
 CUSTOM_CLANG_SOURCE=https://github.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action.git
@@ -70,7 +70,7 @@ CLANG_BRANCH=master-kernel-build-2022
 CLANG_VERSION=r450784e
 
 # 启用 ARM64/ARM32 版本的 GCC 编译器
-ENABLE_GCC_ARM64=false
+ENABLE_GCC_ARM64=true
 ENABLE_GCC_ARM32=false
 # 是否「自定义 ARM64 GCC」，用默认版本
 USE_CUSTOM_GCC_64=true
