@@ -117,11 +117,11 @@ export LC_ALL=C
 export CLANG_FORCE_COLOR_DIAGNOSTICS=0
 export KBUILD_VERBOSE=0
 
-# proton-clang 工具链
-export CLANG_PATH="$(pwd)/../${GCC_AND_CLANG_DIR}"
-export GCC_PATH="$(pwd)/../${GCC_AND_CLANG_DIR}"
-export PATH="${CLANG_PATH}/bin:$PATH"
-export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
+# # proton-clang 工具链
+# export CLANG_PATH="$(pwd)/../${GCC_AND_CLANG_DIR}"
+# export GCC_PATH="$(pwd)/../${GCC_AND_CLANG_DIR}"
+# export PATH="${CLANG_PATH}/bin:$PATH"
+# export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
 
 # clang-* && GCC 工具链
 
@@ -150,7 +150,7 @@ make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
     OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
     O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
     CROSS_COMPILE=${CROSS_COMPILE} \
-    LD=${LD} CROSS_COMPILE_ARM32=${CROSS_COMPILE_ARM32} \
+    LD=${LD} \
     ${DEFCONFIG}
 echo "=========================         completed!           ========================="
 echo "================================================================================"
@@ -279,7 +279,7 @@ make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
     OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
     O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
     CROSS_COMPILE=${CROSS_COMPILE} \
-    LD=${LD} CROSS_COMPILE_ARM32=${CROSS_COMPILE_ARM32} \
+    LD=${LD} \
     -j4 KCFLAGS="-w"
 
 echo "=========================      Build completed!        ========================="
