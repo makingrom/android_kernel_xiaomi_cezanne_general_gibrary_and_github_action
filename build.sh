@@ -131,7 +131,8 @@ export KBUILD_VERBOSE=0
 # export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
 
 # clang-* && GCC 工具链
-
+chmod -R 777 $(pwd)/../${CUSTOM_CLANG_DIR}/
+chmod -R 777 $(pwd)/../${CUSTOM_GCC_64_DIR}/
 export CLANG_PATH="$(pwd)/../${CUSTOM_CLANG_DIR}"
 export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
 export PATH="${GCC_PATH}/bin:${CLANG_PATH}/bin:$PATH"
