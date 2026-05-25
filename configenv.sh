@@ -4,9 +4,9 @@ CONFIG_ENV=config.env
 # 内核源码地址
 KERNEL_SOURCE=https://github.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action.git
 # 内核源码分支
-KERNEL_SOURCE_BRANCH=android_kernel_mt6885_ReSukiSU_414336
+KERNEL_SOURCE_BRANCH=r
 # 内核编译配置地址
-KERNEL_CONFIG=vendor/cezanne_user_defconfig
+KERNEL_CONFIG=cezanne_user_defconfig
 # 安卓版本号（10/11/12/13/14）
 ANDROID_VERSION=11
 # 内核版本(4.4/4.14/4.19/5.4)
