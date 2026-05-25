@@ -92,11 +92,11 @@ export DEFCONFIG=vendor/cezanne_user_defconfig
 export KERNEL_DIR=$(pwd)
 
 export CC=clang
-export AS=llvm-as
+export AS=clang
 export LD=ld.lld
 export AR=llvm-ar
 export NM=llvm-nm
-export HOSTCC=gcc
+export HOSTCC=clang
 export OBJCOPY=llvm-objcopy
 export OBJDUMP=llvm-objdump
 export STRIP=llvm-strip
