@@ -95,7 +95,7 @@ export KERNEL_DIR=$(pwd)
 
 export CC=clang
 #export AS=clang
-export LD=ld.lld
+#export LD=ld.lld
 export AR=llvm-ar
 export NM=llvm-nm
 export HOSTCC=gcc
@@ -149,9 +149,9 @@ echo "==========================================================================
 
 echo "  "
 # Compilation_Instruction="LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} AS=${AS} AR=${AR} NM=${NM} OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} O=out CLANG_TRIPLE=${CLANG_TRIPLE} CROSS_COMPILE=${CROSS_COMPILE} LD=${LD}"
-Compilation_Instruction="CLANG_TRIPLE=${CLANG_TRIPLE} CROSS_COMPILE=${CROSS_COMPILE} LD=${LD} LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} AS=${AS} AR=${AR} NM=${NM} OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} O=out"
+Compilation_Instruction="CLANG_TRIPLE=${CLANG_TRIPLE} CROSS_COMPILE=${CROSS_COMPILE} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} AS=${AS} AR=${AR} NM=${NM} OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} O=out"
 echo "  "
-
+# LD=${LD} LLVM_IAS=${LLVM_IAS}
 echo -e "\n================================================================================"
 
 
