@@ -95,7 +95,7 @@ export DEFCONFIG=vendor/cezanne_user_defconfig
 export KERNEL_DIR=$(pwd)
 
 export CC=clang
-export AS=clang
+export AS=as
 export LD=ld.lld
 export AR=llvm-ar
 export NM=llvm-nm
