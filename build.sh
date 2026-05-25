@@ -77,7 +77,6 @@ git clone --depth 1 https://github.com/makingrom/android_kernel_xiaomi_cezanne_g
 # echo "CONFIG_MTK_MET_BUILT_IN=m" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
 # echo "CONFIG_MTK_UDC=m" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
 
-./build.sh
 echo "  "
 
 echo -e "\n================================================================================"
