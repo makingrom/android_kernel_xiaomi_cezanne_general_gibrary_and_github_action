@@ -82,8 +82,8 @@ echo "  "
 
 export CLANG_PATH="$(pwd)/../${CUSTOM_CLANG_DIR}"
 export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
-export PATH="${GCC_PATH}/bin:$PATH"
-export PATH="${CLANG_PATH}/bin:$PATH"
+export PATH="$PATH:${GCC_PATH}/bin"
+export PATH="$PATH:${CLANG_PATH}/bin"
 export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
 
 export CLANG_PREBUILT_BIN=${CLANG_PATH}/bin
