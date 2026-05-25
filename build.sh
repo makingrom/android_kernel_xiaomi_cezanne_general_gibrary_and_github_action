@@ -92,7 +92,7 @@ echo -e "\n=====================================================================
 echo "=======================  Setting environment variables...  ====================="
 
 
-# 官方 
+# 官方内核 
 export ARCH=arm64
 export KERNEL_DIR=$(pwd)
 export CLANG_TRIPLE=aarch64-linux-gnu-
@@ -108,23 +108,7 @@ export HOSTCC=gcc
 export HOSTAR=llvm-ar
 Compilation_Instruction="ARCH=${ARCH} CC=clang HOSTCC=gcc AR=llvm-ar NM=llvm-nm OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip O=out CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-android- LD=ld.lld"
 
-
-
-
-# CLANG_FLAGS = 
-# CFLAGS = 
-
-
-
-
-# clang 编译器
-#export CROSS_COMPILE=aarch64-linux-gnu-
-# proton-clang-编译器
-#export CROSS_COMPILE=aarch64-linux-androidkernel-
-# 通用
-
-
-# 非官方新增
+# 非官方内核
 # export LLVM_IAS=1
 # export ARCH=arm64
 # export SUBARCH=arm64
