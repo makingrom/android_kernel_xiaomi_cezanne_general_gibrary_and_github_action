@@ -106,11 +106,11 @@ export STRIP=llvm-strip
 export LLVM_IAS=1
 export CLANG_TRIPLE=aarch64-linux-gnu-
 # clang 编译器
-export CROSS_COMPILE=aarch64-linux-gnu-
+#export CROSS_COMPILE=aarch64-linux-gnu-
 # proton-clang-编译器
 #export CROSS_COMPILE=aarch64-linux-androidkernel-
 # 通用
-#export CROSS_COMPILE=aarch64-linux-android-
+export CROSS_COMPILE=aarch64-linux-android-
 export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
 #export CUSTOM_GCC_32_BIN=aarch64-linux-gnu-
 #export CUSTOM_GCC_64_BIN=arm-linux-androideabi-
