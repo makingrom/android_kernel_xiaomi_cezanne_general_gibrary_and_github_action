@@ -150,7 +150,7 @@ quiet_cmd_vdsold = VDSOL32   $@
 quiet_cmd_vdsocc = VDSOC32   $@
       cmd_vdsocc = $(CC_ARM32) -Wp,-MD,$(depfile) $(VDSO_CFLAGS) -c -o $@ $<
 quiet_cmd_vdsoas = VDSOA32   $@
-      cmd_vdsoas = $(CC_ARM32) -Wp,-MD,$(depfile) $(VDSO_AFLAGS) -c -o $@ $<
+      cmd_vdsoas = $(CC_ARM32) -no-integrated-as -Wp,-MD,$(depfile) $(VDSO_AFLAGS) -c -o $@ $<
 
 quiet_cmd_vdsomunge = MUNGE   $@
       cmd_vdsomunge = $(obj)/$(munge) $< $@
