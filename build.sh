@@ -94,9 +94,7 @@ echo "=======================  Setting environment variables...  ===============
 export ARCH=arm64
 export SUBARCH=arm64
 export HEADER_ARCH=arm64
-export DEFCONFIG=vendor/cezanne_user_defconfig
 export KERNEL_DIR=$(pwd)
-
 export CC=clang
 export AS=as
 export LD=ld.lld
@@ -163,7 +161,7 @@ echo -e "\n=====================================================================
 
 
 echo "======================   Generating default config...    ======================"
-make Compilation_Instruction=${Compilation_Instruction} ${DEFCONFIG}
+make Compilation_Instruction=${Compilation_Instruction} ${KERNEL_CONFIG}
 echo "=========================         completed!           ========================="
 echo "================================================================================"
 
