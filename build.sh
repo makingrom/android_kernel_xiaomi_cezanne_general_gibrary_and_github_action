@@ -103,10 +103,10 @@ export CLANG_TRIPLE=aarch64-linux-gnu-
 #export CROSS_COMPILE=aarch64-linux-androidkernel-
 # 通用
 export CROSS_COMPILE=aarch64-linux-android-
-export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
+# export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
 export CUSTOM_GCC_32_BIN=aarch64-linux-gnu-
 export CUSTOM_GCC_64_BIN=arm-linux-androideabi-
-CROSS_COMPILE_ARM32=arm-linux-gnueabihf-
+export CROSS_COMPILE_ARM32=arm-linux-gnueabihf-
 
 
 # make LLVM_IAS=1 ARCH=arm64 CC=clang HOSTCC=gcc \
@@ -131,11 +131,12 @@ export KBUILD_VERBOSE=0
 # export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
 
 # clang-* && GCC 工具链
-chmod -R 777 $(pwd)/../${CUSTOM_CLANG_DIR}/
-chmod -R 777 $(pwd)/../${CUSTOM_GCC_64_DIR}/
+# chmod -R 777 $(pwd)/../${CUSTOM_CLANG_DIR}/
+# chmod -R 777 $(pwd)/../${CUSTOM_GCC_64_DIR}/
 export CLANG_PATH="$(pwd)/../${CUSTOM_CLANG_DIR}"
 export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
-export PATH="${GCC_PATH}/bin:${CLANG_PATH}/bin:$PATH"
+export PATH="${GCC_PATH}/bin:$PATH"
+export PATH="${CLANG_PATH}/bin:$PATH"
 export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
 
 echo "======================           completed!               ======================"
@@ -144,7 +145,7 @@ echo "==========================================================================
 
 echo "  "
 # Compilation_Instruction="LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} AS=${AS} AR=${AR} NM=${NM} OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} O=out CLANG_TRIPLE=${CLANG_TRIPLE} CROSS_COMPILE=${CROSS_COMPILE} LD=${LD}"
-Compilation_Instruction="ARCH=${ARCH} CC=${CC} AS=${AS} AR=${AR} NM=${NM} OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} O=out CLANG_TRIPLE=${CLANG_TRIPLE} CROSS_COMPILE=${CROSS_COMPILE} LD=${LD}"
+Compilation_Instruction="ARCH=${ARCH} CC=${CC} AS=${AS} AR=${AR} NM=${NM} OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} O=out CLANG_TRIPLE=${CLANG_TRIPLE} CROSS_COMPILE=${CROSS_COMPILE}"
 echo "  "
 
 echo -e "\n================================================================================"
