@@ -86,6 +86,9 @@ export PATH="${GCC_PATH}/bin:$PATH"
 export PATH="${CLANG_PATH}/bin:$PATH"
 export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
 
+export CLANG_PREBUILT_BIN=${CLANG_PATH}/bin
+export LINUX_GCC_CROSS_COMPILE_PREBUILTS_BIN=${GCC_PATH}/bin
+
 echo -e "\n================================================================================"
 echo "=======================  Setting environment variables...  ====================="
 export ARCH=arm64
@@ -99,7 +102,7 @@ export AS=as
 export LD=ld.lld
 export AR=llvm-ar
 export NM=llvm-nm
-export HOSTCC=clang
+export HOSTCC=gcc
 export OBJCOPY=llvm-objcopy
 export OBJDUMP=llvm-objdump
 export STRIP=llvm-strip
@@ -112,10 +115,12 @@ export CLANG_TRIPLE=aarch64-linux-gnu-
 #export CROSS_COMPILE=aarch64-linux-androidkernel-
 # 通用
 export CROSS_COMPILE=aarch64-linux-androidkernel-
-export CROSS_COMPILE_ARM32=aarch64-linux-androidkernel-
+export CLANG_TRIPLE_ARM32=arm-linux-gnueabi-
+export CROSS_COMPILE_ARM32=arm-linux-androidkernel-
 export CUSTOM_GCC_64_BIN=aarch64-linux-gnu-
 export CUSTOM_GCC_32_BIN=arm-linux-android-
-export CROSS_COMPILE_ARM32=arm-linux-gnueabihf-
+
+# export CROSS_COMPILE_ARM32=arm-linux-gnueabihf-
 
 
 # make LLVM_IAS=1 ARCH=arm64 CC=clang HOSTCC=gcc \
