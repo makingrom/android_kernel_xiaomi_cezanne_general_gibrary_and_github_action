@@ -90,12 +90,12 @@ export AS=clang
 export LD=ld.lld
 export AR=llvm-ar
 export NM=llvm-nm
-export HOSTCC=gcc
-export OBJCOPY=llvm-objcopy
-export OBJDUMP=llvm-objdump
-export STRIP=llvm-strip
+#export HOSTCC=gcc
+#export OBJCOPY=llvm-objcopy
+#export OBJDUMP=llvm-objdump
+#export STRIP=llvm-strip
 
-export LLVM_IAS=1
+#export LLVM_IAS=1
 export CLANG_TRIPLE=aarch64-linux-gnu-
 # clang 编译器
 # export CROSS_COMPILE=aarch64-linux-gnu-
@@ -145,7 +145,7 @@ echo "==========================================================================
 
 echo "  "
 # Compilation_Instruction="LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} AS=${AS} AR=${AR} NM=${NM} OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} O=out CLANG_TRIPLE=${CLANG_TRIPLE} CROSS_COMPILE=${CROSS_COMPILE} LD=${LD}"
-Compilation_Instruction="ARCH=${ARCH} CC=${CC} AS=${AS} AR=${AR} NM=${NM} OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} O=out CLANG_TRIPLE=${CLANG_TRIPLE} CROSS_COMPILE=${CROSS_COMPILE}"
+Compilation_Instruction="ARCH=${ARCH} CC=${CC} AS=${AS} AR=${AR} NM=${NM} O=out"
 echo "  "
 
 echo -e "\n================================================================================"
