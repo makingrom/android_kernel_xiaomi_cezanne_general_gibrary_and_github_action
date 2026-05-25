@@ -82,7 +82,7 @@ echo "  "
 cp -r $(pwd)/../${CUSTOM_CLANG_DIR} /home/runner/work/
 cp -r $(pwd)/../${CUSTOM_GCC_64_DIR} /home/runner/work/
 export CLANG_PATH="/home/runner/work/${CUSTOM_CLANG_DIR}"
-export GCC_PATH="/home/runner/work/${CUSTOM_GCC_64_DIR"
+export GCC_PATH="/home/runner/work/${CUSTOM_GCC_64_DIR}"
 export PATH="${GCC_PATH}/bin:$PATH"
 export PATH="${CLANG_PATH}/bin:$PATH"
 export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
