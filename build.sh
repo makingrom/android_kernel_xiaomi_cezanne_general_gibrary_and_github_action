@@ -117,17 +117,17 @@ export CLANG_TRIPLE=aarch64-linux-gnu-
 export CROSS_COMPILE=aarch64-linux-androidkernel-
 
 # 非官方新增
-# export LLVM_IAS=1
-# export AS=as
-# export HOSTAS=as
-# export HOSTLD=ld
-# export HOSTAR=ar
-# export CLANG_TRIPLE_ARM32=arm-linux-gnueabi-
+export LLVM_IAS=1
+export AS=as
+export HOSTAS=as
+export HOSTLD=ld
+export HOSTAR=ar
+export CLANG_TRIPLE_ARM32=arm-linux-gnueabi-
 # export CROSS_COMPILE_ARM32=arm-linux-androidkernel-
-# export CUSTOM_GCC_64_BIN=aarch64-linux-gnu-
-# export CUSTOM_GCC_32_BIN=arm-linux-android-
+export CUSTOM_GCC_64_BIN=aarch64-linux-gnu-
+export CUSTOM_GCC_32_BIN=arm-linux-android-
 
-# export CROSS_COMPILE_ARM32=arm-linux-gnueabihf-
+export CROSS_COMPILE_ARM32=arm-linux-gnueabihf-
 
 
 # make LLVM_IAS=1 ARCH=arm64 CC=clang HOSTCC=gcc \
@@ -162,7 +162,7 @@ echo "==========================================================================
 
 echo "  "
 # Compilation_Instruction="LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} AS=${AS} AR=${AR} NM=${NM} OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} O=out CLANG_TRIPLE=${CLANG_TRIPLE} CROSS_COMPILE=${CROSS_COMPILE} LD=${LD}"
-Compilation_Instruction="CLANG_TRIPLE=${CLANG_TRIPLE} CROSS_COMPILE=${CROSS_COMPILE} LD=${LD} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} AR=${AR} NM=${NM} OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} O=out"
+Compilation_Instruction="CLANG_TRIPLE=${CLANG_TRIPLE} CROSS_COMPILE=${CROSS_COMPILE} LD=${LD} LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} HOSTAS=${HOSTAS}  AS=${AS} AR=${AR} NM=${NM} OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} O=out"
 echo "  "
 
 echo -e "\n================================================================================"
