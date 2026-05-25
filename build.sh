@@ -86,16 +86,16 @@ export DEFCONFIG=vendor/cezanne_user_defconfig
 export KERNEL_DIR=$(pwd)
 
 export CC=clang
-# export AS=clang
-# export LD=ld.lld
+export AS=clang
+export LD=ld.lld
 export AR=llvm-ar
 export NM=llvm-nm
-#export HOSTCC=gcc
-#export OBJCOPY=llvm-objcopy
-#export OBJDUMP=llvm-objdump
-#export STRIP=llvm-strip
+export HOSTCC=gcc
+export OBJCOPY=llvm-objcopy
+export OBJDUMP=llvm-objdump
+export STRIP=llvm-strip
 
-#export LLVM_IAS=1
+export LLVM_IAS=1
 export CLANG_TRIPLE=aarch64-linux-gnu-
 # clang 编译器
 # export CROSS_COMPILE=aarch64-linux-gnu-
