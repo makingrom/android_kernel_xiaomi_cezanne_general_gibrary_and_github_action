@@ -102,7 +102,7 @@ export OBJDUMP=llvm-objdump
 export STRIP=llvm-strip
 
 export LLVM_IAS=1
-export CLANG_TRIPLE=aarch64-linux-android-
+export CLANG_TRIPLE=aarch64-linux-gnu-
 # clang 编译器
 #export CROSS_COMPILE=aarch64-linux-gnu-
 # proton-clang-编译器
