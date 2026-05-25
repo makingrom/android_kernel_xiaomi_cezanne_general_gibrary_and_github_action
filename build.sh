@@ -84,17 +84,9 @@ echo "=======================  Setting environment variables...  ===============
 export ARCH=arm64
 export DEFCONFIG=vendor/cezanne_user_defconfig
 export KERNEL_DIR=$(pwd)
-export CLANG_TRIPLE=aarch64-linux-gnu-
-export CROSS_COMPILE=aarch64-linux-gnu-
-#export CROSS_COMPILE=aarch64-linux-androidkernel-
-#export CROSS_COMPILE=aarch64-linux-android-
-export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
-# export CROSS_COMPILE_ARM32=arm-linux-gnueabihf-
-# export CUSTOM_GCC_32_BIN=aarch64-linux-gnu-
-# export CUSTOM_GCC_64_BIN=arm-linux-androideabi-
+
 export CC=clang
 export AS=clang
-export LLVM_IAS=1
 export LD=ld.lld
 export AR=llvm-ar
 export NM=llvm-nm
@@ -102,6 +94,21 @@ export HOSTCC=gcc
 export OBJCOPY=llvm-objcopy
 export OBJDUMP=llvm-objdump
 export STRIP=llvm-strip
+
+#export LLVM_IAS=1
+export CLANG_TRIPLE=aarch64-linux-gnu-
+# clang 编译器
+# export CROSS_COMPILE=aarch64-linux-gnu-
+# proton-clang-编译器
+#export CROSS_COMPILE=aarch64-linux-androidkernel-
+# 通用
+export CROSS_COMPILE=aarch64-linux-android-
+export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
+# export CUSTOM_GCC_32_BIN=aarch64-linux-gnu-
+# export CUSTOM_GCC_64_BIN=arm-linux-androideabi-
+CROSS_COMPILE_ARM32=arm-linux-gnueabihf-
+
+
 # make LLVM_IAS=1 ARCH=arm64 CC=clang HOSTCC=gcc \
 #     AS=clang AR=llvm-ar NM=llvm-nm \
 #     OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip \
@@ -124,9 +131,6 @@ export KBUILD_VERBOSE=0
 # export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
 
 # clang-* && GCC 工具链
-
-#export GCC_BIN_PATH="${GCC_PATH}/aarch64-linux-android/bin"
-#export PATH="${GCC_BIN_PATH}:$PATH"
 
 export CLANG_PATH="$(pwd)/../${CUSTOM_CLANG_DIR}"
 export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
