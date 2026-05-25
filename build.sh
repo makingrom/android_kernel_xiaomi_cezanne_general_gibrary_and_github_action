@@ -94,7 +94,7 @@ export DEFCONFIG=vendor/cezanne_user_defconfig
 export KERNEL_DIR=$(pwd)
 
 export CC=clang
-export AS=
+export AS=gcc
 export LD=ld.lld
 export AR=llvm-ar
 export NM=llvm-nm
@@ -103,15 +103,15 @@ export OBJCOPY=llvm-objcopy
 export OBJDUMP=llvm-objdump
 export STRIP=llvm-strip
 
-# export LLVM_IAS=1
+export LLVM_IAS=1
 export CLANG_TRIPLE=aarch64-linux-gnu-
 # clang 编译器
-# export CROSS_COMPILE=aarch64-linux-gnu-
+export CROSS_COMPILE=aarch64-linux-gnu-
 # proton-clang-编译器
 #export CROSS_COMPILE=aarch64-linux-androidkernel-
 # 通用
-export CROSS_COMPILE=aarch64-linux-android-
-# export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
+#export CROSS_COMPILE=aarch64-linux-android-
+export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
 #export CUSTOM_GCC_32_BIN=aarch64-linux-gnu-
 #export CUSTOM_GCC_64_BIN=arm-linux-androideabi-
 export CROSS_COMPILE_ARM32=arm-linux-gnueabihf-
