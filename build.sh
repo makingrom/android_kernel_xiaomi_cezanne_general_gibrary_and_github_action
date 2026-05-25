@@ -112,8 +112,8 @@ export CLANG_TRIPLE=aarch64-linux-gnu-
 # 通用
 export CROSS_COMPILE=aarch64-linux-android-
 # export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
-export CUSTOM_GCC_32_BIN=aarch64-linux-gnu-
-export CUSTOM_GCC_64_BIN=arm-linux-androideabi-
+#export CUSTOM_GCC_32_BIN=aarch64-linux-gnu-
+#export CUSTOM_GCC_64_BIN=arm-linux-androideabi-
 export CROSS_COMPILE_ARM32=arm-linux-gnueabihf-
 
 
