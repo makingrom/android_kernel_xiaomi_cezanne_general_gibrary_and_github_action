@@ -138,12 +138,11 @@ $(obj)/vdso.so.raw: $(src)/vdso.lds $(obj-vdso) FORCE
 	$(call if_changed,vdsold)
 
 # Compilation rules for the vDSO sources
-$(filter-out vgettimeofday.o, $(obj-vdso)): %.o: %.c FORCE
+$(filter-out vgettimeofday.o, $(c-obj-vdso)): %.o: %.c FORCE
 	$(call if_changed_dep,vdsocc)
-$(obj-vdso): %.o: %.S FORCE
+$(asm-obj-vdso): %.o: %.S FORCE
 	$(call if_changed_dep,vdsoas)
 
-# c-obj-vdso  asm-obj-vdso
 # Actual build commands
 quiet_cmd_vdsold = VDSOL32   $@
       cmd_vdsold = $(CC_ARM32) -Wp,-MD,$(depfile) $(VDSO_LDFLAGS) \
