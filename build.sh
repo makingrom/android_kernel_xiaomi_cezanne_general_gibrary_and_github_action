@@ -90,53 +90,65 @@ export LINUX_GCC_CROSS_COMPILE_PREBUILTS_BIN=${GCC_PATH}/bin
 
 echo -e "\n================================================================================"
 echo "=======================  Setting environment variables...  ====================="
+
+
+# 官方 
 export ARCH=arm64
-export SUBARCH=arm64
-export HEADER_ARCH=arm64
 export KERNEL_DIR=$(pwd)
+export CLANG_TRIPLE=aarch64-linux-gnu-
+export CROSS_COMPILE=aarch64-linux-androidkernel-
+export CROSS_COMPILE_ARM32=arm-linux-androidkernel-
 export CC=clang
-
 export LD=ld.lld
-export AR=llvm-ar
 export NM=llvm-nm
-export HOSTCC=gcc
-
-# CLANG_FLAGS = 
-# CFLAGS = 
 export OBJCOPY=llvm-objcopy
 export OBJDUMP=llvm-objdump
 export STRIP=llvm-strip
+export HOSTCC=gcc
+export HOSTAR=llvm-ar
+Compilation_Instruction="ARCH=${ARCH} CC=clang HOSTCC=gcc AR=llvm-ar NM=llvm-nm OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip O=out CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-android- LD=ld.lld"
 
 
-export CLANG_TRIPLE=aarch64-linux-gnu-
+
+
+# CLANG_FLAGS = 
+# CFLAGS = 
+
+
+
+
 # clang 编译器
 #export CROSS_COMPILE=aarch64-linux-gnu-
 # proton-clang-编译器
 #export CROSS_COMPILE=aarch64-linux-androidkernel-
 # 通用
-export CROSS_COMPILE=aarch64-linux-androidkernel-
+
 
 # 非官方新增
-export LLVM_IAS=1
-export AS=as
-export HOSTAS=as
-export HOSTLD=ld
-export HOSTAR=ar
-export CLANG_TRIPLE_ARM32=arm-linux-gnueabi-
-# export CROSS_COMPILE_ARM32=arm-linux-androidkernel-
-export CUSTOM_GCC_64_BIN=aarch64-linux-gnu-
-export CUSTOM_GCC_32_BIN=arm-linux-android-
-
-export CROSS_COMPILE_ARM32=arm-linux-gnueabihf-
-
-
-# make LLVM_IAS=1 ARCH=arm64 CC=clang HOSTCC=gcc \
-#     AS=clang AR=llvm-ar NM=llvm-nm \
-#     OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip \
-#     O=out CLANG_TRIPLE=aarch64-linux-gnu- \
-#     CROSS_COMPILE=aarch64-linux-android- \
-#     LD=ld.lld \
-#     ${DEFCONFIG}
+# export LLVM_IAS=1
+# export ARCH=arm64
+# export SUBARCH=arm64
+# export HEADER_ARCH=arm64
+# export KERNEL_DIR=$(pwd)
+# export CC=clang
+# export AS=as
+# export LD=ld.lld
+# export AR=llvm-ar
+# export NM=llvm-nm
+# export HOSTAS=as
+# export HOSTLD=ld
+# export HOSTAR=ar
+# export HOSTCC=gcc
+# export OBJCOPY=llvm-objcopy
+# export OBJDUMP=llvm-objdump
+# export STRIP=llvm-strip
+# export CLANG_TRIPLE=aarch64-linux-gnu-
+# export CROSS_COMPILE=aarch64-linux-androidkernel-
+# export CLANG_TRIPLE_ARM32=arm-linux-gnueabi-
+# export CUSTOM_GCC_64_BIN=aarch64-linux-gnu-
+# export CUSTOM_GCC_32_BIN=arm-linux-android-
+# export CROSS_COMPILE_ARM32=arm-linux-gnueabihf-
+# Compilation_Instruction="ARCH=${ARCH} CLANG_TRIPLE=${CLANG_TRIPLE} CROSS_COMPILE=${CROSS_COMPILE} LD=${LD} LLVM_IAS=${LLVM_IAS} CC=${CC} HOSTCC=${HOSTCC} HOSTAS=${HOSTAS}  AS=${AS} AR=${AR} NM=${NM} OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} O=out"
 
 
 # 让 make 不输出颜色 + 不输出冗余日志 → 彻底关闭 stdout 风暴
@@ -161,8 +173,6 @@ echo "======================           completed!               ================
 echo "================================================================================"
 
 echo "  "
-# Compilation_Instruction="LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} AS=${AS} AR=${AR} NM=${NM} OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} O=out CLANG_TRIPLE=${CLANG_TRIPLE} CROSS_COMPILE=${CROSS_COMPILE} LD=${LD}"
-Compilation_Instruction="CLANG_TRIPLE=${CLANG_TRIPLE} CROSS_COMPILE=${CROSS_COMPILE} LD=${LD} LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} HOSTAS=${HOSTAS}  AS=${AS} AR=${AR} NM=${NM} OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} O=out"
 echo "  "
 
 echo -e "\n================================================================================"
