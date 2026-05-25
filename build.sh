@@ -79,10 +79,8 @@ git clone --depth 1 https://github.com/makingrom/android_kernel_xiaomi_cezanne_g
 
 echo "  "
 
-cp -r $(pwd)/../${CUSTOM_CLANG_DIR} /home/runner/work/
-cp -r $(pwd)/../${CUSTOM_GCC_64_DIR} /home/runner/work/
-export CLANG_PATH="/home/runner/work/${CUSTOM_CLANG_DIR}"
-export GCC_PATH="/home/runner/work/${CUSTOM_GCC_64_DIR}"
+export CLANG_PATH="$(pwd)/../${CUSTOM_CLANG_DIR}"
+export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
 export PATH="${GCC_PATH}/bin:$PATH"
 export PATH="${CLANG_PATH}/bin:$PATH"
 export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
@@ -94,7 +92,7 @@ export DEFCONFIG=vendor/cezanne_user_defconfig
 export KERNEL_DIR=$(pwd)
 
 export CC=clang
-export AS=gcc
+export AS=llvm-as
 export LD=ld.lld
 export AR=llvm-ar
 export NM=llvm-nm
@@ -104,16 +102,16 @@ export OBJDUMP=llvm-objdump
 export STRIP=llvm-strip
 
 export LLVM_IAS=1
-export CLANG_TRIPLE=aarch64-linux-gnu-
+export CLANG_TRIPLE=aarch64-linux-android-
 # clang 编译器
 #export CROSS_COMPILE=aarch64-linux-gnu-
 # proton-clang-编译器
 #export CROSS_COMPILE=aarch64-linux-androidkernel-
 # 通用
-export CROSS_COMPILE=aarch64-linux-android-
+export CROSS_COMPILE=aarch64-linux-androidkernel-
 export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
-#export CUSTOM_GCC_32_BIN=aarch64-linux-gnu-
-#export CUSTOM_GCC_64_BIN=arm-linux-androideabi-
+export CUSTOM_GCC_32_BIN=aarch64-linux-gnu-
+export CUSTOM_GCC_64_BIN=arm-linux-android-
 export CROSS_COMPILE_ARM32=arm-linux-gnueabihf-
 
 
