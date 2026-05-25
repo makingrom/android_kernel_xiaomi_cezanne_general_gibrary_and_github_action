@@ -133,8 +133,10 @@ export KBUILD_VERBOSE=0
 # clang-* && GCC 工具链
 # chmod -R 777 $(pwd)/../${CUSTOM_CLANG_DIR}/
 # chmod -R 777 $(pwd)/../${CUSTOM_GCC_64_DIR}/
-export CLANG_PATH="$(pwd)/../${CUSTOM_CLANG_DIR}"
-export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
+cp $(pwd)/../${CUSTOM_CLANG_DIR} /home/runner/work/
+cp $(pwd)/../${CUSTOM_GCC_64_DIR} /home/runner/work/
+export CLANG_PATH="/home/runner/work/${CUSTOM_CLANG_DIR}"
+export GCC_PATH="/home/runner/work/${CUSTOM_GCC_64_DIR}"
 export PATH="${GCC_PATH}/bin:$PATH"
 export PATH="${CLANG_PATH}/bin:$PATH"
 export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
