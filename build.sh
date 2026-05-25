@@ -95,7 +95,7 @@ export OBJCOPY=llvm-objcopy
 export OBJDUMP=llvm-objdump
 export STRIP=llvm-strip
 
-#export LLVM_IAS=1
+export LLVM_IAS=1
 export CLANG_TRIPLE=aarch64-linux-gnu-
 # clang 编译器
 # export CROSS_COMPILE=aarch64-linux-gnu-
@@ -142,6 +142,7 @@ echo "======================           completed!               ================
 echo "================================================================================"
 
 echo "  "
+Compilation_Instruction="LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} AS=${AS} AR=${AR} NM=${NM} OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} O=out CLANG_TRIPLE=${CLANG_TRIPLE} CROSS_COMPILE=${CROSS_COMPILE} LD=${LD}"
 echo "  "
 
 echo -e "\n================================================================================"
@@ -149,13 +150,7 @@ echo -e "\n=====================================================================
 
 
 echo "======================   Generating default config...    ======================"
-make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
-    AS=${AS} AR=${AR} NM=${NM} \
-    OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
-    O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
-    CROSS_COMPILE=${CROSS_COMPILE} \
-    LD=${LD} \
-    ${DEFCONFIG}
+make Compilation_Instruction=${Compilation_Instruction} ${DEFCONFIG}
 echo "=========================         completed!           ========================="
 echo "================================================================================"
 
@@ -278,13 +273,7 @@ echo "  "
 echo -e "\n================================================================================"
 echo "======================  Starting kernel compilation...  ======================="
 
-make LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} \
-    AS=${AS} AR=${AR} NM=${NM} \
-    OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} \
-    O=out CLANG_TRIPLE=${CLANG_TRIPLE} \
-    CROSS_COMPILE=${CROSS_COMPILE} \
-    LD=${LD} \
-    -j4 KCFLAGS="-w"
+make Compilation_Instruction=${Compilation_Instruction} -j4 KCFLAGS="-w"
 
 echo "=========================      Build completed!        ========================="
 echo "================================================================================"
