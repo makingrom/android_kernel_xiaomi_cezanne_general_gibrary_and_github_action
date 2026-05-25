@@ -147,7 +147,7 @@ export KBUILD_VERBOSE=0
 echo "======================           completed!               ======================"
 
 export CC=$(pwd)/../${CUSTOM_CLANG_DIR}/bin/clang
-export CROSS_COMPILE=$(pwd)/../${CUSTOM_GCC_64_DIR}/bin/aarch64-none-linux-gnu-
+export CROSS_COMPILE=$(pwd)/../${CUSTOM_GCC_64_DIR}/bin/aarch64-linux-gnu-
 export CROSS_COMPILE_ARM32=$(pwd)/../${CUSTOM_GCC_64_DIR}/bin/aarch64-linux-android-
 
 echo "================================================================================"
