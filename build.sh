@@ -79,6 +79,7 @@ git clone --depth 1 https://github.com/makingrom/android_kernel_xiaomi_cezanne_g
 
 echo "  "
 
+
 export CLANG_PATH="$(pwd)/../${CUSTOM_CLANG_DIR}"
 export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
 export PATH="${GCC_PATH}/bin:$PATH"
@@ -88,6 +89,8 @@ export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
 echo -e "\n================================================================================"
 echo "=======================  Setting environment variables...  ====================="
 export ARCH=arm64
+export SUBARCH=arm64
+export HEADER_ARCH=arm64
 export DEFCONFIG=vendor/cezanne_user_defconfig
 export KERNEL_DIR=$(pwd)
 
@@ -142,6 +145,10 @@ export KBUILD_VERBOSE=0
 
 
 echo "======================           completed!               ======================"
+
+export CC=$(pwd)/../${CUSTOM_CLANG_DIR}/bin/clang
+export CROSS_COMPILE=$(pwd)/../${CUSTOM_GCC_64_DIR}/bin/aarch64-none-linux-gnu-
+export CROSS_COMPILE_ARM32=$(pwd)/../${CUSTOM_GCC_64_DIR}/bin/arm-none-linux-gnueabi-
 
 echo "================================================================================"
 
