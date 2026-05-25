@@ -82,8 +82,7 @@ echo "  "
 
 export CLANG_PATH="$(pwd)/../${CUSTOM_CLANG_DIR}"
 export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
-export PATH="$PATH:${GCC_PATH}/bin"
-export PATH="$PATH:${CLANG_PATH}/bin"
+export PATH="${GCC_PATH}/bin:${CLANG_PATH}/bin:$PATH"
 export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
 
 export CLANG_PREBUILT_BIN=${CLANG_PATH}/bin
@@ -96,7 +95,7 @@ export SUBARCH=arm64
 export HEADER_ARCH=arm64
 export KERNEL_DIR=$(pwd)
 export CC=clang
-export AS=as
+# export AS=as
 export LD=ld.lld
 export AR=llvm-ar
 export NM=llvm-nm
@@ -110,7 +109,7 @@ export OBJCOPY=llvm-objcopy
 export OBJDUMP=llvm-objdump
 export STRIP=llvm-strip
 
-export LLVM_IAS=1
+# export LLVM_IAS=1
 export CLANG_TRIPLE=aarch64-linux-gnu-
 # clang 编译器
 #export CROSS_COMPILE=aarch64-linux-gnu-
@@ -118,10 +117,10 @@ export CLANG_TRIPLE=aarch64-linux-gnu-
 #export CROSS_COMPILE=aarch64-linux-androidkernel-
 # 通用
 export CROSS_COMPILE=aarch64-linux-androidkernel-
-export CLANG_TRIPLE_ARM32=arm-linux-gnueabi-
-export CROSS_COMPILE_ARM32=arm-linux-androidkernel-
-export CUSTOM_GCC_64_BIN=aarch64-linux-gnu-
-export CUSTOM_GCC_32_BIN=arm-linux-android-
+# export CLANG_TRIPLE_ARM32=arm-linux-gnueabi-
+# export CROSS_COMPILE_ARM32=arm-linux-androidkernel-
+# export CUSTOM_GCC_64_BIN=aarch64-linux-gnu-
+# export CUSTOM_GCC_32_BIN=arm-linux-android-
 
 # export CROSS_COMPILE_ARM32=arm-linux-gnueabihf-
 
@@ -158,7 +157,7 @@ echo "==========================================================================
 
 echo "  "
 # Compilation_Instruction="LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} AS=${AS} AR=${AR} NM=${NM} OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} O=out CLANG_TRIPLE=${CLANG_TRIPLE} CROSS_COMPILE=${CROSS_COMPILE} LD=${LD}"
-Compilation_Instruction="CLANG_TRIPLE=${CLANG_TRIPLE} CROSS_COMPILE=${CROSS_COMPILE} LD=${LD} LLVM_IAS=${LLVM_IAS} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} AS=${AS} AR=${AR} NM=${NM} OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} O=out"
+Compilation_Instruction="CLANG_TRIPLE=${CLANG_TRIPLE} CROSS_COMPILE=${CROSS_COMPILE} LD=${LD} ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} AR=${AR} NM=${NM} OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} O=out"
 echo "  "
 
 echo -e "\n================================================================================"
