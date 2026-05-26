@@ -322,6 +322,7 @@ echo "nproc = $(nproc)"
 # grep -r "mtk-vcu" --include="Makefile" ./
 free -h
 ${CROSS_COMPILE}ld -v
+clang --version
 ld.lld --version
 echo "==============================================================================="
 
