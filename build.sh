@@ -115,6 +115,10 @@ echo "  "
 # echo "CONFIG_MTK_UDC=m" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
 
 echo "  "
+echo "CONFIG_KPROBES=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+echo "CONFIG_HAVE_KPROBES=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+echo "CONFIG_KPROBE_EVENTS=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
+echo "CONFIG_TRACEPOINTS=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
 
 
 echo -e "\n================================================================================"
