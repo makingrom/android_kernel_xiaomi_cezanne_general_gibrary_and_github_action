@@ -11,19 +11,6 @@ NAME = Petit Gorille
 # Comments in this file are targeted only to the developer, do not
 # expect to learn how to build the kernel reading this file.
 
-KBUILD_LDFLAGS += \
-    -z undef=ksu_handle_setresuid \
-    -z undef=ksu_handle_sys_reboot \
-    -z undef=ksu_handle_faccessat \
-    -z undef=ksu_init_rc_hook \
-    -z undef=ksu_handle_sys_read \
-    -z undef=ksu_handle_stat \
-    -z undef=ksu_handle_newfstat_ret \
-    -z undef=ksu_handle_fstat64_ret \
-    -z undef=ksu_handle_execveat \
-    -z undef=ksu_input_hook \
-    -z undef=ksu_handle_input_handle_event
-
 # That's our default target when none is given on the command line
 PHONY := _all
 _all:
