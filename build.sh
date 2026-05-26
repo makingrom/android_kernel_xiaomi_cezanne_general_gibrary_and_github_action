@@ -55,15 +55,8 @@ cp -v "$APT_CACHE"/*.deb "$KERNEL_ENV/" 2>/dev/null
 # 下载 ReSukiSU 到 KernelSU 文件夹
 rm -rf ./KernelSU
 git clone --depth 1 https://github.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action.git KernelSU/ -b HOOK-Cezanne_KernelSU-ReSukiSU_414336
-cd KernelSU
-git pull
-git config --global user.email "2827834939@qq.com"
-git config --global user.name "makingrom"
-git add -f .
-cd ..
-git add KernelSU
-git commit -m "Add full KernelSU source"
-git push
+
+chmod -R 777 .
 ls -la KernelSU/
 total 0
 ls -la drivers/kernelsu/
