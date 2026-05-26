@@ -153,6 +153,7 @@ export STRIP=llvm-strip
 export CROSS_COMPILE=aarch64-linux-android-
 export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
 CROSS_COMPILE_ARM32=arm-linux-gnueabihf-
+export HOSTCC=gcc
 Compilation_Instruction="ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} AR=${AR} NM=${NM} OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} O=out CLANG_TRIPLE=${CLANG_TRIPLE} CROSS_COMPILE=${CROSS_COMPILE} LD=${LD}"
 
 # 让 make 不输出颜色 + 不输出冗余日志 → 彻底关闭 stdout 风暴
