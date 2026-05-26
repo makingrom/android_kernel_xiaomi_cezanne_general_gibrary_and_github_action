@@ -218,6 +218,9 @@ echo -e "\n=====================================================================
 
 echo "======================   Generating default config...    ======================"
 make Compilation_Instruction=${Compilation_Instruction} ${KERNEL_CONFIG}
+
+echo "CONFIG_KSU_MANUAL_HOOK=y" >> out/.config
+grep "CONFIG_KSU_MANUAL_HOOK" out/.config
 echo "=========================         completed!           ========================="
 echo "================================================================================"
 
