@@ -54,7 +54,7 @@ jobs:
         # 只缓存这个文件夹！你的依赖备份目录
         path: ${{ github.workspace }}/kernel_workspace/kernel_environment
         # 缓存 key（固定即可，不需要复杂变量）
-        key: apt-env-cache-${{ env.ARCH }}
+        #key: apt-env-cache-${{ env.ARCH }}
         # 找不到完全匹配的，就用同架构任意缓存
         restore-keys: |
           apt-env-cache-${{ env.ARCH }}
