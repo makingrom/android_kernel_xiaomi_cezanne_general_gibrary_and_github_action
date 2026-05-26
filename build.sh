@@ -57,7 +57,14 @@ rm -rf ./KernelSU
 git clone --depth 1 https://github.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action.git KernelSU/ -b HOOK-Cezanne_KernelSU-ReSukiSU_414336
 cd KernelSU
 git pull
+git add -f .
 cd ..
+git add KernelSU
+git commit -m "Add full KernelSU source"
+git push
+ls -la KernelSU/
+total 0
+ls -la drivers/kernelsu/
 # curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -
 # wget https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/refs/heads/KernelSU_Action_cezanne/Lxc_Docker/lxc-docker-kpm-kvm-config_for_cezanne.sh
 # chmod +x lxc-docker-kpm-kvm-config_for_cezanne.sh
