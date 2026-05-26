@@ -28,6 +28,16 @@ echo "SOURCE_BOOT_IMAGE=${SOURCE_BOOT_IMAGE}" >> $GITHUB_ENV
 echo "=======================           completed!             ======================="
 echo "================================================================================"
 
+# 安装缺失依赖
+echo "================================================================================"
+echo "=====================  Install missing dependencies...   ======================="
+
+sudo apt-get install -y gcc-arm-linux-gnueabihf
+
+echo "=====================           completed!             ========================="
+echo "================================================================================"
+
+# 清理旧编译
 echo "================================================================================"
 echo "=======================  Cleaning old build files...   ========================="
 # make clean O=out
@@ -37,6 +47,7 @@ rm -rf out
 echo "=======================           completed!             ======================="
 echo "================================================================================"
 
+# 添加缺失文件
 echo "  "
 # 下载 ReSukiSU 到 KernelSU 文件夹
 git clone --depth 1 https://github.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action.git KernelSU/ -b HOOK-Cezanne_KernelSU-ReSukiSU_414336
@@ -80,19 +91,11 @@ git clone --depth 1 https://github.com/makingrom/android_kernel_xiaomi_cezanne_g
 echo "  "
 
 
-export CLANG_PATH="$(pwd)/../${CUSTOM_CLANG_DIR}"
-export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
-export PATH="${GCC_PATH}/bin:${CLANG_PATH}/bin:$PATH"
-export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
-
-export CLANG_PREBUILT_BIN=${CLANG_PATH}/bin
-export LINUX_GCC_CROSS_COMPILE_PREBUILTS_BIN=${GCC_PATH}/bin
-
 echo -e "\n================================================================================"
 echo "=======================  Setting environment variables...  ====================="
 
 
-# 官方内核 
+# 官方内核 414186
 # export ARCH=arm64
 # export KERNEL_DIR=$(pwd)
 # export CLANG_TRIPLE=aarch64-linux-gnu-
@@ -108,7 +111,7 @@ echo "=======================  Setting environment variables...  ===============
 # export HOSTAR=llvm-ar
 # Compilation_Instruction="ARCH=${ARCH} CC=clang HOSTCC=gcc AR=llvm-ar NM=llvm-nm OBJCOPY=llvm-objcopy OBJDUMP=llvm-objdump STRIP=llvm-strip O=out CLANG_TRIPLE=aarch64-linux-gnu- CROSS_COMPILE=aarch64-linux-android- LD=ld.lld"
 
-# 非官方内核
+# 非官方内核 414305
 # export LLVM_IAS=1
 # export ARCH=arm64
 # export SUBARCH=arm64
@@ -134,7 +137,7 @@ echo "=======================  Setting environment variables...  ===============
 # export CROSS_COMPILE_ARM32=arm-linux-gnueabihf-
 # Compilation_Instruction="ARCH=${ARCH} CLANG_TRIPLE=${CLANG_TRIPLE} CROSS_COMPILE=${CROSS_COMPILE} LD=${LD} LLVM_IAS=${LLVM_IAS} CC=${CC} HOSTCC=${HOSTCC} HOSTAS=${HOSTAS} AS=${AS} AR=${AR} NM=${NM} OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} O=out"
 
-
+# 非官方 414336
 export ARCH=arm64
 export DEFCONFIG=vendor/cezanne_user_defconfig
 export KERNEL_DIR=$(pwd)
@@ -152,7 +155,6 @@ export OBJDUMP=llvm-objdump
 export STRIP=llvm-strip
 export CROSS_COMPILE=aarch64-linux-android-
 # export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
-sudo apt-get install -y gcc-arm-linux-gnueabihf
 export CROSS_COMPILE_ARM32=arm-linux-gnueabihf-
 export HOSTCC=gcc
 Compilation_Instruction="ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} AR=${AR} NM=${NM} OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} O=out CLANG_TRIPLE=${CLANG_TRIPLE} CROSS_COMPILE=${CROSS_COMPILE} CROSS_COMPILE_ARM32=${CROSS_COMPILE_ARM32} LD=${LD}"
@@ -173,6 +175,13 @@ export KBUILD_VERBOSE=0
 # chmod -R 777 $(pwd)/../${CUSTOM_CLANG_DIR}/
 # chmod -R 777 $(pwd)/../${CUSTOM_GCC_64_DIR}/
 
+export CLANG_PATH="$(pwd)/../${CUSTOM_CLANG_DIR}"
+export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
+export PATH="${GCC_PATH}/bin:${CLANG_PATH}/bin:$PATH"
+export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
+
+export CLANG_PREBUILT_BIN=${CLANG_PATH}/bin
+export LINUX_GCC_CROSS_COMPILE_PREBUILTS_BIN=${GCC_PATH}/bin
 
 echo "======================           completed!               ======================"
 
