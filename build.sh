@@ -31,6 +31,8 @@ echo "==========================================================================
 # 安装缺失依赖
 echo "================================================================================"
 echo "=====================  Install missing dependencies...   ======================="
+export KBUILD_EXTRA_AFLAGS="-include $(pwd)/drivers/kernelsu/ksu.h"
+export KBUILD_EXTRA_CFLAGS="-include $(pwd)/drivers/kernelsu/ksu.h"
 export LDFLAGS_VMLINUX="\
     -u ksu_handle_setresuid \
     -u ksu_handle_sys_reboot \
