@@ -86,7 +86,7 @@ jobs:
           make optipng maven libssl-dev pwgen libswitch-perl policycoreutils minicom \
           libxml-sax-base-perl libxml-simple-perl bc libc6-dev-i386 lib32ncurses5-dev \
           libx11-dev lib32z-dev libgl1-mesa-dev xsltproc unzip device-tree-compiler \
-          gcc-arm-linux-gnueabihf python2 python3
+          python2 python3
 
         # 备份缓存（这里不需要 sudo）
         echo "✅ 备份依赖包到缓存目录"
