@@ -45,11 +45,9 @@ echo "=====================  Install missing dependencies...   =================
 #     -u ksu_handle_execveat \
 #     -u ksu_input_hook \
 #     -u ksu_handle_input_handle_event"
-echo "CONFIG_KSU_MANUAL_HOOK=y" >> out/.config
-grep "CONFIG_KSU_MANUAL_HOOK" out/.config
 
 # g++-multilib 和 gcc-arm-linux-gnueabihf 文件冲突，不能同时安装
-sudo apt-get install -y gcc-arm-linux-gnueabihf
+sudo apt-get install -y gcc-arm-linux-gnueabihf libseccomp-dev libc6-dev-i386 crossbuild
 # 备份依赖包
 cp -v "$APT_CACHE"/*.deb "$KERNEL_ENV/" 2>/dev/null
 # 下载 ReSukiSU 到 KernelSU 文件夹
@@ -221,8 +219,6 @@ echo -e "\n=====================================================================
 echo "======================   Generating default config...    ======================"
 make Compilation_Instruction=${Compilation_Instruction} ${KERNEL_CONFIG}
 
-echo "CONFIG_KSU_MANUAL_HOOK=y" >> out/.config
-grep "CONFIG_KSU_MANUAL_HOOK" out/.config
 echo "=========================         completed!           ========================="
 echo "================================================================================"
 
