@@ -57,6 +57,8 @@ rm -rf ./KernelSU
 git clone --depth 1 https://github.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action.git KernelSU/ -b HOOK-Cezanne_KernelSU-ReSukiSU_414336
 cd KernelSU
 git pull
+git config --global user.email "2827834939@qq.com"
+git config --global user.name "makingrom"
 git add -f .
 cd ..
 git add KernelSU
@@ -240,6 +242,8 @@ echo "CONFIG_WERROR=n" >> out/.config
 echo "# CONFIG_BLK_INLINE_ENCRYPTION is not set" >> out/.config
 echo "CONFIG_BLK_INLINE_ENCRYPTION=n" >> out/.config
 
+echo "CONFIG_KSU=y" >> out/.config
+echo "CONFIG_KSU_TRACEPOINT_HOOK=y" >> out/.config
 
 # sed -i '/struct task_struct {/a \ \ int cpu_prefer;' include/linux/sched.h
 # echo "#define SCHED_PREFER_NONE 0" >> include/linux/sched.h
