@@ -31,20 +31,22 @@ echo "==========================================================================
 # 安装缺失依赖
 echo "================================================================================"
 echo "=====================  Install missing dependencies...   ======================="
-export KBUILD_EXTRA_AFLAGS="-include $(pwd)/drivers/kernelsu/ksu.h"
-export KBUILD_EXTRA_CFLAGS="-include $(pwd)/drivers/kernelsu/ksu.h"
-export LDFLAGS_VMLINUX="\
-    -u ksu_handle_setresuid \
-    -u ksu_handle_sys_reboot \
-    -u ksu_handle_faccessat \
-    -u ksu_init_rc_hook \
-    -u ksu_handle_sys_read \
-    -u ksu_handle_stat \
-    -u ksu_handle_newfstat_ret \
-    -u ksu_handle_fstat64_ret \
-    -u ksu_handle_execveat \
-    -u ksu_input_hook \
-    -u ksu_handle_input_handle_event"
+# export KBUILD_EXTRA_AFLAGS="-include $(pwd)/drivers/kernelsu/ksu.h"
+# export KBUILD_EXTRA_CFLAGS="-include $(pwd)/drivers/kernelsu/ksu.h"
+# export LDFLAGS_VMLINUX="\
+#     -u ksu_handle_setresuid \
+#     -u ksu_handle_sys_reboot \
+#     -u ksu_handle_faccessat \
+#     -u ksu_init_rc_hook \
+#     -u ksu_handle_sys_read \
+#     -u ksu_handle_stat \
+#     -u ksu_handle_newfstat_ret \
+#     -u ksu_handle_fstat64_ret \
+#     -u ksu_handle_execveat \
+#     -u ksu_input_hook \
+#     -u ksu_handle_input_handle_event"
+echo "CONFIG_KSU_MANUAL_HOOK=y" >> out/.config
+grep "CONFIG_KSU_MANUAL_HOOK" out/.config
 
 # g++-multilib 和 gcc-arm-linux-gnueabihf 文件冲突，不能同时安装
 sudo apt-get install -y gcc-arm-linux-gnueabihf
