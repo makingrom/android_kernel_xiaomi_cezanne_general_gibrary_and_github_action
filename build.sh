@@ -31,6 +31,19 @@ echo "==========================================================================
 # 安装缺失依赖
 echo "================================================================================"
 echo "=====================  Install missing dependencies...   ======================="
+export LDFLAGS_VMLINUX="\
+    -u ksu_handle_setresuid \
+    -u ksu_handle_sys_reboot \
+    -u ksu_handle_faccessat \
+    -u ksu_init_rc_hook \
+    -u ksu_handle_sys_read \
+    -u ksu_handle_stat \
+    -u ksu_handle_newfstat_ret \
+    -u ksu_handle_fstat64_ret \
+    -u ksu_handle_execveat \
+    -u ksu_input_hook \
+    -u ksu_handle_input_handle_event"
+
 # g++-multilib 和 gcc-arm-linux-gnueabihf 文件冲突，不能同时安装
 sudo apt-get install -y gcc-arm-linux-gnueabihf
 # 备份依赖包
