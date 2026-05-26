@@ -55,7 +55,7 @@ cp -v "$APT_CACHE"/*.deb "$KERNEL_ENV/" 2>/dev/null
 # 下载 ReSukiSU 到 KernelSU 文件夹
 rm -rf ./KernelSU
 git clone --depth 1 https://github.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action.git KernelSU/ -b HOOK-Cezanne_KernelSU-ReSukiSU_414336
-
+grep -r "CONFIG_KSU" out/.config
 chmod -R 777 .
 ls -la KernelSU/
 total 0
@@ -214,6 +214,7 @@ echo "======================           completed!               ================
 echo "================================================================================"
 
 echo "  "
+grep -r "CONFIG_KSU" out/.config
 echo "  "
 
 echo -e "\n================================================================================"
@@ -222,7 +223,7 @@ echo -e "\n=====================================================================
 
 echo "======================   Generating default config...    ======================"
 make Compilation_Instruction=${Compilation_Instruction} ${KERNEL_CONFIG}
-
+grep -r "CONFIG_KSU" out/.config
 echo "=========================         completed!           ========================="
 echo "================================================================================"
 
@@ -235,7 +236,9 @@ echo "CONFIG_WERROR=n" >> out/.config
 echo "# CONFIG_BLK_INLINE_ENCRYPTION is not set" >> out/.config
 echo "CONFIG_BLK_INLINE_ENCRYPTION=n" >> out/.config
 
-
+echo "CONFIG_KSU=y" >> .config
+echo "CONFIG_KSU_TRACEPOINT_HOOK=y" >> .config
+make olddefconfig
 # sed -i '/struct task_struct {/a \ \ int cpu_prefer;' include/linux/sched.h
 # echo "#define SCHED_PREFER_NONE 0" >> include/linux/sched.h
 # sed -i 's/^int cpu_prefer;$//g' include/linux/sched.h
@@ -288,6 +291,7 @@ echo "==========================================================================
 
 
 echo "  "
+grep -r "CONFIG_KSU" out/.config
 echo "  "
 
 echo -e "\n==============================================================================="
