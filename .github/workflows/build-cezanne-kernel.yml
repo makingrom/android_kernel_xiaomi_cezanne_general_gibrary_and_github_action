@@ -87,8 +87,9 @@ jobs:
           libxml-sax-base-perl libxml-simple-perl bc libc6-dev-i386 lib32ncurses5-dev \
           libx11-dev lib32z-dev libgl1-mesa-dev xsltproc unzip device-tree-compiler \
           python2 python3
-
-        # 备份缓存（这里不需要 sudo）
+        sudo apt-get upgrade
+        
+        # 备份缓存
         echo "✅ 备份依赖包到缓存目录"
         cp -v "$APT_CACHE"/*.deb "$KERNEL_ENV/" 2>/dev/null
 
