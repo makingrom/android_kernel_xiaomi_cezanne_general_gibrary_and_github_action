@@ -49,17 +49,14 @@ echo "=====================  Install missing dependencies...   =================
 # g++-multilib 和 gcc-arm-linux-gnueabihf 文件冲突，不能同时安装
 sudo apt-get install crossbuild-essential-arm64 -y
 sudo apt-get install build-essential bc bison flex libssl-dev libelf-dev git wget -y
-sudo apt-get install -y gcc-arm-linux-gnueabihf libseccomp-dev libc6-dev-i386
+sudo apt-get install -y gcc-multilib libseccomp-dev libc6-dev-i386
 # 备份依赖包
 cp -v "$APT_CACHE"/*.deb "$KERNEL_ENV/" 2>/dev/null
 # 下载 ReSukiSU 到 KernelSU 文件夹
 rm -rf ./KernelSU
 git clone --depth 1 https://github.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action.git KernelSU/ -b HOOK-Cezanne_KernelSU-ReSukiSU_414336
 grep -r "CONFIG_KSU" out/.config
-chmod -R 777 .
-ls -la KernelSU/
-total 0
-ls -la drivers/kernelsu/
+
 # curl -LSs "https://raw.githubusercontent.com/tiann/KernelSU/main/kernel/setup.sh" | bash -
 # wget https://raw.githubusercontent.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action/refs/heads/KernelSU_Action_cezanne/Lxc_Docker/lxc-docker-kpm-kvm-config_for_cezanne.sh
 # chmod +x lxc-docker-kpm-kvm-config_for_cezanne.sh
@@ -185,8 +182,8 @@ export OBJCOPY=llvm-objcopy
 export OBJDUMP=llvm-objdump
 export STRIP=llvm-strip
 export CROSS_COMPILE=aarch64-linux-android-
-# export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
-export CROSS_COMPILE_ARM32=arm-linux-gnueabihf-
+export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
+# export CROSS_COMPILE_ARM32=arm-linux-gnueabihf-
 export HOSTCC=gcc
 Compilation_Instruction="ARCH=${ARCH} CC=${CC} HOSTCC=${HOSTCC} AR=${AR} NM=${NM} OBJCOPY=${OBJCOPY} OBJDUMP=${OBJDUMP} STRIP=${STRIP} O=out CLANG_TRIPLE=${CLANG_TRIPLE} CROSS_COMPILE=${CROSS_COMPILE} CROSS_COMPILE_ARM32=${CROSS_COMPILE_ARM32} LD=${LD}"
 
