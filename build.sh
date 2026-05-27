@@ -71,7 +71,8 @@ echo "CONFIG_TRACEPOINTS=y" >> arch/${ARCH}/configs/${KERNEL_CONFIG}
 # 清理旧编译
 echo "================================================================================"
 echo "=======================  Cleaning old build files...   ========================="
-# make clean O=out
+make clean O=out
+make clean
 make mrproper O=out
 make mrproper
 # make mrproper
@@ -236,7 +237,7 @@ echo "CONFIG_WERROR=n" >> out/.config
 echo "# CONFIG_BLK_INLINE_ENCRYPTION is not set" >> out/.config
 echo "CONFIG_BLK_INLINE_ENCRYPTION=n" >> out/.config
 
-echo "CONFIG_KSU=y" >> .config
+echo "CONFIG_KSU=y" >> out/.config
 
 # sed -i '/struct task_struct {/a \ \ int cpu_prefer;' include/linux/sched.h
 # echo "#define SCHED_PREFER_NONE 0" >> include/linux/sched.h
