@@ -47,13 +47,10 @@ echo "=====================  Install missing dependencies...   =================
 #     -u ksu_handle_input_handle_event"
 
 # g++-multilib 和 gcc-arm-linux-gnueabihf 文件冲突，不能同时安装
-sudo apt-get install crossbuild-essential-arm64 -y
-sudo apt-get install build-essential bc bison flex libssl-dev libelf-dev git wget -y
-sudo apt-get install -y gcc-multilib libseccomp-dev libc6-dev-i386
+sudo apt-get install -y gcc-arm-linux-gnueabihf
 # 备份依赖包
 cp -v "$APT_CACHE"/*.deb "$KERNEL_ENV/" 2>/dev/null
 # 下载 ReSukiSU 到 KernelSU 文件夹
-rm -rf ./KernelSU
 git clone --depth 1 https://github.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action.git KernelSU/ -b HOOK-Cezanne_KernelSU-ReSukiSU_414336
 grep -r "CONFIG_KSU" out/.config
 
@@ -76,6 +73,7 @@ echo "==========================================================================
 echo "=======================  Cleaning old build files...   ========================="
 # make clean O=out
 make mrproper O=out
+make mrproper
 # make mrproper
 rm -rf out
 echo "=======================           completed!             ======================="
@@ -239,8 +237,7 @@ echo "# CONFIG_BLK_INLINE_ENCRYPTION is not set" >> out/.config
 echo "CONFIG_BLK_INLINE_ENCRYPTION=n" >> out/.config
 
 echo "CONFIG_KSU=y" >> .config
-echo "CONFIG_KSU_TRACEPOINT_HOOK=y" >> .config
-make olddefconfig
+
 # sed -i '/struct task_struct {/a \ \ int cpu_prefer;' include/linux/sched.h
 # echo "#define SCHED_PREFER_NONE 0" >> include/linux/sched.h
 # sed -i 's/^int cpu_prefer;$//g' include/linux/sched.h
