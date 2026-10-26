@@ -193,19 +193,19 @@ export CLANG_FORCE_COLOR_DIAGNOSTICS=0
 export KBUILD_VERBOSE=0
 
 # # proton-clang 工具链
-# export CLANG_PATH="$(pwd)/../${GCC_AND_CLANG_DIR}"
-# export GCC_PATH="$(pwd)/../${GCC_AND_CLANG_DIR}"
-# export PATH="${CLANG_PATH}/bin:$PATH"
-# export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
+export CLANG_PATH="$(pwd)/../${GCC_AND_CLANG_DIR}"
+export GCC_PATH="$(pwd)/../${GCC_AND_CLANG_DIR}"
+export PATH="${CLANG_PATH}/bin:$PATH"
+export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
 
 # clang-* && GCC 工具链
 # chmod -R 777 $(pwd)/../${CUSTOM_CLANG_DIR}/
 # chmod -R 777 $(pwd)/../${CUSTOM_GCC_64_DIR}/
 
-export CLANG_PATH="$(pwd)/../${CUSTOM_CLANG_DIR}"
-export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
-export PATH="${GCC_PATH}/bin:${CLANG_PATH}/bin:$PATH"
-export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
+# export CLANG_PATH="$(pwd)/../${CUSTOM_CLANG_DIR}"
+# export GCC_PATH="$(pwd)/../${CUSTOM_GCC_64_DIR}"
+# export PATH="${GCC_PATH}/bin:${CLANG_PATH}/bin:$PATH"
+# export LD_LIBRARY_PATH="${CLANG_PATH}/lib64:$LD_LIBRARY_PATH"
 
 export CLANG_PREBUILT_BIN=${CLANG_PATH}/bin
 export LINUX_GCC_CROSS_COMPILE_PREBUILTS_BIN=${GCC_PATH}/bin
@@ -237,7 +237,7 @@ echo "CONFIG_WERROR=n" >> out/.config
 echo "# CONFIG_BLK_INLINE_ENCRYPTION is not set" >> out/.config
 echo "CONFIG_BLK_INLINE_ENCRYPTION=n" >> out/.config
 
-# echo "CONFIG_KSU=y" >> out/.config
+echo "CONFIG_KSU=y" >> out/.config
 
 # sed -i '/struct task_struct {/a \ \ int cpu_prefer;' include/linux/sched.h
 # echo "#define SCHED_PREFER_NONE 0" >> include/linux/sched.h
