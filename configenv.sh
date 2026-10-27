@@ -4,11 +4,11 @@ CONFIG_ENV=config.env
 # 内核源码地址
 KERNEL_SOURCE=https://github.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action.git
 # 内核源码分支
-KERNEL_SOURCE_BRANCH=android_kernel_mt6885_ReSukiSU_414336
+KERNEL_SOURCE_BRANCH=q
 # 内核编译配置地址
-KERNEL_CONFIG=vendor/cezanne_user_defconfig
+KERNEL_CONFIG=MGF_cezanne_defconfig
 # 安卓版本号（10/11/12/13/14）
-ANDROID_VERSION=11
+ANDROID_VERSION=10
 # 内核版本(4.4/4.14/4.19/5.4)
 KERNEL_VERSION=4.14
 # 缓存版本（修改后不用原缓存）
@@ -26,11 +26,11 @@ SETUP_KERNEL_CONFIG_LINK=https://raw.githubusercontent.com/makingrom/android_ker
 # 是否 启用MTK内核专属模块
 USE_MTK_KERNEL_MODULES=true
 # MTK内核模块保存目录
-MTK_KERNEL_MODULES_SOURCE_DIR=mtk-kernel-modules-cezanne-r-oss
+MTK_KERNEL_MODULES_SOURCE_DIR=mtk-kernel-modules-cezanne-q-oss
 # MTK内核模块源
 MTK_KERNEL_MODULES_SOURCE=https://github.com/makingrom/android_kernel_xiaomi_cezanne_general_gibrary_and_github_action.git
 # MTK内核模块分支
-MTK_KERNEL_MODULES_SOURCE_BRANCH=mtk-kernel-modules-cezanne-r-oss
+MTK_KERNEL_MODULES_SOURCE_BRANCH=mtk-kernel-modules-cezanne-q-oss
 
 
 # 配置编译源、编译工具
@@ -105,9 +105,9 @@ CUSTOM_ANYKERNEL3_BRANCH=master
 # 是否 需要切换python3(true)/python2(false)/默认(空)
 SWITCH_PYTHON=false
 # 编译前 是否 删除系统无用的内核包
-REMOVE_UNUSED_PACKAGES=false
+REMOVE_UNUSED_PACKAGES=true
 # 是否 开启Ccache 缓存
-ENABLE_CCACHE=false
+ENABLE_CCACHE=true
 
 
 # 内核编译链接器，默认可能用 GCC 的 ld，这里强制改用 LLVM 的 ld.lld
