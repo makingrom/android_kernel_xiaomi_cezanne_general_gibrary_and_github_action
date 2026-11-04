@@ -40,12 +40,6 @@ obj-$(CONFIG_MTK_IRRX) += irrx/
 obj-$(CONFIG_NFC_CHIP_SUPPORT) += nfc/
 
 obj-$(CONFIG_MTK_COMBO) += connectivity/
-# fpsgo performance driver built-in
-obj-y += fpsgo_cus/
-# met trace driver built-in
-obj-y += met_drv/4.14/
-# custom udc driver built-in
-obj-y += udc/
 obj-$(CONFIG_MTK_BTIF) += btif/
 obj-$(CONFIG_MTK_CONN_MD) += conn_md/
 
