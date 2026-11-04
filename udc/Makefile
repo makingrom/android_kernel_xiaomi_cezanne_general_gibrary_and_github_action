@@ -11,7 +11,15 @@
 # GNU General Public License for more details.
 #
 
+ifeq ($(CONFIG_WLAN_DRV_BUILD_IN),y)
+$(warning udc_lib build-in boot.img)
+obj-y += udc_lib.o
+subdir-ccflags-y += -D MTK_WCN_REMOVE_KERNEL_MODULE
+subdir-ccflags-y += -D MTK_WCN_BUILT_IN_DRIVER
+else
+$(warning udc_lib is kernel module)
 obj-m += udc_lib.o
+endif
 
 udc_lib-y += \
     adler32.o \
