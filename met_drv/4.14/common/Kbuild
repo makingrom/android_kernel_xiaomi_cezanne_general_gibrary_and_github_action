@@ -4,7 +4,16 @@
 ifneq ($(CONFIG_MTK_MET_BUILT_IN),y)
 $(info ======== Build met.ko ... ========)
 MET_CORE := common
+
+ifeq ($(CONFIG_WLAN_DRV_BUILD_IN),y)
+$(warning met build-in boot.img)
+obj-y := met.o
+subdir-ccflags-y += -D MTK_WCN_REMOVE_KERNEL_MODULE
+subdir-ccflags-y += -D MTK_WCN_BUILT_IN_DRIVER
+else
+$(warning met is kernel module)
 obj-m := met.o
+endif
 
 ifneq ($(wildcard $(MET_PLF_DIR)/Kbuild.platform.h),)
     include $(MET_PLF_DIR)/Kbuild.platform.h
