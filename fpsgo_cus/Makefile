@@ -41,7 +41,17 @@ ccflags-y += \
 	     -I$(MTK_TOP)/include/ \
 	     -I$(FBT_TOP)/include/ \
 
+ifeq ($(CONFIG_WLAN_DRV_BUILD_IN),y)
+$(warning fpsgo build-in boot.img)
+obj-y += fpsgo.o
+# built-in 模式，移除module入口，和整套conn驱动统一
+subdir-ccflags-y += -D MTK_WCN_REMOVE_KERNEL_MODULE
+subdir-ccflags-y += -D MTK_WCN_BUILT_IN_DRIVER
+else
+$(warning fpsgo is kernel module)
 obj-m += fpsgo.o
+endif
+
 fpsgo-y += src/fpsgo_main.o
 
 ifeq (y,$(CONFIG_MTK_FPSGO_V3))
